@@ -1,7 +1,7 @@
 name: "Godot CI/CD"
 
 env:
-  GODOT_VERSION: 4.2.2
+  GODOT_VERSION: 4.4
   PROJECT_NAME: 'ci_example'
 
 on:
@@ -16,7 +16,7 @@ jobs:
     permissions:
       contents: write
     container:
-      image: barichello/godot-ci:4.2.2
+      image: barichello/godot-ci:4.4
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -127,6 +127,6 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_IO_API_KEY }}
           CHANNEL: HTML
-          ITCH_GAME: godot-ci
-          ITCH_USER: gmcunimelb
+          ITCH_GAME: takoyaki
+          ITCH_USER: alexander-kam
           PACKAGE: ${{ env.PROJECT_NAME }}_web.zip
