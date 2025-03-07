@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpflme532hf0b"]
+
+[ext_resource type="Script" uid="uid://6xchha8hs1m5" path="res://scripts/entities/arm.gd" id="1_q8oh2"]
+
+[node name="Arm" type="Node2D"]
+use_parent_material = true
+script = ExtResource("1_q8oh2")
