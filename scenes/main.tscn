@@ -1,5 +1,9 @@
-[gd_scene format=3 uid="uid://bt2ju64bl0yrp"]
+[gd_scene load_steps=2 format=3 uid="uid://bt2ju64bl0yrp"]
+
+[ext_resource type="PackedScene" uid="uid://v473sc4yajje" path="res://scenes/octopus.tscn" id="1_o5qli"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Octopus" parent="." instance=ExtResource("1_o5qli")]

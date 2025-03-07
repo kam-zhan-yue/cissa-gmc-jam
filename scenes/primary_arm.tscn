@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://2cb2en20eh7j"]
+
+[ext_resource type="PackedScene" uid="uid://dpflme532hf0b" path="res://scenes/arm.tscn" id="1_nmjs0"]
+[ext_resource type="Script" uid="uid://br1g2hnvvhlbv" path="res://scripts/entities/primary_arm.gd" id="2_u10a2"]
+
+[node name="PrimaryArm" instance=ExtResource("1_nmjs0")]
+script = ExtResource("2_u10a2")

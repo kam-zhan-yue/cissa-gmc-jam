@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://v473sc4yajje"]
+[gd_scene load_steps=5 format=3 uid="uid://v473sc4yajje"]
 
 [ext_resource type="Shader" uid="uid://bc0wjxbswk7qm" path="res://shaders/octopus.gdshader" id="1_fhwgg"]
+[ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
 [ext_resource type="PackedScene" uid="uid://dpflme532hf0b" path="res://scenes/arm.tscn" id="2_ionst"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bmsl3"]
@@ -8,6 +9,8 @@ shader = ExtResource("1_fhwgg")
 
 [node name="Octopus" type="Node2D"]
 material = SubResource("ShaderMaterial_bmsl3")
+
+[node name="PrimaryArm" parent="." instance=ExtResource("2_fhwgg")]
 
 [node name="Arm" parent="." instance=ExtResource("2_ionst")]
 
