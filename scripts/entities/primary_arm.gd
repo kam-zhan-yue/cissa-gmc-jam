@@ -47,7 +47,7 @@ func _input(_event: InputEvent) -> void:
 		self.state = ARM_STATE.NONE
 
 func _on_hand_area_entered(area: Area2D) -> void:
-	if self.state == ARM_STATE.NONE:
+	if area is Grabbable and self.state == ARM_STATE.NONE:
 		self.state = ARM_STATE.HOVER
 		self.grab = area.get_parent()
 
