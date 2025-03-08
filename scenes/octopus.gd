@@ -2,6 +2,8 @@ class_name Octopus
 extends CharacterBody2D
 
 @export var player_id := 0
+@export var max_lives : int = 3
+var lives : int
 const movement_speed = 300
 @onready var primary_arm: PrimaryArm = %PrimaryArm
 
@@ -14,6 +16,7 @@ enum STATE {
 
 func _ready() -> void:
 	primary_arm.init(player_id)
+
 
 func _physics_process(delta: float) -> void:
 	if state == STATE.FREE:

@@ -22,13 +22,17 @@ scale = Vector2(1.00407, 1)
 shape = SubResource("CircleShape2D_xlapc")
 debug_color = Color(0.165779, 0.517173, 1, 0.42)
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.934
+[node name="Player1Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Player2Timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(29.03, 29.03)
 texture = SubResource("GradientTexture2D_xlapc")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Player1Timer" to="." method="_on_player_1_timer_timeout"]
+[connection signal="timeout" from="Player2Timer" to="." method="_on_player_2_timer_timeout"]

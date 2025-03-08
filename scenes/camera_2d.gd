@@ -1,3 +1,4 @@
+class_name DynamicCamera
 extends Camera2D
 
 @export var cam_move_speed = 0.5

@@ -1,42 +1,42 @@
-class_name Killzone
 extends Area2D
 
-@onready var timer: Timer = $Timer
+@onready var player1timer: Timer = $Player1Timer
+@onready var player2timer: Timer = $Player2Timer
 
-var total_time := 0.0
-var timer_running := false
+var timers: Dictionary[int, Timer] = {}
 
 func _ready() -> void:
-	print(Game.title)
-
-func _process(delta: float) -> void:
-	var bodies = get_players()
-	var total_players = len(bodies)
-	if total_players < 2 and not timer_running:
-		start_timer()
-	elif total_players == 2 and timer_running:
-		stop_timer()
-	Game.on_killzone_timer.emit(timer.time_left)
-
-func start_timer() -> void:
-	Game.on_killzone_enter.emit()
-	timer_running = true
-	timer.start()
-	
-func stop_timer() -> void:
-	timer_running = false
-	timer.stop()
-
-func get_players() -> Array[Octopus]:
-	var bodies = get_overlapping_bodies()
-	var players: Array[Octopus] = []
-	for body in bodies:
-		if body is Octopus:
-			players.append(body)
-	return players
+	timers[0] = player1timer
+	timers[1] = player2timer
 	
 
-func _on_timer_timeout():
-	print("game!")
-	get_tree().reload_current_scene()
-	
+func _on_body_exited(body: Node2D) -> void:
+	if body is Octopus:
+		on_player_exited(body.player_id)
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is Octopus:
+		on_player_entered(body.player_id)
+
+
+func on_player_exited(player_id: int) -> void:
+	if timers[player_id].is_stopped():
+		print(str("Player ", player_id, " Exited"))
+		timers[player_id].start()
+		Game.on_killzone_exit.emit(player_id)
+
+
+func on_player_entered(player_id: int) -> void:
+	if not timers[player_id].is_stopped():
+		print(str("Player ", player_id, " Entered"))
+		timers[player_id].stop()
+		Game.on_killzone_enter.emit(player_id)
+
+
+func _on_player_1_timer_timeout() -> void:
+	Game.kill_player(0)
+
+
+func _on_player_2_timer_timeout() -> void:
+	Game.kill_player(1)

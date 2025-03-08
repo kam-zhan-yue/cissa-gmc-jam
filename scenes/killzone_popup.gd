@@ -9,9 +9,11 @@ func _ready() -> void:
 
 func _show_killzone_text() -> void:
 	print('show!')
+	Global.set_active(rich_text_label)
 
 func _hide_killzone_text() -> void:
 	print('hide!')
+	Global.set_inactive(rich_text_label)
 
 func _update_killzone_text(time: float) -> void:
 	rich_text_label.text = str(time)
