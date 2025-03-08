@@ -111,6 +111,7 @@ func _on_hand_body_entered(body: Node2D) -> void:
 	if body is Item and self.state == ARM_STATE.NONE:
 		self.state = ARM_STATE.HOVER
 		self.grab = body
+		self._grab()
 
 
 func _on_hand_body_exited(body: Node2D) -> void:

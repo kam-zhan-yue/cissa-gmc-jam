@@ -14,7 +14,6 @@ func _ready() -> void:
 	sword.on_release.connect(_on_release)
 
 func _on_grab(holder_id: int) -> void:
-	print("Blade grabbed ", holder_id)
 	self.active = true
 	self.id = holder_id
 
@@ -26,7 +25,6 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 	if not active: return
 	if cooldown: return
 	if body is not Octopus: return
-	print("Other is ", body.player_id)
 	if body.player_id == self.id: return
 	var collision_direction = Global.get_collision_direction(body_rid, body, body_shape_index, local_shape_index, self)
 	if collision_direction:
