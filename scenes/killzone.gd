@@ -8,7 +8,12 @@ var timers: Dictionary[int, Timer] = {}
 func _ready() -> void:
 	timers[0] = player1timer
 	timers[1] = player2timer
-	
+
+func _process(_delta: float) -> void:
+	for key in timers:
+		if not timers[key].is_stopped():
+			Game.on_killzone_timer.emit(key, timers[key].time_left)
+
 
 func _on_body_exited(body: Node2D) -> void:
 	if body is Octopus:
@@ -24,14 +29,14 @@ func on_player_exited(player_id: int) -> void:
 	if timers[player_id].is_stopped():
 		print(str("Player ", player_id, " Exited"))
 		timers[player_id].start()
-		Game.on_killzone_exit.emit(player_id)
+		Game.on_killzone_enter.emit(player_id)
 
 
 func on_player_entered(player_id: int) -> void:
 	if not timers[player_id].is_stopped():
 		print(str("Player ", player_id, " Entered"))
 		timers[player_id].stop()
-		Game.on_killzone_enter.emit(player_id)
+		Game.on_killzone_exit.emit(player_id)
 
 
 func _on_player_1_timer_timeout() -> void:

@@ -2,7 +2,7 @@ extends Node
 
 signal on_killzone_enter(player_id: int)
 signal on_killzone_exit(player_id: int)
-signal on_killzone_timer(time: float)
+signal on_killzone_timer(player_id :int, time: float)
 signal on_player_dead(player_id: int)
 
 var title := "This is a title"
