@@ -3,7 +3,6 @@ extends Node2D
 
 var aim := Vector2.ZERO
 
-@export var use_global_position := false
 @onready var hand: Area2D = %Hand
 
 var constraints: Array[Constraint] = []
@@ -16,7 +15,7 @@ func _get_hand_position() -> Vector2:
 	return _get_body_position() + self.aim
 
 func _get_body_position() -> Vector2:
-	return global_position if use_global_position else position
+	return global_position
 
 func _draw():
 	_draw_fabrik()
@@ -63,4 +62,5 @@ func _draw_constraints() -> void:
 
 func _draw_constraint(constraint: Constraint) -> void:
 	var godot_blue : Color = Color("478cbf")
-	draw_circle(constraint.position, constraint.radius, godot_blue)
+	var draw_pos = constraint.position - global_position
+	draw_circle(draw_pos, constraint.radius, godot_blue)

@@ -42,7 +42,7 @@ func _process_grab() -> void:
 				var direction = self.aim - position
 				var angle = atan2(direction.y, direction.x)
 				grab.rotation = angle + PI * 0.5
-				grab.global_position = global_position + _get_hand_position()
+				grab.global_position = _get_hand_position()
 		
 
 func _process_aim(_delta: float) -> void:
@@ -65,7 +65,7 @@ func _process_movement(delta: float) -> void:
 	var previous := self.aim
 	self.aim = self.aim.move_toward(self.target_position, delta * ARM_SPEED)
 	self.arm_velocity = self.aim - previous
-	hand.position = _get_hand_position()
+	hand.global_position = _get_hand_position()
 
 func _process_input() -> void:
 	if Input.is_action_just_pressed(Global.get_input(id, "grab")):
