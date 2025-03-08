@@ -4,8 +4,7 @@ extends Arm
 const MAX_REACH = 200.0
 const ARM_SPEED = 600.0
 
-
-var grab: Node2D
+var grab: Item
 
 enum ARM_STATE {
 	NONE,
@@ -42,15 +41,20 @@ func _process_aim(delta: float) -> void:
 func _input(_event: InputEvent) -> void:
 	if state == ARM_STATE.HOVER and Input.is_action_just_pressed("player_1_grab") and grab:
 		self.state = ARM_STATE.GRAB
+		print("GRAB")
 	elif state == ARM_STATE.GRAB and Input.is_action_just_released("player_1_grab"):
+		print("RELEASE")
 		self.grab = null
 		self.state = ARM_STATE.NONE
 
-func _on_hand_area_entered(area: Area2D) -> void:
-	if area is Grabbable and self.state == ARM_STATE.NONE:
+
+func _on_hand_body_entered(body: Node2D) -> void:
+	if body is Item and self.state == ARM_STATE.NONE:
 		self.state = ARM_STATE.HOVER
-		self.grab = area.get_parent()
+		self.grab = body
+		print("HOVER")
 
 
-func _on_hand_area_exited(area: Area2D) -> void:
-	self.state = ARM_STATE.NONE
+func _on_hand_body_exited(body: Node2D) -> void:
+	if self.state == ARM_STATE.HOVER:
+		self.state = ARM_STATE.NONE

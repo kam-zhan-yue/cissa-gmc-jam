@@ -1,19 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmnx2cxt2n0sq"]
 
+[ext_resource type="Script" uid="uid://bv60w0wjdum1" path="res://scripts/entities/item.gd" id="1_6muww"]
 [ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="1_s8enn"]
-[ext_resource type="Script" uid="uid://7o6k2y1oaylm" path="res://scripts/entities/grabbable.gd" id="2_6muww"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(52, 50)
 
-[node name="Item" type="Node2D"]
+[node name="Item" type="CharacterBody2D"]
+script = ExtResource("1_6muww")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_s8enn")
 
-[node name="Area2D" type="Area2D" parent="."]
-script = ExtResource("2_6muww")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0wfyh")

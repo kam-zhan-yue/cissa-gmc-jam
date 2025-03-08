@@ -15,5 +15,5 @@ unique_name_in_owner = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hand" index="0"]
 shape = SubResource("CircleShape2D_u10a2")
 
-[connection signal="area_entered" from="Hand" to="." method="_on_hand_area_entered"]
-[connection signal="area_exited" from="Hand" to="." method="_on_hand_area_exited"]
+[connection signal="body_entered" from="Hand" to="." method="_on_hand_body_entered"]
+[connection signal="body_exited" from="Hand" to="." method="_on_hand_body_exited"]
