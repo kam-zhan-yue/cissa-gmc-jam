@@ -1,6 +1,8 @@
 class_name PrimaryArm
 extends Arm
 
+@export var use_mouse := false
+
 const MAX_REACH = 200.0
 const ARM_SPEED = 2000.0
 const THROW_VELOCITY = 1000.0
@@ -38,6 +40,13 @@ func _process_aim(_delta: float) -> void:
 	var aim_horizontal := Input.get_axis("player_1_aim_left", "player_1_aim_right")
 	var target := Vector2(aim_horizontal, -aim_vertical)
 	
+	if use_mouse:
+		var camera = get_viewport().get_camera_2d()
+		var mouse_pos := camera.get_global_mouse_position()
+		var distance_to_player = (mouse_pos - position) / MAX_REACH
+		target = distance_to_player
+
+	
 	self.target_position = target * MAX_REACH
 	if self.target_position.length() >= MAX_REACH:
 		self.target_position = self.target_position.normalized() * MAX_REACH
@@ -55,14 +64,25 @@ func _throw_item() -> void:
 	grab.launch(throw_velocity)
 	
 
-func _input(_event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if state == ARM_STATE.HOVER and Input.is_action_just_pressed("player_1_grab") and grab:
-		self.state = ARM_STATE.GRAB
+		self._grab()
 	elif state == ARM_STATE.GRAB and Input.is_action_just_released("player_1_grab"):
-		_throw_item()
-		self.grab = null
-		self.state = ARM_STATE.NONE
+		self._throw()
+	elif use_mouse and event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				self._grab()
+			else:
+				self._throw()
 
+func _grab() -> void:
+	self.state = ARM_STATE.GRAB
+
+func _throw() -> void:
+	_throw_item()
+	self.grab = null
+	self.state = ARM_STATE.NONE
 
 func _on_hand_body_entered(body: Node2D) -> void:
 	if body is Item and self.state == ARM_STATE.NONE:
