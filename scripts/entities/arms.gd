@@ -3,8 +3,8 @@ extends Node2D
 
 var arms: Array[Arm] = []
 
-const STRIDE_DISTANCE = 100.0
-const ARM_SPEED = 100.0
+const STRIDE_DISTANCE = 150.0
+const ARM_SPEED = 900.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,7 +16,7 @@ func _ready() -> void:
 	for i in range(len(arms)):
 		var x := Arm.MAX_REACH * cos(angle_distance * i)
 		var y := Arm.MAX_REACH * sin(angle_distance * i)
-		arms[i].aim = global_position + Vector2(x, -y)
+		arms[i].target = global_position + Vector2(x, -y)
 		arms[i].arm_state = Arm.ARM_STATE.SEARCHING
 
 func _process(delta: float) -> void:
@@ -25,9 +25,9 @@ func _process(delta: float) -> void:
 		var x := Arm.MAX_REACH * cos(angle_distance * i)
 		var y := Arm.MAX_REACH * sin(angle_distance * i)
 		var target_pos = global_position + Vector2(x, -y)
-		var difference = target_pos - arms[i].aim
+		var difference = target_pos - arms[i].target
 		if difference.length() >= STRIDE_DISTANCE:
-			arms[i].aim = lerp(arms[i].aim, target_pos, STRIDE_DISTANCE / difference.length())
+			arms[i].target = target_pos
 	
 	#await Global.wait(1.0)
 	#for i in range(len(arms)):

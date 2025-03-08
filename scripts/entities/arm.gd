@@ -2,7 +2,9 @@ class_name Arm
 extends Node2D
 
 var aim := Vector2.ZERO
+var target := Vector2.ZERO
 const MAX_REACH = 200.0
+const SPEED = 500.0
 
 var constraints: Array[Constraint] = []
 
@@ -27,7 +29,10 @@ func _get_hand_position() -> Vector2:
 func _get_body_position() -> Vector2:
 	return global_position
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	# If we are searching, then we want to update our aim to the target
+	if arm_state == ARM_STATE.SEARCHING and target:
+		self.aim = self.aim.move_toward(target, delta * SPEED)
 	queue_redraw()
 
 func _draw():
