@@ -6,6 +6,7 @@ extends CharacterBody2D
 var lives : int
 const movement_speed = 300
 @onready var primary_arm: PrimaryArm = %PrimaryArm
+@onready var arms := $Arms as Arms
 
 var state := STATE.FREE
 

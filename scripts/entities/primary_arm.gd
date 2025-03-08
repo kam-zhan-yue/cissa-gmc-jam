@@ -2,10 +2,10 @@ class_name PrimaryArm
 extends Arm
 
 @export var use_mouse := false
+@onready var hand: Area2D = %Hand
 
 var id := 0
 
-const MAX_REACH = 200.0
 const ARM_SPEED = 2000.0
 const THROW_VELOCITY = 1000.0
 
@@ -13,15 +13,16 @@ var arm_velocity := Vector2.ZERO
 var target_position := Vector2.ZERO
 var grab: Item
 
-enum ARM_STATE {
+enum GRAB_STATE {
 	NONE,
 	HOVER,
 	GRAB,
 }
 
-var state := ARM_STATE.NONE
+var state := GRAB_STATE.NONE
 
 func init(player_id: int) -> void:
+	self.arm_state = ARM_STATE.AIMING
 	Game.title
 	self.id = player_id
 
@@ -31,13 +32,12 @@ func _physics_process(delta: float) -> void:
 	self._process_aim(delta)
 	self._process_movement(delta)
 	self._process_input()
-	queue_redraw()
 
 func _process_grab() -> void:
 	match self.state:
-		ARM_STATE.HOVER:
+		GRAB_STATE.HOVER:
 			pass
-		ARM_STATE.GRAB:
+		GRAB_STATE.GRAB:
 			if grab:
 				var direction = self.aim - position
 				var angle = atan2(direction.y, direction.x)
@@ -53,13 +53,13 @@ func _process_aim(_delta: float) -> void:
 	if use_mouse:
 		var camera = get_viewport().get_camera_2d()
 		var mouse_pos := camera.get_global_mouse_position()
-		var distance_to_player = (mouse_pos - position) / MAX_REACH
+		var distance_to_player = (mouse_pos - position) / Arm.MAX_REACH
 		target = distance_to_player
 
-	
-	self.target_position = target * MAX_REACH
-	if self.target_position.length() >= MAX_REACH:
-		self.target_position = self.target_position.normalized() * MAX_REACH
+
+	self.target_position = target * Arm.MAX_REACH
+	if self.target_position.length() >= Arm.MAX_REACH:
+		self.target_position = self.target_position.normalized() * Arm.MAX_REACH
 	
 func _process_movement(delta: float) -> void:
 	var previous := self.aim
@@ -71,9 +71,9 @@ func _process_input() -> void:
 	if Input.is_action_just_pressed(Global.get_input(id, "grab")):
 		# Grab if we are hovering
 		print("WHAT")
-		if state == ARM_STATE.HOVER and grab:
+		if state == GRAB_STATE.HOVER and grab:
 			self._grab()
-		elif state == ARM_STATE.GRAB:
+		elif state == GRAB_STATE.GRAB:
 			self._throw()
 
 func _throw_item() -> void:
@@ -95,7 +95,7 @@ func _grab() -> void:
 	print("GRAB ", self.id)
 	if grab:
 		grab.grab(self)
-	self.state = ARM_STATE.GRAB
+	self.state = GRAB_STATE.GRAB
 
 func _throw() -> void:
 	_release()
@@ -105,16 +105,16 @@ func _release() -> void:
 	if grab:
 		grab.release(self)
 	self.grab = null
-	self.state = ARM_STATE.NONE
+	self.state = GRAB_STATE.NONE
 	print("RELEASE")
 
 func _on_hand_body_entered(body: Node2D) -> void:
-	if body is Item and self.state == ARM_STATE.NONE:
-		self.state = ARM_STATE.HOVER
+	if body is Item and self.state == GRAB_STATE.NONE:
+		self.state = GRAB_STATE.HOVER
 		self.grab = body
 		self._grab()
 
 
 func _on_hand_body_exited(body: Node2D) -> void:
-	if self.state == ARM_STATE.HOVER:
-		self.state = ARM_STATE.NONE
+	if self.state == GRAB_STATE.HOVER:
+		self.state = GRAB_STATE.NONE
