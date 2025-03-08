@@ -24,7 +24,7 @@ shape = SubResource("CircleShape2D_xlapc")
 debug_color = Color(0.165779, 0.517173, 1, 0.42)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.504
+wait_time = 0.934
 one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
