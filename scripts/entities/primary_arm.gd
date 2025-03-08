@@ -5,7 +5,7 @@ extends Arm
 
 var id := 0
 
-const MAX_REACH = 500.0
+const MAX_REACH = 200.0
 const ARM_SPEED = 2000.0
 const THROW_VELOCITY = 1000.0
 
