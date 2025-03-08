@@ -23,7 +23,6 @@ var state := GRAB_STATE.NONE
 
 func init(player_id: int) -> void:
 	self.arm_state = ARM_STATE.AIMING
-	Game.title
 	self.id = player_id
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -20,6 +20,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	#global_position = Vector2.ZERO
 	if state == STATE.FREE:
 		var move_vertical := Input.get_axis(Global.get_input(player_id, "move_down"), Global.get_input(player_id, "move_up"))
 		var move_horizontal := Input.get_axis(Global.get_input(player_id, "move_left"), Global.get_input(player_id, "move_right"))
@@ -27,6 +28,7 @@ func _physics_process(delta: float) -> void:
 		velocity = target_direction * movement_speed
 
 	move_and_slide()
+
 
 func knockback(force: Vector2, time: float) -> void:
 	self.state = STATE.KNOCKBACK
