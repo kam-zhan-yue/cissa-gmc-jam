@@ -37,17 +37,15 @@ func _process_aim(_delta: float) -> void:
 	var aim_vertical := Input.get_axis("player_1_aim_down", "player_1_aim_up")
 	var aim_horizontal := Input.get_axis("player_1_aim_left", "player_1_aim_right")
 	var target := Vector2(aim_horizontal, -aim_vertical)
-	if target == Vector2.ZERO:
-		self.arm_velocity = Vector2.ZERO
-		return
-	
 	
 	self.target_position = target * MAX_REACH
 	if self.target_position.length() >= MAX_REACH:
 		self.target_position = self.target_position.normalized() * MAX_REACH
 	
 func _process_movement(delta: float) -> void:
+	var previous := self.aim
 	self.aim = self.aim.move_toward(self.target_position, delta * ARM_SPEED)
+	self.arm_velocity = self.aim - previous
 	hand.position = _get_hand_position()
 
 
