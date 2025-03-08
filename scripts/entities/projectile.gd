@@ -1,4 +1,4 @@
-class_name Blade
+class_name Projectile
 extends Area2D
 
 const FORCE = 1000.0

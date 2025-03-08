@@ -20,6 +20,8 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func _knockback(force: float, time: float) -> void:
-	self.state == STATE.KNOCKBACK
-	await Gl
+func knockback(force: Vector2, time: float) -> void:
+	self.state = STATE.KNOCKBACK
+	velocity = force
+	await Global.wait(time)
+	self.state = STATE.FREE
