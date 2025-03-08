@@ -32,6 +32,10 @@ func _process_grab() -> void:
 			pass
 		ARM_STATE.GRAB:
 			if grab:
+				var direction = self.aim - position
+				var angle = atan2(direction.y, direction.x)
+				grab.rotation = angle + PI * 0.5
+				print("Angle ", rad_to_deg(angle))
 				grab.global_position = global_position + _get_hand_position()
 		
 

@@ -7,6 +7,8 @@
 size = Vector2(52, 50)
 
 [node name="Item" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_6muww")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,18 +1,49 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcfa1hp82ih25"]
+[gd_scene load_steps=9 format=3 uid="uid://dcfa1hp82ih25"]
 
 [ext_resource type="Script" uid="uid://bv60w0wjdum1" path="res://scripts/entities/item.gd" id="1_n355p"]
-[ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="2_s4ec8"]
+[ext_resource type="Script" uid="uid://be8prtuqbxccr" path="res://scripts/entities/sword.gd" id="2_n355p"]
+
+[sub_resource type="Gradient" id="Gradient_ycbs3"]
+offsets = PackedFloat32Array(0.00324675, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ycbs3"]
+gradient = SubResource("Gradient_ycbs3")
+
+[sub_resource type="Gradient" id="Gradient_n355p"]
+offsets = PackedFloat32Array(0, 0.993506)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s4ec8"]
+gradient = SubResource("Gradient_n355p")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(22, 50)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5whp"]
+size = Vector2(23, 118)
+
 [node name="Sword" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_n355p")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -58)
-scale = Vector2(0.176035, 1.30201)
-texture = ExtResource("2_s4ec8")
+[node name="HandleSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.359375, 0.8125)
+texture = SubResource("GradientTexture2D_ycbs3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BladeSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -84)
+scale = Vector2(0.359375, 1.84375)
+texture = SubResource("GradientTexture2D_s4ec8")
+
+[node name="Handle" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="Blade" type="Area2D" parent="."]
+script = ExtResource("2_n355p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blade"]
+position = Vector2(0, -84)
+shape = SubResource("RectangleShape2D_k5whp")
+debug_color = Color(0.965667, 2.02149e-06, 0.48529, 0.42)
