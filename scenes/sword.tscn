@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dcfa1hp82ih25"]
 
 [ext_resource type="Script" uid="uid://bv60w0wjdum1" path="res://scripts/entities/item.gd" id="1_n355p"]
-[ext_resource type="Script" uid="uid://be8prtuqbxccr" path="res://scripts/entities/sword.gd" id="2_n355p"]
+[ext_resource type="Script" uid="uid://be8prtuqbxccr" path="res://scripts/entities/blade.gd" id="2_n355p"]
 
 [sub_resource type="Gradient" id="Gradient_ycbs3"]
 offsets = PackedFloat32Array(0.00324675, 1)
@@ -41,9 +41,13 @@ texture = SubResource("GradientTexture2D_s4ec8")
 shape = SubResource("RectangleShape2D_0wfyh")
 
 [node name="Blade" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("2_n355p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Blade"]
 position = Vector2(0, -84)
 shape = SubResource("RectangleShape2D_k5whp")
 debug_color = Color(0.965667, 2.02149e-06, 0.48529, 0.42)
+
+[connection signal="body_shape_entered" from="Blade" to="Blade" method="_on_body_shape_entered"]
