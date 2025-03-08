@@ -2,9 +2,11 @@ class_name PrimaryArm
 extends Arm
 
 const MAX_REACH = 200.0
-const ARM_SPEED = 600.0
+const ARM_SPEED = 2000.0
 const THROW_VELOCITY = 1000.0
 
+var arm_velocity := Vector2.ZERO
+var target_position := Vector2.ZERO
 var grab: Item
 
 enum ARM_STATE {
@@ -16,9 +18,10 @@ enum ARM_STATE {
 var state := ARM_STATE.NONE
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	self._process_grab()
 	self._process_aim(delta)
+	self._process_movement(delta)
 	queue_redraw()
 
 func _process_grab() -> void:
@@ -30,23 +33,28 @@ func _process_grab() -> void:
 				grab.global_position = global_position + _get_hand_position()
 		
 
-func _process_aim(delta: float) -> void:
+func _process_aim(_delta: float) -> void:
 	var aim_vertical := Input.get_axis("player_1_aim_down", "player_1_aim_up")
 	var aim_horizontal := Input.get_axis("player_1_aim_left", "player_1_aim_right")
 	var target := Vector2(aim_horizontal, -aim_vertical)
 	if target == Vector2.ZERO:
+		self.arm_velocity = Vector2.ZERO
 		return
-	self.aim = target * MAX_REACH
-	if self.aim.length() >= MAX_REACH:
-		self.aim = self.aim.normalized() * MAX_REACH
+	
+	
+	self.target_position = target * MAX_REACH
+	if self.target_position.length() >= MAX_REACH:
+		self.target_position = self.target_position.normalized() * MAX_REACH
+	
+func _process_movement(delta: float) -> void:
+	self.aim = self.aim.move_toward(self.target_position, delta * ARM_SPEED)
 	hand.position = _get_hand_position()
 
 
 func _throw_item() -> void:
 	if not grab: return
-	var throw_velocity = self.aim.normalized() * THROW_VELOCITY
-	print(throw_velocity)
-	print("THROW")
+	var throw_velocity = self.arm_velocity.normalized() * THROW_VELOCITY
+	grab.launch(throw_velocity)
 	
 
 func _input(_event: InputEvent) -> void:
