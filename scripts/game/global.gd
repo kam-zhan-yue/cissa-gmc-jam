@@ -4,6 +4,8 @@ var WHITE = Color(1.0, 1.0, 1.0, 1.0)
 var CLEAR = Color(1.0, 1.0, 1.0, 0.0)
 var FADE_TIME = 0.3
 
+const GRAB_LAYER = 4
+
 var zoom := 5.0
 
 func seconds(time: float) -> void:

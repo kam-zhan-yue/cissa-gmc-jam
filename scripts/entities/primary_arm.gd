@@ -63,8 +63,9 @@ func _process_movement(delta: float) -> void:
 
 func _throw_item() -> void:
 	if not grab: return
-	var throw_velocity = self.arm_velocity.normalized() * THROW_VELOCITY
-	grab.launch(throw_velocity)
+	if grab.throwable:
+		var throw_velocity = self.arm_velocity.normalized() * THROW_VELOCITY
+		grab.launch(throw_velocity)
 	
 
 func _input(event: InputEvent) -> void:
@@ -80,12 +81,19 @@ func _input(event: InputEvent) -> void:
 				self._throw()
 
 func _grab() -> void:
+	if grab:
+		grab.grab()
 	self.state = ARM_STATE.GRAB
 
 func _throw() -> void:
+	_release()
 	_throw_item()
 	self.grab = null
 	self.state = ARM_STATE.NONE
+
+func _release() -> void:
+	if grab:
+		grab.release()
 
 func _on_hand_body_entered(body: Node2D) -> void:
 	if body is Item and self.state == ARM_STATE.NONE:
