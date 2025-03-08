@@ -29,6 +29,7 @@ func _physics_process(delta: float) -> void:
 	self._process_grab()
 	self._process_aim(delta)
 	self._process_movement(delta)
+	self._process_input()
 	queue_redraw()
 
 func _process_grab() -> void:
@@ -47,7 +48,7 @@ func _process_aim(_delta: float) -> void:
 	var aim_vertical := Input.get_axis(Global.get_input(id, "aim_down"), Global.get_input(id, "aim_up"))
 	var aim_horizontal := Input.get_axis(Global.get_input(id, "aim_left"), Global.get_input(id, "aim_right"))
 	var target := Vector2(aim_horizontal, -aim_vertical)
-	
+
 	if use_mouse:
 		var camera = get_viewport().get_camera_2d()
 		var mouse_pos := camera.get_global_mouse_position()
@@ -65,6 +66,14 @@ func _process_movement(delta: float) -> void:
 	self.arm_velocity = self.aim - previous
 	hand.position = _get_hand_position()
 
+func _process_input() -> void:
+	if Input.is_action_just_pressed(Global.get_input(id, "grab")):
+		# Grab if we are hovering
+		print("WHAT")
+		if state == ARM_STATE.HOVER and grab:
+			self._grab()
+		elif state == ARM_STATE.GRAB:
+			self._throw()
 
 func _throw_item() -> void:
 	if not grab: return
@@ -74,11 +83,7 @@ func _throw_item() -> void:
 	
 
 func _input(event: InputEvent) -> void:
-	if state == ARM_STATE.HOVER and Input.is_action_just_pressed("player_1_grab") and grab:
-		self._grab()
-	elif state == ARM_STATE.GRAB and Input.is_action_just_released("player_1_grab"):
-		self._throw()
-	elif use_mouse and event is InputEventMouseButton:
+	if use_mouse and event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				self._grab()
@@ -86,8 +91,9 @@ func _input(event: InputEvent) -> void:
 				self._throw()
 
 func _grab() -> void:
+	print("GRAB")
 	if grab:
-		grab.grab()
+		grab.grab(id)
 	self.state = ARM_STATE.GRAB
 
 func _throw() -> void:
@@ -95,10 +101,11 @@ func _throw() -> void:
 	_throw_item()
 	self.grab = null
 	self.state = ARM_STATE.NONE
+	print("RELEASE")
 
 func _release() -> void:
 	if grab:
-		grab.release()
+		grab.release(id)
 
 func _on_hand_body_entered(body: Node2D) -> void:
 	if body is Item and self.state == ARM_STATE.NONE:

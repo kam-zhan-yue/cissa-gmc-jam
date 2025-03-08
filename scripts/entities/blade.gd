@@ -1,13 +1,29 @@
 class_name Blade
 extends Area2D
 
+var id := -1
 const FORCE = 1000.0
 const COOLDOWN_TIME = 0.5
 var cooldown := false
 
+@onready var sword: Item = $".."
+
+func _ready() -> void:
+	sword.on_grab.connect(_on_grab)
+	sword.on_release.connect(_on_release)
+
+func _on_grab(holder_id: int) -> void:
+	print("Blade grabbed ", holder_id)
+	self.id = holder_id
+
+func _on_release(holder_id: int) -> void:
+	self.id = -1
+
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if cooldown: return
 	if body is not Octopus: return
+	print("Other is ", body.player_id)
+	if body.player_id == self.id: return
 	var collision_direction = Global.get_collision_direction(body_rid, body, body_shape_index, local_shape_index, self)
 	if collision_direction:
 		var force = collision_direction.normalized() * FORCE
