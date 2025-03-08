@@ -5,3 +5,4 @@
 
 [node name="PrimaryArm" instance=ExtResource("1_nmjs0")]
 script = ExtResource("2_u10a2")
+player_id = 0
