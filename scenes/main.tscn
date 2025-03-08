@@ -1,15 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://bt2ju64bl0yrp"]
+[gd_scene load_steps=8 format=3 uid="uid://bt2ju64bl0yrp"]
 
 [ext_resource type="Script" uid="uid://dwfm0gu0lnwdu" path="res://scenes/main.gd" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://v473sc4yajje" path="res://scenes/octopus.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://clgwd0rgr7l6v" path="res://scenes/obstacles.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ck4a7ys5px7f" path="res://scenes/killzone.tscn" id="2_tbgi4"]
+[ext_resource type="Script" uid="uid://cx0elix0tahfl" path="res://scripts/game/game_manager.gd" id="2_tefeu"]
+[ext_resource type="PackedScene" uid="uid://b66ehgk7wn1wx" path="res://scenes/ui.tscn" id="3_o6xl0"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jyhfs")
 
-[node name="killzone" parent="." instance=ExtResource("2_tbgi4")]
+[node name="GameManager" type="Node2D" parent="."]
+script = ExtResource("2_tefeu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource("3_o6xl0")]
+unique_name_in_owner = true
+
+[node name="Killzone" parent="." instance=ExtResource("2_tbgi4")]
+unique_name_in_owner = true
 scale = Vector2(1, 0.992252)
 
 [node name="PlayerOne" parent="." instance=ExtResource("1_o5qli")]

@@ -1,9 +1,13 @@
+class_name Killzone
 extends Area2D
 
-@onready var timer = $Timer
+@onready var timer: Timer = $Timer
 
 var total_time := 0.0
 var timer_running := false
+
+func _ready() -> void:
+	print(Game.title)
 
 func _process(delta: float) -> void:
 	var bodies = get_players()
@@ -12,10 +16,10 @@ func _process(delta: float) -> void:
 		start_timer()
 	elif total_players == 2 and timer_running:
 		stop_timer()
-
-	print(bodies)
+	Game.on_killzone_timer.emit(timer.time_left)
 
 func start_timer() -> void:
+	Game.on_killzone_enter.emit()
 	timer_running = true
 	timer.start()
 	
