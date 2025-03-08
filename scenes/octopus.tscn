@@ -31,8 +31,10 @@ texture = SubResource("GradientTexture2D_8jto7")
 unique_name_in_owner = true
 
 [node name="Arm" parent="." instance=ExtResource("2_ionst")]
+visible = false
 
 [node name="Arm2" parent="." instance=ExtResource("2_ionst")]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fhwgg")
