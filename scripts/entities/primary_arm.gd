@@ -92,21 +92,21 @@ func _input(event: InputEvent) -> void:
 				self._throw()
 
 func _grab() -> void:
-	print("GRAB")
+	print("GRAB ", self.id)
 	if grab:
-		grab.grab(id)
+		grab.grab(self)
 	self.state = ARM_STATE.GRAB
 
 func _throw() -> void:
 	_release()
 	_throw_item()
-	self.grab = null
-	self.state = ARM_STATE.NONE
-	print("RELEASE")
 
 func _release() -> void:
 	if grab:
-		grab.release(id)
+		grab.release(self)
+	self.grab = null
+	self.state = ARM_STATE.NONE
+	print("RELEASE")
 
 func _on_hand_body_entered(body: Node2D) -> void:
 	if body is Item and self.state == ARM_STATE.NONE:
