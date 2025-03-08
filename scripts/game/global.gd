@@ -101,3 +101,5 @@ func get_collision_direction(body_rid: RID, body: Node2D, body_shape_index: int,
 	else:
 		return Vector2.ZERO
 	
+func get_input(id: int, command: String) -> String:
+	return str("player_", id, "_", command)

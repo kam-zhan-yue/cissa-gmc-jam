@@ -27,7 +27,7 @@ position = Vector2(0, -1)
 texture = SubResource("GradientTexture2D_8jto7")
 
 [node name="PrimaryArm" parent="." instance=ExtResource("2_fhwgg")]
-use_mouse = true
+unique_name_in_owner = true
 
 [node name="Arm" parent="." instance=ExtResource("2_ionst")]
 

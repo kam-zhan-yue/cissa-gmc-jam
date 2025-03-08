@@ -3,6 +3,8 @@ extends Arm
 
 @export var use_mouse := false
 
+var id := 0
+
 const MAX_REACH = 200.0
 const ARM_SPEED = 2000.0
 const THROW_VELOCITY = 1000.0
@@ -18,6 +20,9 @@ enum ARM_STATE {
 }
 
 var state := ARM_STATE.NONE
+
+func init(player_id: int) -> void:
+	self.id = player_id
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -39,8 +44,8 @@ func _process_grab() -> void:
 		
 
 func _process_aim(_delta: float) -> void:
-	var aim_vertical := Input.get_axis("player_1_aim_down", "player_1_aim_up")
-	var aim_horizontal := Input.get_axis("player_1_aim_left", "player_1_aim_right")
+	var aim_vertical := Input.get_axis(Global.get_input(id, "aim_down"), Global.get_input(id, "aim_up"))
+	var aim_horizontal := Input.get_axis(Global.get_input(id, "aim_left"), Global.get_input(id, "aim_right"))
 	var target := Vector2(aim_horizontal, -aim_vertical)
 	
 	if use_mouse:

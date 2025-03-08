@@ -14,6 +14,7 @@ script = ExtResource("1_jyhfs")
 position = Vector2(213, 1)
 
 [node name="PlayerTwo" parent="." instance=ExtResource("1_o5qli")]
+position = Vector2(-443, -62)
 player_id = 1
 
 [node name="obstacles" parent="." instance=ExtResource("2_0wfyh")]
@@ -27,5 +28,12 @@ script = ExtResource("1_sugp2")
 [node name="Sword" parent="." instance=ExtResource("4_tbgi4")]
 position = Vector2(70, -98)
 
+[node name="Sword2" parent="." instance=ExtResource("4_tbgi4")]
+position = Vector2(-23, 294)
+rotation = 1.9484
+
 [node name="Ball" parent="." instance=ExtResource("5_tefeu")]
 position = Vector2(-76, 145)
+
+[node name="Ball2" parent="." instance=ExtResource("5_tefeu")]
+position = Vector2(81, 114)
