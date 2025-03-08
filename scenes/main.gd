@@ -8,8 +8,3 @@ func _ready():
 	$DynamicCamera2D.add_target($PlayerTwo)
 	
 	#set camera limits
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
