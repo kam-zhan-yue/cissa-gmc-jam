@@ -25,7 +25,7 @@ size = Vector2(23, 118)
 
 [node name="Sword" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 4
 script = ExtResource("1_n355p")
 
 [node name="HandleSprite" type="Sprite2D" parent="."]

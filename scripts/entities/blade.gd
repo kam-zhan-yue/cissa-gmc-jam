@@ -5,6 +5,7 @@ var id := -1
 const FORCE = 1000.0
 const COOLDOWN_TIME = 0.5
 var cooldown := false
+var active := false
 
 @onready var sword: Item = $".."
 
@@ -14,12 +15,15 @@ func _ready() -> void:
 
 func _on_grab(holder_id: int) -> void:
 	print("Blade grabbed ", holder_id)
+	self.active = true
 	self.id = holder_id
 
 func _on_release(holder_id: int) -> void:
+	self.active = false
 	self.id = -1
 
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if not active: return
 	if cooldown: return
 	if body is not Octopus: return
 	print("Other is ", body.player_id)
