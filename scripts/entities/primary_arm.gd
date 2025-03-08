@@ -3,6 +3,7 @@ extends Arm
 
 const MAX_REACH = 200.0
 const ARM_SPEED = 600.0
+const THROW_VELOCITY = 1000.0
 
 var grab: Item
 
@@ -38,12 +39,20 @@ func _process_aim(delta: float) -> void:
 		self.aim = self.aim.normalized() * MAX_REACH
 	hand.position = _get_hand_position()
 
+
+func _throw_item() -> void:
+	if not grab: return
+	var throw_velocity = self.aim.normalized() * THROW_VELOCITY
+	print(throw_velocity)
+	grab.apply_for
+	print("THROW")
+	
+
 func _input(_event: InputEvent) -> void:
 	if state == ARM_STATE.HOVER and Input.is_action_just_pressed("player_1_grab") and grab:
 		self.state = ARM_STATE.GRAB
-		print("GRAB")
 	elif state == ARM_STATE.GRAB and Input.is_action_just_released("player_1_grab"):
-		print("RELEASE")
+		_throw_item()
 		self.grab = null
 		self.state = ARM_STATE.NONE
 
@@ -52,7 +61,6 @@ func _on_hand_body_entered(body: Node2D) -> void:
 	if body is Item and self.state == ARM_STATE.NONE:
 		self.state = ARM_STATE.HOVER
 		self.grab = body
-		print("HOVER")
 
 
 func _on_hand_body_exited(body: Node2D) -> void:
