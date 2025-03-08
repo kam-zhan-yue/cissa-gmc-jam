@@ -1,14 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://v473sc4yajje"]
+[gd_scene load_steps=9 format=3 uid="uid://v473sc4yajje"]
 
 [ext_resource type="Shader" uid="uid://bc0wjxbswk7qm" path="res://shaders/octopus.gdshader" id="1_fhwgg"]
+[ext_resource type="Script" uid="uid://b5bjuui6xvw8m" path="res://scenes/character_body_2d.gd" id="2_8jto7"]
 [ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
 [ext_resource type="PackedScene" uid="uid://dpflme532hf0b" path="res://scenes/arm.tscn" id="2_ionst"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fhwgg"]
+radius = 25.0799
+
+[sub_resource type="Gradient" id="Gradient_ionst"]
+offsets = PackedFloat32Array(0, 0.00324675, 0.642857, 0.649351)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.411947, 0.343304, 1, 1, 0.411765, 0.345098, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8jto7"]
+gradient = SubResource("Gradient_ionst")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bmsl3"]
 shader = ExtResource("1_fhwgg")
 
-[node name="Octopus" type="Node2D"]
-material = SubResource("ShaderMaterial_bmsl3")
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("2_8jto7")
 
 [node name="PrimaryArm" parent="." instance=ExtResource("2_fhwgg")]
 use_mouse = true
@@ -16,3 +30,13 @@ use_mouse = true
 [node name="Arm" parent="." instance=ExtResource("2_ionst")]
 
 [node name="Arm2" parent="." instance=ExtResource("2_ionst")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fhwgg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = SubResource("GradientTexture2D_8jto7")
+
+[node name="Octopus" type="Node2D" parent="."]
+material = SubResource("ShaderMaterial_bmsl3")
