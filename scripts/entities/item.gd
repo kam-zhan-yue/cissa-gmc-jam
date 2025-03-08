@@ -10,6 +10,8 @@ const BOUNCE_FADE = 0.8
 var original_layer
 var original_mask
 
+var holder: PrimaryArm = null
+
 signal on_grab(id)
 signal on_release(id)
 
@@ -20,13 +22,18 @@ func _ready() -> void:
 func init(id: int) -> void:
 	self.holder_id = id
 	
-func grab(holder_id: int) -> void:
-	on_grab.emit(holder_id)
+func grab(new_holder: PrimaryArm) -> void:
+	# If we have a holder, we want the holder to force release
+	if holder:
+		holder._release()
+	holder = new_holder
+	on_grab.emit(holder.id)
 	self.collision_layer = Global.GRAB_LAYER
 	self.collision_mask = Global.GRAB_LAYER
 
-func release(holder_id: int) -> void:
-	on_release.emit(holder_id)
+func release(old_holder: PrimaryArm) -> void:
+	on_release.emit(old_holder.id)
+	holder = null
 	self.collision_layer = self.original_layer
 	self.collision_mask = self.original_mask
 
