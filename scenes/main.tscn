@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bt2ju64bl0yrp"]
+[gd_scene load_steps=8 format=3 uid="uid://bt2ju64bl0yrp"]
 
 [ext_resource type="PackedScene" uid="uid://v473sc4yajje" path="res://scenes/octopus.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://clgwd0rgr7l6v" path="res://scenes/obstacles.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ck4a7ys5px7f" path="res://scenes/killzone.tscn" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cx0elix0tahfl" path="res://scripts/game/game_manager.gd" id="2_tefeu"]
-[ext_resource type="PackedScene" uid="uid://dt3pvc340yy4r" path="res://scenes/ui.tscn" id="3_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://b66ehgk7wn1wx" path="res://scenes/ui.tscn" id="3_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://3k4m6e87yuwe" path="res://respawnpoint.tscn" id="7_o6xl0"]
 
 [node name="Main" type="Node2D"]
 
@@ -31,7 +32,7 @@ position = Vector2(213, 1)
 
 [node name="PlayerTwo" parent="." instance=ExtResource("1_o5qli")]
 unique_name_in_owner = true
-position = Vector2(-58, 0)
+position = Vector2(-59, 0)
 player_id = 1
 
 [node name="obstacles" parent="." instance=ExtResource("2_0wfyh")]
@@ -42,3 +43,13 @@ unique_name_in_owner = true
 zoom = Vector2(0.7, 0.7)
 position_smoothing_enabled = true
 script = ExtResource("1_sugp2")
+
+[node name="Respawn" type="Node" parent="."]
+
+[node name="PlayerOneCheckpoint" parent="." instance=ExtResource("7_o6xl0")]
+unique_name_in_owner = true
+position = Vector2(213, 0)
+
+[node name="PlayerTwoCheckpoint" parent="." instance=ExtResource("7_o6xl0")]
+unique_name_in_owner = true
+position = Vector2(-59, 1)

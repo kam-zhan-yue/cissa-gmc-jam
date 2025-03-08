@@ -22,7 +22,6 @@ enum ARM_STATE {
 var state := ARM_STATE.NONE
 
 func init(player_id: int) -> void:
-	Game.title
 	self.id = player_id
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
