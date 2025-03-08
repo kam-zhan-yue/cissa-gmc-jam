@@ -33,8 +33,10 @@ func _process_grab() -> void:
 func _process_aim(delta: float) -> void:
 	var aim_vertical := Input.get_axis("player_1_aim_down", "player_1_aim_up")
 	var aim_horizontal := Input.get_axis("player_1_aim_left", "player_1_aim_right")
-	var target_velocity := Vector2(aim_horizontal, -aim_vertical)
-	self.aim += target_velocity * delta * ARM_SPEED
+	var target := Vector2(aim_horizontal, -aim_vertical)
+	if target == Vector2.ZERO:
+		return
+	self.aim = target * MAX_REACH
 	if self.aim.length() >= MAX_REACH:
 		self.aim = self.aim.normalized() * MAX_REACH
 	hand.position = _get_hand_position()
@@ -44,7 +46,6 @@ func _throw_item() -> void:
 	if not grab: return
 	var throw_velocity = self.aim.normalized() * THROW_VELOCITY
 	print(throw_velocity)
-	grab.apply_for
 	print("THROW")
 	
 
