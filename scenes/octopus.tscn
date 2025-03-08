@@ -29,7 +29,6 @@ texture = SubResource("GradientTexture2D_8jto7")
 
 [node name="PrimaryArm" parent="." instance=ExtResource("2_fhwgg")]
 unique_name_in_owner = true
-use_mouse = null
 
 [node name="Arm" parent="." instance=ExtResource("2_ionst")]
 visible = false
