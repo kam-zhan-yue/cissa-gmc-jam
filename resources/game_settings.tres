@@ -10,7 +10,21 @@ point_count = 6
 
 [resource]
 script = ExtResource("1_ks8vh")
+movement_speed = 500.0
+burst_speed = 4000.0
+burst_time = 0.2
+burst_cost = 40.0
+dash_speed = 1400.0
+dash_cost_rate = 20.0
+max_ink = 100000.0
+ink_regen_rate = 10.0
+tentacle_radius = 20.0
+max_reach = 200.0
+tentacle_speed = 1000.0
+total_nodes = 15
+hand_node = 4
 tentacle_radius_curve = SubResource("Curve_ks8vh")
 tentacle_angle_curve = SubResource("Curve_oahbv")
-tentacle_radius = 20.0
+stride_distance = 150.0
+restriction_angle = -50.0
 metadata/_custom_type_script = "uid://bpgpv173byvwi"
