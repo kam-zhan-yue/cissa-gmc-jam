@@ -12,9 +12,15 @@ var original_mask
 var can_grab := true
 
 var holder: PrimaryArm = null
+var state := STATE.IDLE
 
 signal on_grab(id)
 signal on_release(id)
+
+enum STATE {
+	IDLE,
+	LAUNCHING,
+}
 
 func _ready() -> void:
 	self.original_layer = self.collision_layer
@@ -35,8 +41,9 @@ func grab(new_holder: PrimaryArm) -> void:
 func release(old_holder: PrimaryArm) -> void:
 	on_release.emit(old_holder.id)
 	holder = null
-	self.collision_layer = self.original_layer
-	self.collision_mask = self.original_mask
+	if STATE.IDLE:
+		self.collision_layer = self.original_layer
+		self.collision_mask = self.original_mask
 
 func _physics_process(delta: float) -> void:
 	if not throwable: return
@@ -52,6 +59,12 @@ func _physics_process(delta: float) -> void:
 func launch(launch_velocity: Vector2) -> void:
 	self.velocity = launch_velocity
 	self.can_grab = false
+	self.collision_layer = 100
+	self.collision_mask = 100
+	self.state = STATE.LAUNCHING
 	print("Launch ", launch_velocity)
 	await Global.wait(0.5)
 	self.can_grab = true
+	self.collision_layer = self.original_layer
+	self.collision_mask = self.original_mask
+	self.state = STATE.IDLE

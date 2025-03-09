@@ -1,8 +1,9 @@
 class_name Blade
 extends Area2D
 
+const GAME_SETTINGS = preload("res://resources/game_settings.tres")
+
 var id := -1
-const FORCE = 1000.0
 const COOLDOWN_TIME = 0.5
 var cooldown := false
 var active := false
@@ -35,7 +36,7 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 	#var collision_direction = Global.get_collision_direction(body_rid, body, body_shape_index, local_shape_index, self)
 	var collision_direction = velocity
 	if collision_direction:
-		var force = collision_direction.normalized() * FORCE
+		var force = collision_direction.normalized() * GAME_SETTINGS.hit_force
 		body.knockback(force, 1.0)
 		_start_cooldown()
 

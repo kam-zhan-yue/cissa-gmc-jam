@@ -11,9 +11,15 @@ extends Resource
 @export var max_ink := 200.0
 @export var ink_regen_rate := 10.0
 
+@export_category("Items")
+@export var throw_force := 2000.0
+@export var throw_threshold := 0.7
+@export var hit_force := 1000.0
+
 @export_category("Tentacle")
 @export var tentacle_radius := 10.0
 @export var max_reach := 200.0
+@export var primary_tentacle_speed := 5000.0
 @export var tentacle_speed := 1000.0
 @export var total_nodes := 15
 @export var hand_node := 4

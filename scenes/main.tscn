@@ -60,4 +60,10 @@ position = Vector2(-59, 1)
 position = Vector2(54, -92)
 
 [node name="Ball" parent="." instance=ExtResource("10_choun")]
-position = Vector2(-3, 133)
+position = Vector2(-294, -417)
+
+[node name="Ball2" parent="." instance=ExtResource("10_choun")]
+position = Vector2(-441, -317)
+
+[node name="Ball3" parent="." instance=ExtResource("10_choun")]
+position = Vector2(-256, -277)

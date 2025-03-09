@@ -6,10 +6,6 @@ extends Arm
 
 var id := 0
 
-const ARM_SPEED = 5000.0
-const THROW_VELOCITY = 1000.0
-const THROW_THRESHOLD = 0.7
-
 var target_position := Vector2.ZERO
 var grab: Item
 
@@ -77,7 +73,7 @@ func _process_movement(delta: float) -> void:
 
 func _get_next_hand_position(delta: float) -> Vector2:
 	var prev_hand_position = hand.global_position
-	var next_hand_position = self.aim.move_toward(self.target_position, delta * ARM_SPEED)
+	var next_hand_position = self.aim.move_toward(self.target_position, delta * GAME_SETTINGS.primary_tentacle_speed)
 	var bodies := hand.get_overlapping_bodies()
 	var can_move := true
 	for body in bodies:
@@ -95,7 +91,7 @@ func _process_input() -> void:
 	if Input.is_action_just_pressed(Global.get_input(id, "grab")) and state == GRAB_STATE.GRAB:
 		self._release()
 
-	if _get_aim().length() >= THROW_THRESHOLD and state == GRAB_STATE.GRAB:
+	if _get_aim().length() >= GAME_SETTINGS.throw_threshold and state == GRAB_STATE.GRAB:
 		self._throw()
 
 func _get_aim() -> Vector2:
@@ -104,7 +100,7 @@ func _get_aim() -> Vector2:
 func _throw_item() -> void:
 	if not grab: return
 	if grab.throwable:
-		var throw_velocity = _get_aim().normalized() * THROW_VELOCITY
+		var throw_velocity = _get_aim().normalized() * GAME_SETTINGS.throw_force
 		grab.launch(throw_velocity)
 	
 
