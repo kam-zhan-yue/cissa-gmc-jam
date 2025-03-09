@@ -6,7 +6,7 @@ extends Arm
 
 var id := 0
 
-const ARM_SPEED = 2000.0
+const ARM_SPEED = 5000.0
 const THROW_VELOCITY = 1000.0
 const THROW_THRESHOLD = 0.7
 

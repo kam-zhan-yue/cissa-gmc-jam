@@ -7,10 +7,11 @@ const ARM = preload("res://scenes/arm.tscn")
 @export var num_arms:= 7
 @export var max_lives : int = 3
 var lives : int
-const movement_speed = 300
+const movement_speed = 1000
 @onready var primary_arm: PrimaryArm = %PrimaryArm
 @onready var arms := $Arms as Arms
 var ink := MAX_INK
+
 const BURST_SPEED = 2000.0 #Instantaneous speed of initial burst
 const BURST_TIME = 0.2 #Length of burst
 const DASH_SPEED = 700.0 #Extended dash speed
