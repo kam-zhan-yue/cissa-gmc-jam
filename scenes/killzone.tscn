@@ -17,6 +17,7 @@ shader_parameter/rotation_speed = 2.0
 [sub_resource type="CanvasTexture" id="CanvasTexture_kl8fp"]
 
 [node name="Killzone" type="Area2D"]
+collision_mask = 5
 script = ExtResource("1_xlapc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
