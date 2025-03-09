@@ -9,6 +9,7 @@ const BOUNCE_FADE = 0.8
 
 var original_layer
 var original_mask
+var can_grab := true
 
 var holder: PrimaryArm = null
 
@@ -50,4 +51,7 @@ func _physics_process(delta: float) -> void:
 
 func launch(launch_velocity: Vector2) -> void:
 	self.velocity = launch_velocity
+	self.can_grab = false
 	print("Launch ", launch_velocity)
+	await Global.wait(0.5)
+	self.can_grab = true

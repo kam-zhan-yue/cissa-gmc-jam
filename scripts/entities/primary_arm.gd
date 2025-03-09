@@ -8,10 +8,14 @@ var id := 0
 
 const ARM_SPEED = 2000.0
 const THROW_VELOCITY = 1000.0
+const THROW_THRESHOLD = 0.7
 
 var arm_velocity := Vector2.ZERO
 var target_position := Vector2.ZERO
 var grab: Item
+
+var prev_aim := Vector2.ZERO
+var curr_aim := Vector2.ZERO
 
 enum GRAB_STATE {
 	NONE,
@@ -45,9 +49,11 @@ func _process_grab() -> void:
 		
 
 func _process_aim(_delta: float) -> void:
+	prev_aim = curr_aim
 	var aim_vertical := Input.get_axis(Global.get_input(id, "aim_down"), Global.get_input(id, "aim_up"))
 	var aim_horizontal := Input.get_axis(Global.get_input(id, "aim_left"), Global.get_input(id, "aim_right"))
 	var target := Vector2(aim_horizontal, -aim_vertical)
+	curr_aim = target
 
 	if use_mouse:
 		var camera = get_viewport().get_camera_2d()
@@ -67,12 +73,11 @@ func _process_movement(delta: float) -> void:
 	hand.global_position = _get_hand_position()
 
 func _process_input() -> void:
-	if Input.is_action_just_pressed(Global.get_input(id, "grab")):
-		# Grab if we are hovering
-		if state == GRAB_STATE.HOVER and grab:
-			self._grab()
-		elif state == GRAB_STATE.GRAB:
-			self._throw()
+	if Input.is_action_just_pressed(Global.get_input(id, "grab")) and state == GRAB_STATE.GRAB:
+		self._release()
+
+	if (curr_aim - prev_aim).length() >= THROW_THRESHOLD and state == GRAB_STATE.GRAB:
+		self._throw()
 
 func _throw_item() -> void:
 	if not grab: return
@@ -80,14 +85,6 @@ func _throw_item() -> void:
 		var throw_velocity = self.arm_velocity.normalized() * THROW_VELOCITY
 		grab.launch(throw_velocity)
 	
-
-func _input(event: InputEvent) -> void:
-	if use_mouse and event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				self._grab()
-			else:
-				self._throw()
 
 func _grab() -> void:
 	print("GRAB ", self.id)
@@ -107,7 +104,7 @@ func _release() -> void:
 	print("RELEASE")
 
 func _on_hand_body_entered(body: Node2D) -> void:
-	if body is Item and self.state == GRAB_STATE.NONE:
+	if body is Item and self.state == GRAB_STATE.NONE and body.can_grab:
 		self.state = GRAB_STATE.HOVER
 		self.grab = body
 		self._grab()
