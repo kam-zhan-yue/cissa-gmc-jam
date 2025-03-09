@@ -111,8 +111,9 @@ func _grab() -> void:
 	self.state = GRAB_STATE.GRAB
 
 func _throw() -> void:
-	_throw_item()
-	_release()
+	if grab and grab.throwable:
+		_throw_item()
+		_release()
 
 func _release() -> void:
 	if grab:
