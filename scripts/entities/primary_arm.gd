@@ -69,7 +69,6 @@ func _process_movement(delta: float) -> void:
 func _process_input() -> void:
 	if Input.is_action_just_pressed(Global.get_input(id, "grab")):
 		# Grab if we are hovering
-		print("WHAT")
 		if state == GRAB_STATE.HOVER and grab:
 			self._grab()
 		elif state == GRAB_STATE.GRAB:
@@ -97,8 +96,8 @@ func _grab() -> void:
 	self.state = GRAB_STATE.GRAB
 
 func _throw() -> void:
-	_release()
 	_throw_item()
+	_release()
 
 func _release() -> void:
 	if grab:

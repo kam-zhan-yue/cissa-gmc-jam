@@ -8,10 +8,11 @@ const ARM_SPEED = 900.0
 @onready var octopus: Octopus = $".."
 
 const RESTRICTION_ANGLE = 10.0
-
+var restriction = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var restriction = RESTRICTION_ANGLE
 	var children = get_children()
 	for child in children:
 		if child is Arm and child is not PrimaryArm:
@@ -23,6 +24,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	#var direction = 
+	if octopus.state == Octopus.STATE.DASH or octopus.state == Octopus.STATE.BURST:
+		restriction = 200.0
+	else:
+		restriction = RESTRICTION_ANGLE
 	var positions = get_positions()
 	for i in range(len(positions)):
 		arms[i].target = positions[i]
@@ -34,10 +39,8 @@ func get_positions() -> Array[Vector2]:
 	var player_angle := atan2(-target_direction.y, target_direction.x)
 
 	
-	var start_angle := deg_to_rad(RESTRICTION_ANGLE) * 0.5
-	var end_angle := 2 * PI - deg_to_rad(RESTRICTION_ANGLE) * 0.5
-	print("Start ", start_angle)
-	print("End ", end_angle)
+	var start_angle := deg_to_rad(restriction) * 0.5
+	var end_angle := 2 * PI - deg_to_rad(restriction) * 0.5
 	var angle_distance := (end_angle - start_angle) / (len(arms) + 1)
 	for i in range(len(arms)):
 		var angle := player_angle + start_angle + angle_distance * (i + 1)

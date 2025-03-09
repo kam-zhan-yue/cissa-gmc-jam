@@ -12,13 +12,11 @@ var ink : float
 const BURST_SPEED = 2000.0 #Instantaneous speed of initial burst
 const BURST_TIME = 0.2 #Length of burst
 const DASH_SPEED = 700.0 #Extended dash speed
-const MAX_INK = 100  # Max ink capacity
+const MAX_INK = 1000000  # Max ink capacity
 const REGEN_RATE = 10  # Ink regenerated per second while in FREE state
 
 const DASH_COST_RATE = 20  # Ink cost per dash
 const BURST_COST = 40  # Ink cost per burst
-
-const RESTRICTION_ANGLE = 50.0
 
 var facing_direction = Vector2.ZERO
 
