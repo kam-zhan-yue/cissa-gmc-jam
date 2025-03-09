@@ -21,7 +21,7 @@ func start(single_player: bool) -> void:
 	if single_player:
 		player_one = OCTOPUS.instantiate() as Octopus
 		var octobot = OCTOBOT.instantiate() as Octobot
-		player_two = octobot.get_player()
+		player_two = octobot.get_body()
 		add_child(player_one)
 		add_child(octobot)
 	else:

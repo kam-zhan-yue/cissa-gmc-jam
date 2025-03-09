@@ -15,6 +15,7 @@ var ink := GAME_SETTINGS.max_ink
 var facing_direction = Vector2.ZERO
 
 var state := STATE.FREE
+var external := Vector2.ZERO
 
 signal on_ink_changed(ink: float)
 signal on_respawn
@@ -33,13 +34,17 @@ func _ready() -> void:
 		var arm = ARM.instantiate()
 		arms.add_child(arm)
 	arms.init()
-	
+
+func steer_towards(target: Vector2) -> void:
+	var direction = target - global_position
+	external = direction.normalized()
+
 func _physics_process(delta: float) -> void:
 	if state == STATE.DEACTIVATED:
 		return
 
 	if state == STATE.FREE:
-		var target_direction := get_input()
+		var target_direction := get_input() + external
 		$"ink burst".emitting = false
 		$inktrail.emitting = false
 		if target_direction and Input.is_action_just_pressed(Global.get_input(player_id, "dash")) and ink >= GAME_SETTINGS.burst_cost:
