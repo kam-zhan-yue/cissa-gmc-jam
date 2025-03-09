@@ -12,8 +12,7 @@ const STRIDE_DISTANCE = 150.0
 const ARM_SPEED = 900.0
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func init() -> void:
 	var restriction = RESTRICTION_ANGLE
 	var children = get_children()
 	for child in children:
@@ -25,6 +24,7 @@ func _ready() -> void:
 	for i in range(len(positions)):
 		arms[i].target = positions[i]
 		arms[i].arm_state = Arm.ARM_STATE.SEARCHING
+	
 
 func _process(delta: float) -> void:
 	#var direction = 

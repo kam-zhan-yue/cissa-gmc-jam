@@ -1,14 +1,16 @@
 class_name Octopus
 extends CharacterBody2D
 
+const ARM = preload("res://scenes/arm.tscn")
+
 @export var player_id := 0
+@export var num_arms:= 7
 @export var max_lives : int = 3
 var lives : int
 const movement_speed = 300
 @onready var primary_arm: PrimaryArm = %PrimaryArm
 @onready var arms := $Arms as Arms
 var ink := MAX_INK
-
 const BURST_SPEED = 2000.0 #Instantaneous speed of initial burst
 const BURST_TIME = 0.2 #Length of burst
 const DASH_SPEED = 700.0 #Extended dash speed
@@ -33,6 +35,10 @@ enum STATE {
 func _ready() -> void:
 	primary_arm.init(player_id)
 	ink = MAX_INK
+	for i in range(num_arms):
+		var arm = ARM.instantiate()
+		arms.add_child(arm)
+	arms.init()
 	
 func _physics_process(delta: float) -> void:
 	if state == STATE.FREE:

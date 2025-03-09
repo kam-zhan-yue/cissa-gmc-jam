@@ -1,18 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfrggdl23hali"]
+[gd_scene load_steps=4 format=3 uid="uid://dfrggdl23hali"]
 
-[ext_resource type="Script" uid="uid://b5bjuui6xvw8m" path="res://scenes/octopus.gd" id="1_at5dv"]
-[ext_resource type="Script" uid="uid://2u61la2wa3b6" path="res://scripts/entities/arms.gd" id="2_jcd4p"]
-[ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="3_uacia"]
-[ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_ajshl"]
-[ext_resource type="Texture2D" uid="uid://dbgptxvxx1tbn" path="res://art/octopushead20.png" id="6_ghpyy"]
-[ext_resource type="Script" path="res://scripts/ui/timer_popup.gd" id="7_44saj"]
+[ext_resource type="PackedScene" uid="uid://de4b2yyu8efhx" path="res://scenes/octopus.tscn" id="2_bl13t"]
 [ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="7_at5dv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jcd4p"]
 size = Vector2(126, 125)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_fhwgg"]
-radius = 25.0799
 
 [node name="Test" type="Node2D"]
 
@@ -29,41 +21,5 @@ texture = ExtResource("7_at5dv")
 position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_jcd4p")
 
-[node name="Octopus" type="CharacterBody2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("1_at5dv")
-
-[node name="Arms" type="Node2D" parent="Octopus"]
-script = ExtResource("2_jcd4p")
-
-[node name="PrimaryArm" parent="Octopus/Arms" instance=ExtResource("3_uacia")]
-unique_name_in_owner = true
-
-[node name="Body" type="Node2D" parent="Octopus"]
-script = ExtResource("5_ajshl")
-
-[node name="Head" type="Node2D" parent="Octopus/Body"]
-scale = Vector2(0.2, 0.2)
-
-[node name="Head" type="Sprite2D" parent="Octopus/Body/Head"]
-position = Vector2(0, -1)
-texture = ExtResource("6_ghpyy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Octopus"]
-shape = SubResource("CircleShape2D_fhwgg")
-
-[node name="Control" type="Control" parent="Octopus"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("7_44saj")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Octopus/Control"]
-layout_mode = 0
-offset_left = -14.0
-offset_top = -65.0
-offset_right = 20.0
-offset_bottom = -41.0
-text = "1.00"
+[node name="Octopus" parent="." instance=ExtResource("2_bl13t")]
+num_arms = 0
