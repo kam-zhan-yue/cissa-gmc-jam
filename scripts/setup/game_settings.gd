@@ -1,6 +1,17 @@
 class_name GameSettings
 extends Resource
 
+@export_category("Player")
+@export var movement_speed := 500.0
+@export var burst_speed := 1000.0
+@export var burst_time := 0.2
+@export var burst_cost := 40.0
+@export var dash_speed := 700.0
+@export var dash_cost_rate := 20.0
+@export var max_ink := 200.0
+@export var ink_regen_rate := 10.0
+
+@export_category("Tentacle")
 @export var tentacle_radius_curve: Curve
 @export var tentacle_angle_curve: Curve
 @export var tentacle_radius := 10.0

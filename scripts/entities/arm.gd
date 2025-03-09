@@ -3,16 +3,16 @@ extends Node2D
 
 var aim := Vector2.ZERO
 var target := Vector2.ZERO
-const MAX_REACH = 800.0
-const DEFAULT_SPEED = 3000.0
+const MAX_REACH = 200.0
+const DEFAULT_SPEED = 1000.0
 const PULL_BACK_THRESHOLD = 8.0
 
 var constraints: Array[Constraint] = []
 
 var arm_state := ARM_STATE.IDLE
 
-const TOTAL_NODES = 30
-const HAND_NODE = 7
+const TOTAL_NODES = 15
+const HAND_NODE = 4
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 var arm_speed := 0.0
 

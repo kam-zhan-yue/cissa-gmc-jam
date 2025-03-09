@@ -151,3 +151,7 @@ player_1_dash={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Item"
 2d_physics/layer_4="Grab"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

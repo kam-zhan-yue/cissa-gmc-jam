@@ -2,23 +2,15 @@ class_name Octopus
 extends CharacterBody2D
 
 const ARM = preload("res://scenes/arm.tscn")
+const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 
 @export var player_id := 0
 @export var num_arms:= 7
 @export var max_lives : int = 3
-var lives : int
-const movement_speed = 1000
 @onready var primary_arm: PrimaryArm = %PrimaryArm
 @onready var arms := $Arms as Arms
-var ink := MAX_INK
-
-const BURST_SPEED = 2000.0 #Instantaneous speed of initial burst
-const BURST_TIME = 0.2 #Length of burst
-const DASH_SPEED = 700.0 #Extended dash speed
-const MAX_INK = 1000000  # Max ink capacity
-const REGEN_RATE = 10  # Ink regenerated per second while in FREE state
-const DASH_COST_RATE = 20  # Ink cost per dash
-const BURST_COST = 40  # Ink cost per burst
+var lives : int
+var ink := GAME_SETTINGS.max_ink
 
 var facing_direction = Vector2.ZERO
 
@@ -35,7 +27,6 @@ enum STATE {
 
 func _ready() -> void:
 	primary_arm.init(player_id)
-	ink = MAX_INK
 	for i in range(num_arms):
 		var arm = ARM.instantiate()
 		arms.add_child(arm)
@@ -46,26 +37,26 @@ func _physics_process(delta: float) -> void:
 		var target_direction := get_input()
 		$"ink burst".emitting = false
 		$inktrail.emitting = false
-		if target_direction and Input.is_action_just_pressed(Global.get_input(player_id, "dash")) and ink >= BURST_COST:
-			ink -= BURST_COST
+		if target_direction and Input.is_action_just_pressed(Global.get_input(player_id, "dash")) and ink >= GAME_SETTINGS.burst_cost:
+			ink -= GAME_SETTINGS.burst_cost
 			on_ink_changed.emit(ink)
-			burst(BURST_SPEED * target_direction, BURST_TIME)
+			burst(GAME_SETTINGS.burst_speed * target_direction, GAME_SETTINGS.burst_time)
 
 		else:
-			velocity = target_direction * movement_speed
-			if ink < MAX_INK:
-				ink += REGEN_RATE * delta
+			velocity = target_direction * GAME_SETTINGS.movement_speed
+			if ink < GAME_SETTINGS.max_ink:
+				ink += GAME_SETTINGS.ink_regen_rate * delta
 				on_ink_changed.emit(ink)
-			if ink > MAX_INK:
-				ink = MAX_INK
+			if ink > GAME_SETTINGS.max_ink:
+				ink = GAME_SETTINGS.max_ink
 				on_ink_changed.emit(ink)
 			
 	elif state == STATE.DASH:
 		var target_direction := get_input()
 		if Input.is_action_pressed(Global.get_input(player_id, "dash")) and ink >= 0:
-			ink -= delta * DASH_COST_RATE
+			ink -= delta * GAME_SETTINGS.dash_cost_rate
 			on_ink_changed.emit(ink)
-			velocity = DASH_SPEED * target_direction
+			velocity = GAME_SETTINGS.dash_speed * target_direction
 			$"ink burst".emitting = false
 			$inktrail.emitting = true
 		else:
