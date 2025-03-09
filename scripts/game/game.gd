@@ -1,5 +1,7 @@
 extends Node
 
+const OBSTACLE_COLLISION_MASK = 1
+
 signal on_killzone_enter(player_id: int)
 signal on_killzone_exit(player_id: int)
 signal on_killzone_timer(player_id :int, time: float)

@@ -12,8 +12,8 @@
 radius = 25.0799
 
 [node name="Octopus" type="CharacterBody2D"]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("2_8jto7")
 
 [node name="Arms" type="Node2D" parent="."]
@@ -21,6 +21,7 @@ script = ExtResource("2_qo5xf")
 
 [node name="PrimaryArm" parent="Arms" instance=ExtResource("2_fhwgg")]
 unique_name_in_owner = true
+use_mouse = null
 
 [node name="Arm1" parent="Arms" instance=ExtResource("2_ionst")]
 

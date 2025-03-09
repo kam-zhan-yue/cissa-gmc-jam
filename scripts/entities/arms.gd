@@ -39,6 +39,7 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func get_positions() -> Array[Vector2]:
+	var space_state = get_world_2d().direct_space_state
 	var positions: Array[Vector2] = []
 	var target_direction = octopus.get_direction()
 	var player_angle := atan2(-target_direction.y, target_direction.x)
@@ -51,6 +52,13 @@ func get_positions() -> Array[Vector2]:
 		var x := Arm.MAX_REACH * cos(angle)
 		var y := Arm.MAX_REACH * sin(angle)
 		var target_pos = global_position + Vector2(x, -y)
+		
+		# Look for an obstacle, if there is an obstacle, set the position to the result
+		var query = PhysicsRayQueryParameters2D.create(global_position, target_pos, Game.OBSTACLE_COLLISION_MASK)
+		var result = space_state.intersect_ray(query)
+		if result:
+			target_pos = result['position']
+		
 		var difference = target_pos - arms[i].target
 		if difference.length() >= STRIDE_DISTANCE:
 			positions.append(target_pos)

@@ -3,7 +3,7 @@ extends Node2D
 
 var aim := Vector2.ZERO
 var target := Vector2.ZERO
-const MAX_REACH = 200.0
+const MAX_REACH = 400.0
 const DEFAULT_SPEED = 700.0
 
 var constraints: Array[Constraint] = []
@@ -11,7 +11,7 @@ var constraints: Array[Constraint] = []
 var arm_state := ARM_STATE.IDLE
 
 const TOTAL_NODES = 20
-const HAND_NODE = 7
+const HAND_NODE = 1
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 var arm_speed := 0.0
 
@@ -19,6 +19,7 @@ enum ARM_STATE {
 	IDLE,
 	SEARCHING,
 	AIMING,
+	PULLING_BACK,
 }
 
 func _ready() -> void:
@@ -59,6 +60,9 @@ func set_speed(new_speed: float) -> void:
 func reset_speed() -> void:
 	arm_speed = DEFAULT_SPEED
 
+func _pull_back() -> void:
+	arm_state = ARM_STATE.PULLING_BACK
+
 func _draw():
 	match arm_state:
 		ARM_STATE.IDLE:
@@ -67,17 +71,39 @@ func _draw():
 			# If we are searching, we want to go towards the aim
 			_draw_fabrik(self.aim, HAND_NODE)
 		ARM_STATE.AIMING:
+			#_draw_forwards()
 			# If we are moving around, we go towards the hand
 			_draw_fabrik(_get_end_position(), 1)
+		ARM_STATE.PULLING_BACK:
+			_process_forwards()
+
 
 func _draw_forwards() -> void:
 	_process_forwards()
 	_draw_constraints()
-	
+
+
 func _draw_fabrik(end_point: Vector2, end_node: int) -> void:
 	_process_backwards(end_point, end_node)
 	_process_forwards()
+	#_process_constraints()
 	_draw_constraints()
+
+
+func _process_constraints() -> void:
+	for i in range(len(constraints) - 1):
+		if constraints[i].is_base:
+			print("Calling back ", i)
+			_process_constraints_recursive(i)
+
+func _process_constraints_recursive(start_index: int) -> void:
+	#constraints[start_index].position = _get_body_position()
+	draw_circle(constraints[start_index].position, constraints[start_index].radius, Color.RED)
+	for i in range(start_index, len(constraints) - 1):
+		var curr_node := constraints[i]
+		var next_node := constraints[i + 1]
+		_calculate_constraint(curr_node, next_node, true)
+		
 
 func _process_backwards(end_point: Vector2, end_node: int) -> void:
 	var node_distance := Arm.MAX_REACH / len(constraints)
@@ -87,28 +113,39 @@ func _process_backwards(end_point: Vector2, end_node: int) -> void:
 	# We want to update all the constraint positions up to the first constraint
 	# We don't want to set the angle and direction of the first constraint
 	for i in range(len(constraints) - end_node, 0, -1):
-		var next_node := constraints[i - 1]
 		var curr_node := constraints[i]
-		_calculate_constraint(curr_node, next_node)
+		var next_node := constraints[i - 1]
+		_calculate_constraint(curr_node, next_node, false)
 
 func _process_forwards() -> void:
 	var node_distance := Arm.MAX_REACH / len(constraints)
 	# Set the start constraint to the origin
 	constraints[0].position = _get_body_position()
 	for i in range(len(constraints) - 1):
-		var next_node := constraints[i + 1]
 		var curr_node := constraints[i]
-		_calculate_constraint(curr_node, next_node)
+		var next_node := constraints[i + 1]
+		_calculate_constraint(curr_node, next_node, true)
 
-func _calculate_constraint(curr: Constraint, next: Constraint) -> void:
+func _calculate_constraint(curr: Constraint, next: Constraint, query_ray: bool) -> void:
+	var next_position := next.position
+
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsRayQueryParameters2D.create(curr.position, next.position, Game.OBSTACLE_COLLISION_MASK)
+	var result = space_state.intersect_ray(query)
+	#if result and query_ray:
+		#next_position = result['position'] - global_position
+		#draw_circle(next_position, 5.0, Color.RED)
+		#next.is_base = true
+	#else:
+		#next.is_base = false
+
 	var node_distance := Arm.MAX_REACH / len(constraints)
-	var difference := next.position - curr.position
-	
+	var difference := next_position - curr.position
+
 	# If the constraint is past the distance per node, we wanna lock it
 	if difference.length() >= node_distance:
 		var new_position := curr.position + difference.normalized() * node_distance
 		next.position = new_position
-	
 
 func _draw_constraints() -> void:
 	for i in range(len(constraints)):
