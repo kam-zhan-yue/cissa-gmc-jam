@@ -27,7 +27,6 @@ func _ready() -> void:
 	for i in TOTAL_NODES:
 		var curve_value = curve.sample(float(i + 1) / TOTAL_NODES)
 		var radius = max_radius * curve_value
-		print("Radius ", radius)
 		constraints.append(Constraint.new(Vector2.ZERO, radius, 0.0))
 
 func _get_hand_position() -> Vector2:

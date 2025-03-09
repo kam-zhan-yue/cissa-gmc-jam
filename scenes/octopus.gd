@@ -7,7 +7,7 @@ var lives : int
 const movement_speed = 300
 @onready var primary_arm: PrimaryArm = %PrimaryArm
 @onready var arms := $Arms as Arms
-var ink : float
+var ink := MAX_INK
 
 const BURST_SPEED = 2000.0 #Instantaneous speed of initial burst
 const BURST_TIME = 0.2 #Length of burst
@@ -20,6 +20,8 @@ const BURST_COST = 40  # Ink cost per burst
 var facing_direction = Vector2.ZERO
 
 var state := STATE.FREE
+
+signal on_ink_changed(ink: float)
 
 enum STATE {
 	FREE,
@@ -37,18 +39,22 @@ func _physics_process(delta: float) -> void:
 		var target_direction := get_input()
 		if Input.is_action_just_pressed(Global.get_input(player_id, "dash")) and ink >= BURST_COST:
 			ink -= BURST_COST
+			on_ink_changed.emit(ink)
 			burst(BURST_SPEED * target_direction, BURST_TIME)
 		else:
 			velocity = target_direction * movement_speed
 			if ink < MAX_INK:
 				ink += REGEN_RATE * delta
+				on_ink_changed.emit(ink)
 			if ink > MAX_INK:
 				ink = MAX_INK
+				on_ink_changed.emit(ink)
 			
 	elif state == STATE.DASH:
 		var target_direction := get_input()
 		if Input.is_action_pressed(Global.get_input(player_id, "dash")) and ink >= 0:
 			ink -= delta * DASH_COST_RATE
+			on_ink_changed.emit(ink)
 			velocity = DASH_SPEED * target_direction
 		else:
 			state = STATE.FREE
