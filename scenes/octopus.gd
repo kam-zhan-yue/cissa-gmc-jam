@@ -14,7 +14,6 @@ const BURST_TIME = 0.2 #Length of burst
 const DASH_SPEED = 700.0 #Extended dash speed
 const MAX_INK = 1000000  # Max ink capacity
 const REGEN_RATE = 10  # Ink regenerated per second while in FREE state
-
 const DASH_COST_RATE = 20  # Ink cost per dash
 const BURST_COST = 40  # Ink cost per burst
 
@@ -45,6 +44,7 @@ func _physics_process(delta: float) -> void:
 				ink += REGEN_RATE * delta
 			if ink > MAX_INK:
 				ink = MAX_INK
+			
 	elif state == STATE.DASH:
 		var target_direction := get_input()
 		if Input.is_action_pressed(Global.get_input(player_id, "dash")) and ink >= 0:
@@ -79,4 +79,3 @@ func knockback(force: Vector2, time: float) -> void:
 	velocity = force
 	await Global.wait(time)
 	self.state = STATE.FREE
-	
