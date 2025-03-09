@@ -4,14 +4,16 @@ signal on_killzone_enter(player_id: int)
 signal on_killzone_exit(player_id: int)
 signal on_killzone_timer(player_id :int, time: float)
 signal on_player_dead(player_id: int)
+signal on_game_over(winner_id: int)
+
 
 var player_one: Octopus
 var player_two: Octopus
 var player_one_checkpoint: Node2D
 var player_two_checkpoint: Node2D
 
-var player_1_lives = 3
-var player_2_lives = 3
+var player_1_lives = 1 # CHANGE BACK TO 3
+var player_2_lives = 1 # CHANGE BACK TO 3
 var LOSING_SCORE = 0
 
 
@@ -35,27 +37,27 @@ func kill_player(player_id: int):
 # Function for player loses lives when pushes out + respawns
 func player_dies(player_id: int) -> void:
 	
-	# If Player 1 dies
+	# If Player 0 dies
 	if player_id == 0:
 		player_1_lives -= 1
-		print("Player 1 lost a life")
+		print("Player 0 lost a life")
 		
 		# If Player has no more health
 		if player_1_lives <= 0:
-			game_over(2)
+			game_over(1)
 		
 		# Player respawns in their designated spawn point
 		else:
 			player1_respawns()
 	
-	# If Player 2 dies
+	# If Player 1 dies
 	elif player_id == 1:
 		player_2_lives -= 1
-		print("Player 2 lost a life")
+		print("Player 1 lost a life")
 		
 		# If Player has no more health
 		if player_2_lives <= 0:
-			game_over(1)
+			game_over(0)
 		
 		# Player respawns in their designated spawn point
 		else:
@@ -78,4 +80,6 @@ func game_over(winner_id: int) -> void:
 	player_1_lives = 0
 	player_2_lives = 0
 	
+	
 	# Put some kind of game over UI here
+	on_game_over.emit(winner_id)
