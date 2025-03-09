@@ -81,28 +81,28 @@ func _process_backwards(end_point: Vector2, end_node: int) -> void:
 	# We want to update all the constraint positions up to the first constraint
 	# We don't want to set the angle and direction of the first constraint
 	for i in range(len(constraints) - end_node, 0, -1):
-		var next_node := constraints[i - 1].position
-		var curr_node := constraints[i].position
-		var difference := next_node - curr_node
-
-		# If the constraint is past the distance per node, we wanna lock it
-		if difference.length() >= node_distance:
-			var new_position := curr_node + difference.normalized() * node_distance
-			constraints[i - 1].position = new_position
+		var next_node := constraints[i - 1]
+		var curr_node := constraints[i]
+		_calculate_constraint(curr_node, next_node)
 
 func _process_forwards() -> void:
 	var node_distance := Arm.MAX_REACH / len(constraints)
 	# Set the start constraint to the origin
 	constraints[0].position = _get_body_position()
 	for i in range(len(constraints) - 1):
-		var next_node := constraints[i + 1].position
-		var curr_node := constraints[i].position
-		var difference := next_node - curr_node
-		
-		# If the constraint is past the distance per node, we wanna lock it
-		if difference.length() >= node_distance:
-			var new_position := curr_node + difference.normalized() * node_distance
-			constraints[i + 1].position = new_position
+		var next_node := constraints[i + 1]
+		var curr_node := constraints[i]
+		_calculate_constraint(curr_node, next_node)
+
+func _calculate_constraint(curr: Constraint, next: Constraint) -> void:
+	var node_distance := Arm.MAX_REACH / len(constraints)
+	var difference := next.position - curr.position
+	
+	# If the constraint is past the distance per node, we wanna lock it
+	if difference.length() >= node_distance:
+		var new_position := curr.position + difference.normalized() * node_distance
+		next.position = new_position
+	
 
 func _draw_constraints() -> void:
 	for i in range(len(constraints)):
