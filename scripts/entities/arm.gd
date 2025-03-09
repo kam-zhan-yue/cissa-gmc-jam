@@ -156,12 +156,13 @@ func _process_forwards() -> void:
 func _calculate_constraint(curr: Constraint, next: Constraint, query_ray: bool, constraint_distance: bool) -> void:
 	var next_position := next.position
 
-	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsRayQueryParameters2D.create(curr.position, next.position, Game.OBSTACLE_COLLISION_MASK)
-	var result = space_state.intersect_ray(query)
+	#var space_state = get_world_2d().direct_space_state
+	#var query = PhysicsRayQueryParameters2D.create(curr.position, next.position, Game.OBSTACLE_COLLISION_MASK)
+	#var result = space_state.intersect_ray(query)
 	#if result and query_ray:
-		#next_position = result['position'] - global_position
-		#draw_circle(next_position, 5.0, Color.RED)
+		#print("Hit ray")
+		#next_position = result['position']
+		#draw_circle(next_position - global_position, 5.0, Color.RED)
 		#next.is_base = true
 	#else:
 		#next.is_base = false
