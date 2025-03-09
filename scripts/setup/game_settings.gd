@@ -12,6 +12,14 @@ extends Resource
 @export var ink_regen_rate := 10.0
 
 @export_category("Tentacle")
+@export var tentacle_radius := 10.0
+@export var max_reach := 200.0
+@export var tentacle_speed := 1000.0
+@export var total_nodes := 15
+@export var hand_node := 4
+
+@export_category("Animation")
 @export var tentacle_radius_curve: Curve
 @export var tentacle_angle_curve: Curve
-@export var tentacle_radius := 10.0
+@export var stride_distance := 150.0
+@export var restriction_angle := -50.0

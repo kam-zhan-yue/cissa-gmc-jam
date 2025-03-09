@@ -1,18 +1,16 @@
 class_name Arms
 extends Node2D
 
+const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 @onready var octopus: Octopus = $".."
 
 var arms: Array[Arm] = []
 var primary_arm: PrimaryArm
 var restriction = 0.0
 
-const RESTRICTION_ANGLE = -50.0
-const STRIDE_DISTANCE = 50.0
-
 
 func init() -> void:
-	var restriction = RESTRICTION_ANGLE
+	var restriction = GAME_SETTINGS.restriction_angle
 	var children = get_children()
 	for child in children:
 		if child is Arm and child is not PrimaryArm:
@@ -33,7 +31,7 @@ func _process(delta: float) -> void:
 			arm.set_speed(2000.0)
 		primary_arm.set_speed(2000.0)
 	else:
-		restriction = RESTRICTION_ANGLE
+		restriction = GAME_SETTINGS.restriction_angle
 		for arm in arms:
 			arm.reset_speed()
 		primary_arm.reset_speed()
@@ -55,8 +53,8 @@ func get_positions() -> Array[Vector2]:
 	
 	for i in range(len(arms)):
 		var angle := player_angle + start_angle + angle_distance * (i + 1)
-		var x := Arm.MAX_REACH * cos(angle)
-		var y := Arm.MAX_REACH * sin(angle)
+		var x := GAME_SETTINGS.max_reach * cos(angle)
+		var y := GAME_SETTINGS.max_reach * sin(angle)
 		var target_pos = global_position + Vector2(x, -y)
 		
 		# Look for an obstacle, if there is an obstacle, set the position to the result
@@ -66,7 +64,7 @@ func get_positions() -> Array[Vector2]:
 			target_pos = result['position']
 		
 		var difference = target_pos - arms[i].target
-		if difference.length() >= STRIDE_DISTANCE:
+		if difference.length() >= GAME_SETTINGS.stride_distance:
 			positions.append(target_pos)
 		else:
 			positions.append(arms[i].target)

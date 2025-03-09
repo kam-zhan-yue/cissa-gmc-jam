@@ -58,13 +58,13 @@ func _process_aim(_delta: float) -> void:
 	if use_mouse:
 		var camera = get_viewport().get_camera_2d()
 		var mouse_pos := camera.get_global_mouse_position()
-		var distance_to_player = (mouse_pos - position) / Arm.MAX_REACH
+		var distance_to_player = (mouse_pos - position) / GAME_SETTINGS.max_reach
 		target = distance_to_player
 
 
-	self.target_position = target * Arm.MAX_REACH
-	if self.target_position.length() >= Arm.MAX_REACH:
-		self.target_position = self.target_position.normalized() * Arm.MAX_REACH
+	self.target_position = target * GAME_SETTINGS.max_reach
+	if self.target_position.length() >= GAME_SETTINGS.max_reach:
+		self.target_position = self.target_position.normalized() * GAME_SETTINGS.max_reach
 	
 func _process_movement(delta: float) -> void:
 	if not curr_aim:

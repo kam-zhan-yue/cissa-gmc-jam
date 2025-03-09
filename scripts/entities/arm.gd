@@ -3,18 +3,15 @@ extends Node2D
 
 var aim := Vector2.ZERO
 var target := Vector2.ZERO
-const MAX_REACH = 200.0
-const DEFAULT_SPEED = 1000.0
-const PULL_BACK_THRESHOLD = 8.0
 
 var constraints: Array[Constraint] = []
 
 var arm_state := ARM_STATE.IDLE
 
-const TOTAL_NODES = 15
-const HAND_NODE = 4
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 var arm_speed := 0.0
+
+const PULL_BACK_THRESHOLD = 8.0
 
 enum ARM_STATE {
 	IDLE,
@@ -24,13 +21,13 @@ enum ARM_STATE {
 }
 
 func _ready() -> void:
-	self.arm_speed = DEFAULT_SPEED
+	self.arm_speed = GAME_SETTINGS.tentacle_speed
 	var radius_curve := GAME_SETTINGS.tentacle_radius_curve
 	var angle_curve := GAME_SETTINGS.tentacle_angle_curve
 	var max_radius := GAME_SETTINGS.tentacle_radius
 	var max_angle := PI * 2.0
-	for i in TOTAL_NODES:
-		var percentage := float(i + 1) / TOTAL_NODES
+	for i in GAME_SETTINGS.total_nodes:
+		var percentage := float(i + 1) / GAME_SETTINGS.total_nodes
 		var radius_factor = radius_curve.sample(percentage)
 		var angle_factor = angle_curve.sample(percentage)
 		var radius = max_radius * radius_factor
@@ -74,7 +71,7 @@ func set_speed(new_speed: float) -> void:
 	arm_speed = new_speed
 
 func reset_speed() -> void:
-	arm_speed = DEFAULT_SPEED
+	arm_speed = GAME_SETTINGS.tentacle_speed
 
 func _pull_back() -> void:
 	arm_state = ARM_STATE.PULLING_BACK
@@ -85,7 +82,7 @@ func _draw():
 			_draw_forwards()
 		ARM_STATE.SEARCHING:
 			# If we are searching, we want to go towards the aim
-			_draw_fabrik(self.aim, HAND_NODE)
+			_draw_fabrik(self.aim, GAME_SETTINGS.hand_node)
 		ARM_STATE.AIMING:
 			#_draw_forwards()
 			# If we are moving around, we go towards the hand
@@ -123,7 +120,7 @@ func _process_constraints_recursive(start_index: int) -> void:
 		
 
 func _process_backwards(end_point: Vector2, end_node: int) -> void:
-	var node_distance := Arm.MAX_REACH / len(constraints)
+	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	# Set the end constraint to the end effector
 	var target_pos = end_point
 	constraints[-end_node].position = target_pos
@@ -136,7 +133,7 @@ func _process_backwards(end_point: Vector2, end_node: int) -> void:
 
 
 func _process_pullback() -> void:
-	var node_distance := Arm.MAX_REACH / len(constraints)
+	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	# Set the start constraint to the origin
 	constraints[0].position = _get_body_position()
 	for i in range(len(constraints) - 1):
@@ -145,7 +142,7 @@ func _process_pullback() -> void:
 		_calculate_constraint(curr_node, next_node, false, false)
 
 func _process_forwards() -> void:
-	var node_distance := Arm.MAX_REACH / len(constraints)
+	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	# Set the start constraint to the origin
 	constraints[0].position = _get_body_position()
 	for i in range(len(constraints) - 1):
@@ -167,7 +164,7 @@ func _calculate_constraint(curr: Constraint, next: Constraint, query_ray: bool, 
 	#else:
 		#next.is_base = false
 
-	var node_distance := Arm.MAX_REACH / len(constraints)
+	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	var difference := next_position - curr.position
 
 	# If the constraint is past the distance per node, we wanna lock it
