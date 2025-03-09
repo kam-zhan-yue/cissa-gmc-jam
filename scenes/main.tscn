@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://brm857sd4wqbs"]
+[gd_scene load_steps=10 format=3 uid="uid://bt2ju64bl0yrp"]
 
 [ext_resource type="PackedScene" uid="uid://v473sc4yajje" path="res://scenes/octopus.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://dt3pvc340yy4r" path="res://scenes/ui.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://3k4m6e87yuwe" path="res://respawnpoint.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/sword.tscn" id="8_tipki"]
-[ext_resource type="Script" uid="uid://bq8ainv2r17kc" path="res://scenes/game_over.gd" id="9_85g3d"]
 [ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/projectile.tscn" id="10_choun"]
 
 [node name="Main" type="Node2D"]
@@ -63,42 +62,5 @@ position = Vector2(-59, 1)
 [node name="Sword" parent="." instance=ExtResource("8_tipki")]
 position = Vector2(54, -92)
 
-[node name="GameOver" type="CanvasLayer" parent="."]
-process_mode = 3
-script = ExtResource("9_85g3d")
-
-[node name="Panel" type="Panel" parent="GameOver"]
-offset_top = 1.0
-offset_right = 1152.0
-offset_bottom = 646.0
-
-[node name="GameOver" type="Label" parent="GameOver"]
-offset_left = 307.0
-offset_top = 182.0
-offset_right = 878.0
-offset_bottom = 319.0
-theme_override_font_sizes/font_size = 80
-text = "Game Over!"
-horizontal_alignment = 1
-
-[node name="WinMessage" type="Label" parent="GameOver"]
-offset_left = 312.0
-offset_top = 296.0
-offset_right = 883.0
-offset_bottom = 433.0
-theme_override_font_sizes/font_size = 30
-text = "Player X Wins!"
-horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="GameOver"]
-offset_left = 473.0
-offset_top = 436.0
-offset_right = 727.0
-offset_bottom = 519.0
-theme_override_font_sizes/font_size = 30
-text = "Restart"
-
 [node name="Ball" parent="." instance=ExtResource("10_choun")]
 position = Vector2(-3, 133)
-
-[connection signal="pressed" from="GameOver/Button" to="GameOver" method="_on_button_pressed"]

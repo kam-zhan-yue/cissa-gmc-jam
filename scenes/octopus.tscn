@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dpflme532hf0b" path="res://scenes/arm.tscn" id="2_ionst"]
 [ext_resource type="Script" uid="uid://2u61la2wa3b6" path="res://scripts/entities/arms.gd" id="2_qo5xf"]
 [ext_resource type="Script" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
-[ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_qo5xf"]
+[ext_resource type="Script" path="res://scripts/entities/body.gd" id="5_qo5xf"]
 
 [sub_resource type="Gradient" id="Gradient_ionst"]
 offsets = PackedFloat32Array(0, 0.00324675, 0.642857, 0.649351)

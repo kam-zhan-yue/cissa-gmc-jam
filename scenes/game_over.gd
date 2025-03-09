@@ -1,10 +1,10 @@
-extends CanvasLayer
+extends Control
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Game.on_game_over.connect(on_game_over)
-	self.hide() # Replace with function body.
+	Global.set_inactive(self)
 
 
 func on_game_over(winner_id: int) -> void:
@@ -17,12 +17,7 @@ func on_game_over(winner_id: int) -> void:
 		$WinMessage.text = "Player 1 wins!"
 	
 
-	# Show the UI layer	
-	self.show()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	Global.set_active(self)
 
 
 # Restart button at Game Over Scene

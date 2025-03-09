@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dt3pvc340yy4r"]
+[gd_scene load_steps=4 format=3 uid="uid://dt3pvc340yy4r"]
 
 [ext_resource type="Script" uid="uid://cqy8wtout637i" path="res://scripts/ui/ui.gd" id="1_nt7q6"]
+[ext_resource type="PackedScene" uid="uid://c086wefqyxlcs" path="res://scenes/game_over.tscn" id="2_yev5y"]
+[ext_resource type="PackedScene" uid="uid://dp37pwmk8ht8f" path="res://scenes/start_game.tscn" id="3_gdt2y"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -11,7 +13,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nt7q6")
 
+[node name="GameOver" parent="." instance=ExtResource("2_yev5y")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartGame" parent="." instance=ExtResource("3_gdt2y")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
