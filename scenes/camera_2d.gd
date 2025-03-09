@@ -6,6 +6,7 @@ extends Camera2D
 @export var cam_min_zoom=0.1
 @export var cam_max_zoom=1
 @export var margin = Vector2(400, 200)
+@export var bounds: Rect2
 
 var targets = []
 
@@ -18,7 +19,7 @@ func add_target(t):
 func remove_target(t):
 	if t in targets:
 		targets.remove(t)
-		
+
 func _process(delta):
 	if !targets:
 		return

@@ -22,6 +22,8 @@ Game="*res://scripts/game/game.gd"
 
 [display]
 
+window/size/viewport_width=600
+window/size/viewport_height=600
 window/stretch/mode="viewport"
 
 [input]

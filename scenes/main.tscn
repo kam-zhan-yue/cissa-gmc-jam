@@ -17,6 +17,7 @@ size = Vector2(126, 125)
 [node name="Main" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
 texture = ExtResource("1_choun")
 
 [node name="GameManager" type="Node2D" parent="."]
@@ -36,15 +37,15 @@ scale = Vector2(3.03, 3.04)
 [node name="Killzone" parent="." instance=ExtResource("2_tbgi4")]
 unique_name_in_owner = true
 process_mode = 3
-scale = Vector2(1, 0.992252)
+scale = Vector2(1.5, 1.5)
 
 [node name="PlayerOne" parent="." instance=ExtResource("1_o5qli")]
 unique_name_in_owner = true
-position = Vector2(213, 1)
+position = Vector2(8, -603)
 
 [node name="PlayerTwo" parent="." instance=ExtResource("1_o5qli")]
 unique_name_in_owner = true
-position = Vector2(-59, 0)
+position = Vector2(23, 633)
 player_id = 1
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -54,6 +55,7 @@ position_smoothing_enabled = true
 script = ExtResource("1_sugp2")
 cam_min_zoom = 0.0
 cam_max_zoom = 10
+bounds = Rect2(0, 0, 4096, 4096)
 
 [node name="Respawn" type="Node" parent="."]
 

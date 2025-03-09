@@ -8,7 +8,7 @@ var primary_arm: PrimaryArm
 var restriction = 0.0
 
 const RESTRICTION_ANGLE = -50.0
-const STRIDE_DISTANCE = 150.0
+const STRIDE_DISTANCE = 300.0
 const ARM_SPEED = 900.0
 
 
