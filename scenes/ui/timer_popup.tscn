@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://0xj2dkoidni3"]
+
+[ext_resource type="Script" uid="uid://dp1itdnh1slm5" path="res://scripts/ui/timer_popup.gd" id="1_yh1bx"]
+
+[sub_resource type="Gradient" id="Gradient_yh1bx"]
+colors = PackedColorArray(1, 0.15, 0.3625, 1, 1, 0.15, 0.3625, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ap653"]
+gradient = SubResource("Gradient_yh1bx")
+width = 1
+height = 1
+
+[node name="TimerPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+script = ExtResource("1_yh1bx")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ap653")
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

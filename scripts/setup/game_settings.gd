@@ -3,6 +3,7 @@ extends Resource
 
 @export_category("Player")
 @export var max_health := 3
+@export var killzone_time := 2.0
 @export var movement_speed := 500.0
 @export var burst_speed := 1000.0
 @export var burst_time := 0.2
