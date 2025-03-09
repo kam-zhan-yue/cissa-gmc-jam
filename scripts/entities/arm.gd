@@ -36,12 +36,18 @@ func _ready() -> void:
 		constraints.append(Constraint.new(Vector2.ZERO, radius, angle))
 
 func _get_hand_position() -> Vector2:
+	return constraints[-1].position
+
+func _get_end_position() -> Vector2:
 	return _get_body_position() + self.aim
 
 func _get_body_position() -> Vector2:
 	return global_position
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	redraw(delta)
+
+func redraw(delta: float) -> void:
 	# If we are searching, then we want to update our aim to the target
 	if arm_state == ARM_STATE.SEARCHING and target:
 		self.aim = self.aim.move_toward(target, delta * arm_speed)
@@ -62,7 +68,7 @@ func _draw():
 			_draw_fabrik(self.aim, HAND_NODE)
 		ARM_STATE.AIMING:
 			# If we are moving around, we go towards the hand
-			_draw_fabrik(_get_hand_position(), 1)
+			_draw_fabrik(_get_end_position(), 1)
 
 func _draw_forwards() -> void:
 	_process_forwards()

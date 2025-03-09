@@ -1,14 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://brm857sd4wqbs"]
+[gd_scene load_steps=11 format=3 uid="uid://brm857sd4wqbs"]
 
 [ext_resource type="PackedScene" uid="uid://v473sc4yajje" path="res://scenes/octopus.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://clgwd0rgr7l6v" path="res://scenes/obstacles.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ck4a7ys5px7f" path="res://scenes/killzone.tscn" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cx0elix0tahfl" path="res://scripts/game/game_manager.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dt3pvc340yy4r" path="res://scenes/ui.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://3k4m6e87yuwe" path="res://respawnpoint.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/sword.tscn" id="8_tipki"]
+[ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="9_85g3d"]
 [ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/projectile.tscn" id="10_choun"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_choun"]
+size = Vector2(126, 125)
 
 [node name="Main" type="Node2D"]
 
@@ -40,9 +43,6 @@ unique_name_in_owner = true
 position = Vector2(-59, 0)
 player_id = 1
 
-[node name="obstacles" parent="." instance=ExtResource("2_0wfyh")]
-scale = Vector2(3, 3)
-
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 zoom = Vector2(0.7, 0.7)
@@ -64,3 +64,15 @@ position = Vector2(54, -92)
 
 [node name="Ball" parent="." instance=ExtResource("10_choun")]
 position = Vector2(-3, 133)
+
+[node name="Obstacle" type="StaticBody2D" parent="."]
+position = Vector2(-277, -8)
+collision_layer = 5
+collision_mask = 5
+
+[node name="Icon" type="Sprite2D" parent="Obstacle"]
+texture = ExtResource("9_85g3d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle"]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_choun")

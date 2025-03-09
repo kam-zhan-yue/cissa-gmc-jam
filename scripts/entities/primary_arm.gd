@@ -10,7 +10,6 @@ const ARM_SPEED = 2000.0
 const THROW_VELOCITY = 1000.0
 const THROW_THRESHOLD = 0.7
 
-var arm_velocity := Vector2.ZERO
 var target_position := Vector2.ZERO
 var grab: Item
 
@@ -35,6 +34,7 @@ func _physics_process(delta: float) -> void:
 	self._process_aim(delta)
 	self._process_movement(delta)
 	self._process_input()
+	self.redraw(delta)
 
 func _process_grab() -> void:
 	match self.state:
@@ -67,23 +67,42 @@ func _process_aim(_delta: float) -> void:
 		self.target_position = self.target_position.normalized() * Arm.MAX_REACH
 	
 func _process_movement(delta: float) -> void:
-	
-	var previous := self.aim
-	self.aim = self.aim.move_toward(self.target_position, delta * ARM_SPEED)
-	self.arm_velocity = self.aim - previous
+	var next_hand_position = _get_next_hand_position(delta)
+	self.aim = next_hand_position
 	hand.global_position = _get_hand_position()
+
+func _get_next_hand_position(delta: float) -> Vector2:
+	var prev_hand_position = hand.global_position
+	var next_hand_position = self.aim.move_toward(self.target_position, delta * ARM_SPEED)
+	hand.global_position = _get_hand_position()
+	var bodies := hand.get_overlapping_bodies()
+	var can_move := true
+	for body in bodies:
+		if body is not Item:
+			can_move = false
+			break
+	if not can_move:
+		hand.global_position = prev_hand_position
+		print(str("Hand ", hand, " touching ", hand.get_overlapping_bodies()))
+		return prev_hand_position
+	return next_hand_position
+	
+	
 
 func _process_input() -> void:
 	if Input.is_action_just_pressed(Global.get_input(id, "grab")) and state == GRAB_STATE.GRAB:
 		self._release()
 
-	if (curr_aim - prev_aim).length() >= THROW_THRESHOLD and state == GRAB_STATE.GRAB:
+	if _get_aim().length() >= THROW_THRESHOLD and state == GRAB_STATE.GRAB:
 		self._throw()
+
+func _get_aim() -> Vector2:
+	return curr_aim - prev_aim
 
 func _throw_item() -> void:
 	if not grab: return
 	if grab.throwable:
-		var throw_velocity = self.arm_velocity.normalized() * THROW_VELOCITY
+		var throw_velocity = _get_aim().normalized() * THROW_VELOCITY
 		grab.launch(throw_velocity)
 	
 
