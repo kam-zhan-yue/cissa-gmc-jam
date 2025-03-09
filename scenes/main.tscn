@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://brm857sd4wqbs"]
+[gd_scene load_steps=12 format=3 uid="uid://brm857sd4wqbs"]
 
+[ext_resource type="Texture2D" uid="uid://ciwufs0walpsw" path="res://art/background.png" id="1_choun"]
 [ext_resource type="PackedScene" uid="uid://de4b2yyu8efhx" path="res://scenes/octopus.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ck4a7ys5px7f" path="res://scenes/killzone.tscn" id="2_tbgi4"]
@@ -14,6 +15,9 @@
 size = Vector2(126, 125)
 
 [node name="Main" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_choun")
 
 [node name="GameManager" type="Node2D" parent="."]
 script = ExtResource("2_tefeu")
@@ -48,6 +52,8 @@ unique_name_in_owner = true
 zoom = Vector2(0.7, 0.7)
 position_smoothing_enabled = true
 script = ExtResource("1_sugp2")
+cam_min_zoom = 0.0
+cam_max_zoom = 10
 
 [node name="Respawn" type="Node" parent="."]
 

@@ -1,36 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://ck4a7ys5px7f"]
+[gd_scene load_steps=6 format=3 uid="uid://ck4a7ys5px7f"]
 
 [ext_resource type="Script" uid="uid://c3m0t22ree1v7" path="res://scenes/killzone.gd" id="1_xlapc"]
+[ext_resource type="Shader" uid="uid://b1a4eqjmsk82t" path="res://scenes/killzone.gdshader" id="2_kl8fp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xlapc"]
 radius = 855.945
 
-[sub_resource type="Gradient" id="Gradient_tbgi4"]
-offsets = PackedFloat32Array(0.00324675, 0.659091, 0.681818)
-colors = PackedColorArray(0.0470588, 0.282353, 1, 0.627451, 0.0470588, 0.282353, 1, 0.627451, 1, 1, 1, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j2mit"]
+shader = ExtResource("2_kl8fp")
+shader_parameter/border_width = 0.026
+shader_parameter/angle_separation = 0.0
+shader_parameter/segments = 0
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xlapc"]
-gradient = SubResource("Gradient_tbgi4")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
+[sub_resource type="CanvasTexture" id="CanvasTexture_kl8fp"]
 
 [node name="Killzone" type="Area2D"]
 script = ExtResource("1_xlapc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(1.00407, 1)
 shape = SubResource("CircleShape2D_xlapc")
 debug_color = Color(0.165779, 0.517173, 1, 0.42)
+
+[node name="Border" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_j2mit")
+scale = Vector2(1000, 1000)
+texture = SubResource("CanvasTexture_kl8fp")
 
 [node name="Player1Timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="Player2Timer" type="Timer" parent="."]
 one_shot = true
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(29.03, 29.03)
-texture = SubResource("GradientTexture2D_xlapc")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
