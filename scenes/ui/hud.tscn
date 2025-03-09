@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw6bc2afl1wcy"]
+
+[ext_resource type="PackedScene" uid="uid://bgwg55mushdmu" path="res://scenes/ui/player_popup.tscn" id="1_hqnrr"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerOnePopup" parent="." instance=ExtResource("1_hqnrr")]
+
+[node name="PlayerTwoPopup" parent="." instance=ExtResource("1_hqnrr")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -500.0
+offset_bottom = 150.0
+grow_horizontal = 0
+
+[node name="HealthPopup" parent="PlayerTwoPopup/MarginContainer/VBoxContainer" index="0"]
+alignment = 2
+
+[node name="MarginContainer" parent="PlayerTwoPopup/MarginContainer/VBoxContainer/Control" index="1"]
+pivot_offset = Vector2(480, 0)
+
+[editable path="PlayerOnePopup"]
+[editable path="PlayerTwoPopup"]

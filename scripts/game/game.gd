@@ -24,16 +24,15 @@ func init(one: Octopus, two: Octopus, one_checkpoint: Node2D, two_checkpoint: No
 	player_two = two
 	player_one_checkpoint = one_checkpoint
 	player_two_checkpoint = two_checkpoint
-	
 
-# func respawn_player(player_id: int):
-#	pass
+
+func get_player(player_id: int):
+	return player_one if player_id == 0 else player_two	
 
 func kill_player(player_id: int):
 	print("Killing player ", player_id)
 	player_dies(player_id)
-	
-	
+
 	
 	
 # Function for player loses lives when pushes out + respawns
