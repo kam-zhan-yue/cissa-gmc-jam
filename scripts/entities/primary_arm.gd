@@ -67,6 +67,7 @@ func _process_aim(_delta: float) -> void:
 		self.target_position = self.target_position.normalized() * Arm.MAX_REACH
 	
 func _process_movement(delta: float) -> void:
+	
 	var previous := self.aim
 	self.aim = self.aim.move_toward(self.target_position, delta * ARM_SPEED)
 	self.arm_velocity = self.aim - previous
