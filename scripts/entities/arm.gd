@@ -4,7 +4,7 @@ extends Node2D
 var aim := Vector2.ZERO
 var target := Vector2.ZERO
 const MAX_REACH = 200.0
-const SPEED = 500.0
+const SPEED = 700.0
 
 var constraints: Array[Constraint] = []
 
