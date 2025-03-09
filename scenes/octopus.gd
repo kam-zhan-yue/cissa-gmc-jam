@@ -37,7 +37,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if state == STATE.FREE:
 		var target_direction := get_input()
-		if Input.is_action_just_pressed(Global.get_input(player_id, "dash")) and ink >= BURST_COST:
+		if target_direction and Input.is_action_just_pressed(Global.get_input(player_id, "dash")) and ink >= BURST_COST:
 			ink -= BURST_COST
 			on_ink_changed.emit(ink)
 			burst(BURST_SPEED * target_direction, BURST_TIME)

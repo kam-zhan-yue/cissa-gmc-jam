@@ -46,7 +46,7 @@ func _process_grab() -> void:
 				var angle = atan2(direction.y, direction.x)
 				grab.rotation = angle + PI * 0.5
 				grab.global_position = _get_hand_position()
-		
+
 
 func _process_aim(_delta: float) -> void:
 	prev_aim = curr_aim
@@ -70,28 +70,26 @@ func _process_movement(delta: float) -> void:
 	if not curr_aim:
 		self._pull_back()
 	else:
-		self.arm_state = ARM_STATE.SEARCHING
+		self.arm_state = ARM_STATE.AIMING
 		var next_hand_position = _get_next_hand_position(delta)
 		self.aim = next_hand_position
+	hand.global_position = _get_hand_position()
 
 func _get_next_hand_position(delta: float) -> Vector2:
 	var prev_hand_position = hand.global_position
 	var next_hand_position = self.aim.move_toward(self.target_position, delta * ARM_SPEED)
-	hand.global_position = _get_hand_position()
 	var bodies := hand.get_overlapping_bodies()
-	
 	var can_move := true
 	for body in bodies:
 		if body is not Item:
 			can_move = false
 			break
-	if not can_move:
-		hand.global_position = prev_hand_position
-	hand.global_position = next_hand_position
+	#if not can_move:
+		#hand.global_position = prev_hand_position
+		#print(str("Hand ", hand, " touching ", hand.get_overlapping_bodies()))
 
-	return hand.global_position
-	
-	
+	return next_hand_position
+
 
 func _process_input() -> void:
 	if Input.is_action_just_pressed(Global.get_input(id, "grab")) and state == GRAB_STATE.GRAB:

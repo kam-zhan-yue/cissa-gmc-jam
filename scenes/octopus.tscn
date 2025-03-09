@@ -21,7 +21,6 @@ script = ExtResource("2_qo5xf")
 
 [node name="PrimaryArm" parent="Arms" instance=ExtResource("2_fhwgg")]
 unique_name_in_owner = true
-use_mouse = null
 
 [node name="Arm1" parent="Arms" instance=ExtResource("2_ionst")]
 

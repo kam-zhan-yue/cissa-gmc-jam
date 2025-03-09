@@ -3,15 +3,16 @@ extends Node2D
 
 var aim := Vector2.ZERO
 var target := Vector2.ZERO
-const MAX_REACH = 400.0
+const MAX_REACH = 200.0
 const DEFAULT_SPEED = 700.0
+const PULL_BACK_THRESHOLD = 0.00001
 
 var constraints: Array[Constraint] = []
 
 var arm_state := ARM_STATE.IDLE
 
 const TOTAL_NODES = 20
-const HAND_NODE = 1
+const HAND_NODE = 7
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 var arm_speed := 0.0
 
@@ -48,10 +49,25 @@ func _get_body_position() -> Vector2:
 func _physics_process(delta: float) -> void:
 	redraw(delta)
 
+func _pull_back_physics(delta: float) -> void:
+	for i in range(1, len(constraints)):
+		var prev := constraints[i - 1].position
+		var curr := constraints[i].position
+		var difference := curr - prev
+		var length := difference.length()
+		if length < PULL_BACK_THRESHOLD:
+			continue
+		length -= delta * arm_speed
+		var new_diff := Vector2.from_angle(difference.angle()) * length
+		var new_pos := prev + new_diff
+		constraints[i].position = new_pos
+
 func redraw(delta: float) -> void:
 	# If we are searching, then we want to update our aim to the target
 	if arm_state == ARM_STATE.SEARCHING and target:
 		self.aim = self.aim.move_toward(target, delta * arm_speed)
+	elif arm_state == ARM_STATE.PULLING_BACK:
+		_pull_back_physics(delta)
 	queue_redraw()
 
 func set_speed(new_speed: float) -> void:
@@ -75,7 +91,8 @@ func _draw():
 			# If we are moving around, we go towards the hand
 			_draw_fabrik(_get_end_position(), 1)
 		ARM_STATE.PULLING_BACK:
-			_process_forwards()
+			_process_pullback()
+			_draw_constraints()
 
 
 func _draw_forwards() -> void:
@@ -102,7 +119,7 @@ func _process_constraints_recursive(start_index: int) -> void:
 	for i in range(start_index, len(constraints) - 1):
 		var curr_node := constraints[i]
 		var next_node := constraints[i + 1]
-		_calculate_constraint(curr_node, next_node, true)
+		_calculate_constraint(curr_node, next_node, true, true)
 		
 
 func _process_backwards(end_point: Vector2, end_node: int) -> void:
@@ -115,7 +132,17 @@ func _process_backwards(end_point: Vector2, end_node: int) -> void:
 	for i in range(len(constraints) - end_node, 0, -1):
 		var curr_node := constraints[i]
 		var next_node := constraints[i - 1]
-		_calculate_constraint(curr_node, next_node, false)
+		_calculate_constraint(curr_node, next_node, false, true)
+
+
+func _process_pullback() -> void:
+	var node_distance := Arm.MAX_REACH / len(constraints)
+	# Set the start constraint to the origin
+	constraints[0].position = _get_body_position()
+	for i in range(len(constraints) - 1):
+		var curr_node := constraints[i]
+		var next_node := constraints[i + 1]
+		_calculate_constraint(curr_node, next_node, false, false)
 
 func _process_forwards() -> void:
 	var node_distance := Arm.MAX_REACH / len(constraints)
@@ -124,9 +151,9 @@ func _process_forwards() -> void:
 	for i in range(len(constraints) - 1):
 		var curr_node := constraints[i]
 		var next_node := constraints[i + 1]
-		_calculate_constraint(curr_node, next_node, true)
+		_calculate_constraint(curr_node, next_node, true, true)
 
-func _calculate_constraint(curr: Constraint, next: Constraint, query_ray: bool) -> void:
+func _calculate_constraint(curr: Constraint, next: Constraint, query_ray: bool, constraint_distance: bool) -> void:
 	var next_position := next.position
 
 	var space_state = get_world_2d().direct_space_state
@@ -143,7 +170,7 @@ func _calculate_constraint(curr: Constraint, next: Constraint, query_ray: bool) 
 	var difference := next_position - curr.position
 
 	# If the constraint is past the distance per node, we wanna lock it
-	if difference.length() >= node_distance:
+	if constraint_distance and difference.length() >= node_distance:
 		var new_position := curr.position + difference.normalized() * node_distance
 		next.position = new_position
 

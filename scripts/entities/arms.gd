@@ -4,6 +4,7 @@ extends Node2D
 @onready var octopus: Octopus = $".."
 
 var arms: Array[Arm] = []
+var primary_arm: PrimaryArm
 var restriction = 0.0
 
 const RESTRICTION_ANGLE = 10.0
@@ -18,6 +19,8 @@ func _ready() -> void:
 	for child in children:
 		if child is Arm and child is not PrimaryArm:
 			arms.append(child as Arm)
+		if child is PrimaryArm:
+			primary_arm = child
 	var positions = get_positions()
 	for i in range(len(positions)):
 		arms[i].target = positions[i]
@@ -29,10 +32,12 @@ func _process(delta: float) -> void:
 		restriction = 250.0
 		for arm in arms:
 			arm.set_speed(2000.0)
+		primary_arm.set_speed(2000.0)
 	else:
 		restriction = RESTRICTION_ANGLE
 		for arm in arms:
 			arm.reset_speed()
+		primary_arm.reset_speed()
 	var positions = get_positions()
 	for i in range(len(positions)):
 		arms[i].target = positions[i]
