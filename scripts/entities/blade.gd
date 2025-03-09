@@ -43,4 +43,3 @@ func _start_cooldown() -> void:
 	cooldown = true
 	Global.wait(COOLDOWN_TIME)
 	cooldown = false
-	

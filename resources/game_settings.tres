@@ -10,6 +10,10 @@ point_count = 6
 
 [resource]
 script = ExtResource("1_ks8vh")
+killzone_time = 2.0
+despawn_time = 3.0
+spawn_time = 3.0
+max_health = 3
 movement_speed = 500.0
 burst_speed = 1000.0
 burst_time = 0.2
@@ -18,8 +22,12 @@ dash_speed = 700.0
 dash_cost_rate = 20.0
 max_ink = 200.0
 ink_regen_rate = 10.0
+throw_force = 2000.0
+throw_threshold = 0.5
+hit_force = 1000.0
 tentacle_radius = 20.0
 max_reach = 200.0
+primary_tentacle_speed = 5000.0
 tentacle_speed = 1000.0
 total_nodes = 15
 hand_node = 4

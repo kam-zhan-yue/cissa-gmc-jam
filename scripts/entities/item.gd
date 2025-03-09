@@ -1,6 +1,8 @@
 class_name Item
 extends CharacterBody2D
 
+const GAME_SETTINGS = preload("res://resources/game_settings.tres")
+
 @export var throwable := false
 @export var collision_force := 5.0
 @export var knockback_time := 0.5
@@ -13,6 +15,9 @@ var can_grab := true
 
 var holder: PrimaryArm = null
 var state := STATE.IDLE
+var original_pos := Vector2.ZERO
+var original_rotation := 0.0
+var in_killzone := false
 
 signal on_grab(id)
 signal on_release(id)
@@ -23,6 +28,8 @@ enum STATE {
 }
 
 func _ready() -> void:
+	self.original_pos = global_position
+	self.original_rotation = rotation
 	self.original_layer = self.collision_layer
 	self.original_mask = self.collision_mask
 
@@ -62,9 +69,30 @@ func launch(launch_velocity: Vector2) -> void:
 	self.collision_layer = 100
 	self.collision_mask = 100
 	self.state = STATE.LAUNCHING
-	print("Launch ", launch_velocity)
 	await Global.wait(0.5)
 	self.can_grab = true
 	self.collision_layer = self.original_layer
 	self.collision_mask = self.original_mask
 	self.state = STATE.IDLE
+
+func respawn() -> void:
+	if not in_killzone:
+		return
+	velocity = Vector2.ZERO
+	global_position = self.original_pos
+	rotation = self.rotation
+
+func enter_killzone() -> void:
+	print("Entered Killzone")
+	in_killzone = true
+	await get_tree().create_timer(GAME_SETTINGS.despawn_time).timeout
+	check_killzone()
+
+func check_killzone() -> void:
+	if holder:
+		enter_killzone()
+	else:
+		respawn()
+
+func exit_killzone() -> void:
+	in_killzone = false

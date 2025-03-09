@@ -101,6 +101,9 @@ func knockback(force: Vector2, time: float) -> void:
 
 func deactivate() -> void:
 	self.state = STATE.DEACTIVATED
+	# Trigger a despawn for the item
+	if primary_arm.grab:
+		primary_arm.grab.enter_killzone()
 	primary_arm._release()
 	Global.set_inactive(self)
 

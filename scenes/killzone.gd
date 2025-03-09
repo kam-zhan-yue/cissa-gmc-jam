@@ -18,11 +18,15 @@ func _process(_delta: float) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if body is Octopus:
 		on_player_exited(body.player_id)
+	elif body is Item:
+		body.enter_killzone()
 
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Octopus:
 		on_player_entered(body.player_id)
+	elif body is Item:
+		body.exit_killzone()
 
 
 func on_player_exited(player_id: int) -> void:

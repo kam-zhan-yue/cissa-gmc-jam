@@ -110,6 +110,9 @@ func _release() -> void:
 	self.state = GRAB_STATE.NONE
 
 func _on_hand_body_entered(body: Node2D) -> void:
+	# Do not grab if we don't have an input
+	if not curr_aim:
+		return
 	if body is Item and self.state == GRAB_STATE.NONE and body.can_grab:
 		self.state = GRAB_STATE.HOVER
 		self.grab = body
