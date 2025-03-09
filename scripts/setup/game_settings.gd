@@ -12,6 +12,7 @@ extends Resource
 @export var dash_cost_rate := 20.0
 @export var max_ink := 200.0
 @export var ink_regen_rate := 10.0
+@export var spawn_time := 3.0
 
 @export_category("Items")
 @export var throw_force := 2000.0

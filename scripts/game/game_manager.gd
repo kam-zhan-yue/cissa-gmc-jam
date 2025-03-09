@@ -11,4 +11,4 @@ extends Node2D
 func _ready() -> void:
 	camera.add_target(player_one)
 	camera.add_target(player_two)
-	Game.init(player_one, player_two, player_one_checkpoint, player_two_checkpoint)
+	Game.init(player_one, player_two, camera, player_one_checkpoint, player_two_checkpoint)

@@ -13,6 +13,7 @@ signal on_game_over(winner_id: int)
 
 var player_one: Octopus
 var player_two: Octopus
+var camera: DynamicCamera
 var player_one_checkpoint: Node2D
 var player_two_checkpoint: Node2D
 
@@ -20,16 +21,20 @@ var player_1_lives := 0
 var player_2_lives := 0
 var LOSING_SCORE = 0
 
-func init(one: Octopus, two: Octopus, one_checkpoint: Node2D, two_checkpoint: Node2D):
+func init(one: Octopus, two: Octopus, c: DynamicCamera, one_checkpoint: Node2D, two_checkpoint: Node2D):
 	player_one = one
 	player_two = two
+	camera = c
 	player_one_checkpoint = one_checkpoint
 	player_two_checkpoint = two_checkpoint
 	player_1_lives = GAME_SETTINGS.max_health
 	player_2_lives = GAME_SETTINGS.max_health
 
-func get_player(player_id: int):
-	return player_one if player_id == 0 else player_two	
+func get_player(player_id: int) -> Octopus:
+	return player_one if player_id == 0 else player_two
+
+func get_checkpont(player_id: int) -> Node2D:
+	return player_one_checkpoint if player_id == 0 else player_two_checkpoint
 
 func kill_player(player_id: int):
 	print("Killing player ", player_id)
@@ -55,13 +60,19 @@ func player_dies(player_id: int) -> void:
 
 # Function for player 1 respawn point 
 func player1_respawns() -> void:
-	player_one.respawn()
-	player_one.global_position = player_one_checkpoint.global_position
+	respawn_player(0)
 
 # Function for Player 2 respawn point
 func player2_respawns() -> void:
-	player_one.respawn()
-	player_two.global_position = player_two_checkpoint.global_position
+	respawn_player(1)
+
+func respawn_player(id: int) -> void:
+	var player := get_player(id)
+	player.deactivate()
+	camera.remove_target(player)
+	await Global.wait(GAME_SETTINGS.spawn_time)
+	player.respawn(get_checkpont(id).global_position)
+	camera.add_target(player)
 
 
 # Function for when someone hits 0, game ends adn other player wins

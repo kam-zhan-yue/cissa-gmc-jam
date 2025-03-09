@@ -18,7 +18,7 @@ func add_target(t):
 	
 func remove_target(t):
 	if t in targets:
-		targets.remove(t)
+		targets.erase(t)
 
 func _process(delta):
 	if !targets:

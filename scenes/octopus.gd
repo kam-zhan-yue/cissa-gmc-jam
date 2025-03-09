@@ -20,6 +20,7 @@ signal on_ink_changed(ink: float)
 signal on_respawn
 
 enum STATE {
+	DEACTIVATED,
 	FREE,
 	KNOCKBACK,
 	DASH,
@@ -34,6 +35,9 @@ func _ready() -> void:
 	arms.init()
 	
 func _physics_process(delta: float) -> void:
+	if state == STATE.DEACTIVATED:
+		return
+
 	if state == STATE.FREE:
 		var target_direction := get_input()
 		$"ink burst".emitting = false
@@ -95,5 +99,12 @@ func knockback(force: Vector2, time: float) -> void:
 	await Global.wait(time)
 	self.state = STATE.FREE
 
-func respawn() -> void:
+func deactivate() -> void:
+	self.state = STATE.DEACTIVATED
+	Global.set_inactive(self)
+
+func respawn(pos: Vector2) -> void:
+	self.state = STATE.FREE
+	Global.set_active(self)
 	on_respawn.emit()
+	global_position = pos
