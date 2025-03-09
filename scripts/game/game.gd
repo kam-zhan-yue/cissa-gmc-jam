@@ -12,8 +12,8 @@ var player_two: Octopus
 var player_one_checkpoint: Node2D
 var player_two_checkpoint: Node2D
 
-var player_1_lives = 1 # CHANGE BACK TO 3
-var player_2_lives = 1 # CHANGE BACK TO 3
+var player_1_lives = 3 # CHANGE BACK TO 3
+var player_2_lives = 3 # CHANGE BACK TO 3
 var LOSING_SCORE = 0
 
 
