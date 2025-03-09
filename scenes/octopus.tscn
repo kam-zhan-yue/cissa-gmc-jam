@@ -1,19 +1,25 @@
-[gd_scene load_steps=9 format=3 uid="uid://v473sc4yajje"]
+[gd_scene load_steps=12 format=3 uid="uid://de4b2yyu8efhx"]
 
 [ext_resource type="Script" uid="uid://b5bjuui6xvw8m" path="res://scenes/octopus.gd" id="2_8jto7"]
 [ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
 [ext_resource type="PackedScene" uid="uid://dpflme532hf0b" path="res://scenes/arm.tscn" id="2_ionst"]
 [ext_resource type="Script" uid="uid://2u61la2wa3b6" path="res://scripts/entities/arms.gd" id="2_qo5xf"]
-[ext_resource type="Script" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
+[ext_resource type="Script" uid="uid://dp1itdnh1slm5" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
 [ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_qo5xf"]
-[ext_resource type="Texture2D" uid="uid://dbgptxvxx1tbn" path="res://art/octopushead20.png" id="6_rn5nq"]
+[ext_resource type="Texture2D" uid="uid://c8ycknjdg5g5f" path="res://art/octopushead0.png" id="6_dfnbd"]
+[ext_resource type="AudioStream" uid="uid://cjs7gksyjtrpd" path="res://assets/sounds/zapsplat_animals_shark_or_dolphin_splash_surface_water_13502.mp3" id="7_rn5nq"]
+[ext_resource type="AudioStream" uid="uid://dejk6l1d233qb" path="res://assets/sounds/zapsplat_warfare_sword_strike_metal_medium_hit_clang_008_101776.mp3" id="8_ug8lw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fhwgg"]
 radius = 25.0799
 
+[sub_resource type="Curve" id="Curve_xhrib"]
+_data = [Vector2(0.0367232, 0.978114), 0.0, 0.0, 0, 0, Vector2(0.991525, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Octopus" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("2_8jto7")
 
 [node name="Arms" type="Node2D" parent="."]
@@ -37,14 +43,12 @@ unique_name_in_owner = true
 [node name="Arm7" parent="Arms" instance=ExtResource("2_ionst")]
 
 [node name="Body" type="Node2D" parent="."]
+scale = Vector2(0.2, 0.2)
 script = ExtResource("5_qo5xf")
 
-[node name="Head" type="Node2D" parent="Body"]
-scale = Vector2(0.2, 0.2)
-
-[node name="Head" type="Sprite2D" parent="Body/Head"]
-position = Vector2(0, -1)
-texture = ExtResource("6_rn5nq")
+[node name="Octopushead0" type="Sprite2D" parent="Body"]
+position = Vector2(-9, -10)
+texture = ExtResource("6_dfnbd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fhwgg")
@@ -63,3 +67,35 @@ offset_top = -65.0
 offset_right = 20.0
 offset_bottom = -41.0
 text = "1.00"
+
+[node name="splash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_rn5nq")
+
+[node name="clash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_ug8lw")
+
+[node name="ink burst" type="CPUParticles2D" parent="."]
+position = Vector2(0, 2)
+emitting = false
+amount = 60
+lifetime = 0.39
+explosiveness = 0.7
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+scale_amount_min = 20.0
+scale_amount_max = 30.0
+scale_amount_curve = SubResource("Curve_xhrib")
+color = Color(0, 0, 0, 0.411765)
+
+[node name="inktrail" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 40
+spread = 179.14
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+scale_amount_min = 10.0
+scale_amount_max = 20.0
+color = Color(0, 0, 0, 0.411765)

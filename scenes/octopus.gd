@@ -37,10 +37,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if state == STATE.FREE:
 		var target_direction := get_input()
+		$"ink burst".emitting = false
+		$inktrail.emitting = false
 		if target_direction and Input.is_action_just_pressed(Global.get_input(player_id, "dash")) and ink >= BURST_COST:
 			ink -= BURST_COST
 			on_ink_changed.emit(ink)
 			burst(BURST_SPEED * target_direction, BURST_TIME)
+
 		else:
 			velocity = target_direction * movement_speed
 			if ink < MAX_INK:
@@ -56,8 +59,11 @@ func _physics_process(delta: float) -> void:
 			ink -= delta * DASH_COST_RATE
 			on_ink_changed.emit(ink)
 			velocity = DASH_SPEED * target_direction
+			$"ink burst".emitting = false
+			$inktrail.emitting = true
 		else:
 			state = STATE.FREE
+			$inktrail.emitting = false
 
 	move_and_slide()
 	
@@ -77,11 +83,15 @@ func get_direction() -> Vector2:
 func burst(force: Vector2, time: float) -> void:
 	self.state = STATE.BURST
 	velocity = force
+	$splash.play()
+	$"ink burst".emitting = true
+	$inktrail.emitting = true
 	await Global.wait(time)
 	self.state = STATE.DASH
 
 func knockback(force: Vector2, time: float) -> void:
 	self.state = STATE.KNOCKBACK
 	velocity = force
+	$clash.play()
 	await Global.wait(time)
 	self.state = STATE.FREE

@@ -42,6 +42,7 @@ anchors_preset = 0
 script = ExtResource("1_c75kr")
 
 [node name="Panel" type="Panel" parent="."]
+layout_mode = 0
 offset_right = 1151.0
 offset_bottom = 647.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ya4ey")
