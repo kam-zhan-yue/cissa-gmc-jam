@@ -5,7 +5,7 @@ var aim := Vector2.ZERO
 var target := Vector2.ZERO
 const MAX_REACH = 200.0
 const DEFAULT_SPEED = 700.0
-const PULL_BACK_THRESHOLD = 0.00001
+const PULL_BACK_THRESHOLD = 8.0
 
 var constraints: Array[Constraint] = []
 

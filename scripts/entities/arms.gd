@@ -52,6 +52,8 @@ func get_positions() -> Array[Vector2]:
 	var start_angle := deg_to_rad(restriction) * 0.5
 	var end_angle := 2 * PI - deg_to_rad(restriction) * 0.5
 	var angle_distance := (end_angle - start_angle) / (len(arms) + 1)
+	
+	
 	for i in range(len(arms)):
 		var angle := player_angle + start_angle + angle_distance * (i + 1)
 		var x := Arm.MAX_REACH * cos(angle)
