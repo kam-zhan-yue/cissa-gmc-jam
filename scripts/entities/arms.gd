@@ -26,9 +26,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	#var direction = 
 	if octopus.state == Octopus.STATE.DASH or octopus.state == Octopus.STATE.BURST:
-		restriction = 200.0
+		restriction = 250.0
+		for arm in arms:
+			arm.set_speed(2000.0)
 	else:
 		restriction = RESTRICTION_ANGLE
+		for arm in arms:
+			arm.reset_speed()
 	var positions = get_positions()
 	for i in range(len(positions)):
 		arms[i].target = positions[i]
@@ -39,7 +43,6 @@ func get_positions() -> Array[Vector2]:
 	var target_direction = octopus.get_direction()
 	var player_angle := atan2(-target_direction.y, target_direction.x)
 
-	
 	var start_angle := deg_to_rad(restriction) * 0.5
 	var end_angle := 2 * PI - deg_to_rad(restriction) * 0.5
 	var angle_distance := (end_angle - start_angle) / (len(arms) + 1)

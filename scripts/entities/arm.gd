@@ -4,16 +4,16 @@ extends Node2D
 var aim := Vector2.ZERO
 var target := Vector2.ZERO
 const MAX_REACH = 200.0
-const SPEED = 700.0
+const DEFAULT_SPEED = 700.0
 
 var constraints: Array[Constraint] = []
 
 var arm_state := ARM_STATE.IDLE
 
-const TOTAL_NODES = 10
-const HAND_NODE = 4
+const TOTAL_NODES = 20
+const HAND_NODE = 7
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
-
+var arm_speed := 0.0
 
 enum ARM_STATE {
 	IDLE,
@@ -22,12 +22,18 @@ enum ARM_STATE {
 }
 
 func _ready() -> void:
-	var curve = GAME_SETTINGS.tentacle_radius_curve
-	var max_radius = GAME_SETTINGS.tentacle_radius
+	self.arm_speed = DEFAULT_SPEED
+	var radius_curve := GAME_SETTINGS.tentacle_radius_curve
+	var angle_curve := GAME_SETTINGS.tentacle_angle_curve
+	var max_radius := GAME_SETTINGS.tentacle_radius
+	var max_angle := PI * 2.0
 	for i in TOTAL_NODES:
-		var curve_value = curve.sample(float(i + 1) / TOTAL_NODES)
-		var radius = max_radius * curve_value
-		constraints.append(Constraint.new(Vector2.ZERO, radius, 0.0))
+		var percentage := float(i + 1) / TOTAL_NODES
+		var radius_factor = radius_curve.sample(percentage)
+		var angle_factor = angle_curve.sample(percentage)
+		var radius = max_radius * radius_factor
+		var angle = max_angle * angle_factor
+		constraints.append(Constraint.new(Vector2.ZERO, radius, angle))
 
 func _get_hand_position() -> Vector2:
 	return _get_body_position() + self.aim
@@ -38,8 +44,14 @@ func _get_body_position() -> Vector2:
 func _process(delta: float) -> void:
 	# If we are searching, then we want to update our aim to the target
 	if arm_state == ARM_STATE.SEARCHING and target:
-		self.aim = self.aim.move_toward(target, delta * SPEED)
+		self.aim = self.aim.move_toward(target, delta * arm_speed)
 	queue_redraw()
+
+func set_speed(new_speed: float) -> void:
+	arm_speed = new_speed
+
+func reset_speed() -> void:
+	arm_speed = DEFAULT_SPEED
 
 func _draw():
 	match arm_state:

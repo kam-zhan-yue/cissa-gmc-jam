@@ -1,13 +1,18 @@
-[gd_resource type="Resource" script_class="GameSettings" load_steps=3 format=3 uid="uid://di8pj3bwvmhr6"]
+[gd_resource type="Resource" script_class="GameSettings" load_steps=4 format=3 uid="uid://di8pj3bwvmhr6"]
 
 [ext_resource type="Script" uid="uid://bpgpv173byvwi" path="res://scripts/setup/game_settings.gd" id="1_ks8vh"]
 
+[sub_resource type="Curve" id="Curve_oahbv"]
+_data = [Vector2(0.00248756, 0.692438), 0.0, 0.0, 0, 0, Vector2(0.495025, 0.508449), 0.0, 0.0, 0, 0, Vector2(0.995025, 0.335446), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="Curve" id="Curve_ks8vh"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.258706, 0.670469), 0.0, 0.0, 0, 0, Vector2(0.415423, 0.802281), 0.0, 0.0, 0, 0, Vector2(0.604478, 0.612801), 0.0, 0.0, 0, 0, Vector2(0.863184, 0.437051), 0.0, 0.0, 0, 0, Vector2(1, 0.0553443), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.884664), 0.0, 0.0, 0, 0, Vector2(0.251244, 0.604563), 0.0, 0.0, 0, 0, Vector2(0.465174, 0.689692), 0.0, 0.0, 0, 0, Vector2(0.651741, 0.549641), 0.0, 0.0, 0, 0, Vector2(0.863184, 0.437051), 0.0, 0.0, 0, 0, Vector2(1, 0.0553443), 0.0, 0.0, 0, 0]
 point_count = 6
 
 [resource]
 script = ExtResource("1_ks8vh")
 tentacle_radius_curve = SubResource("Curve_ks8vh")
+tentacle_angle_curve = SubResource("Curve_oahbv")
 tentacle_radius = 20.0
 metadata/_custom_type_script = "uid://bpgpv173byvwi"
