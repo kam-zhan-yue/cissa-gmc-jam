@@ -12,6 +12,8 @@ var arm_state := ARM_STATE.IDLE
 
 const TOTAL_NODES = 10
 const HAND_NODE = 4
+const GAME_SETTINGS = preload("res://resources/game_settings.tres")
+
 
 enum ARM_STATE {
 	IDLE,
@@ -20,8 +22,13 @@ enum ARM_STATE {
 }
 
 func _ready() -> void:
+	var curve = GAME_SETTINGS.tentacle_radius_curve
+	var max_radius = GAME_SETTINGS.tentacle_radius
 	for i in TOTAL_NODES:
-		constraints.append(Constraint.new(Vector2.ZERO, 10.0, 0.0))
+		var curve_value = curve.sample(float(i + 1) / TOTAL_NODES)
+		var radius = max_radius * curve_value
+		print("Radius ", radius)
+		constraints.append(Constraint.new(Vector2.ZERO, radius, 0.0))
 
 func _get_hand_position() -> Vector2:
 	return _get_body_position() + self.aim

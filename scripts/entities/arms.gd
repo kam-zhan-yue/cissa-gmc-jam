@@ -1,14 +1,15 @@
 class_name Arms
 extends Node2D
 
-var arms: Array[Arm] = []
-
-const STRIDE_DISTANCE = 150.0
-const ARM_SPEED = 900.0
 @onready var octopus: Octopus = $".."
 
-const RESTRICTION_ANGLE = 10.0
+var arms: Array[Arm] = []
 var restriction = 0.0
+
+const RESTRICTION_ANGLE = 10.0
+const STRIDE_DISTANCE = 150.0
+const ARM_SPEED = 900.0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
