@@ -120,7 +120,6 @@ func _process_constraints_recursive(start_index: int) -> void:
 		
 
 func _process_backwards(end_point: Vector2, end_node: int) -> void:
-	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	# Set the end constraint to the end effector
 	var target_pos = end_point
 	constraints[-end_node].position = target_pos
@@ -133,7 +132,6 @@ func _process_backwards(end_point: Vector2, end_node: int) -> void:
 
 
 func _process_pullback() -> void:
-	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	# Set the start constraint to the origin
 	constraints[0].position = _get_body_position()
 	for i in range(len(constraints) - 1):
@@ -142,7 +140,6 @@ func _process_pullback() -> void:
 		_calculate_constraint(curr_node, next_node, false, false)
 
 func _process_forwards() -> void:
-	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	# Set the start constraint to the origin
 	constraints[0].position = _get_body_position()
 	for i in range(len(constraints) - 1):
@@ -150,7 +147,7 @@ func _process_forwards() -> void:
 		var next_node := constraints[i + 1]
 		_calculate_constraint(curr_node, next_node, true, true)
 
-func _calculate_constraint(curr: Constraint, next: Constraint, query_ray: bool, constraint_distance: bool) -> void:
+func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool, constraint_distance: bool) -> void:
 	var next_position := next.position
 
 	#var space_state = get_world_2d().direct_space_state

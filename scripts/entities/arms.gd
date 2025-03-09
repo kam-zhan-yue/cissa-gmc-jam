@@ -23,7 +23,7 @@ func init() -> void:
 		arms[i].arm_state = Arm.ARM_STATE.SEARCHING
 	
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#var direction = 
 	if octopus.state == Octopus.STATE.DASH or octopus.state == Octopus.STATE.BURST:
 		restriction = 250.0

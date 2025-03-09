@@ -37,7 +37,6 @@ func get_checkpont(player_id: int) -> Node2D:
 	return player_one_checkpoint if player_id == 0 else player_two_checkpoint
 
 func kill_player(player_id: int):
-	print("Killing player ", player_id)
 	player_dies(player_id)
 
 	

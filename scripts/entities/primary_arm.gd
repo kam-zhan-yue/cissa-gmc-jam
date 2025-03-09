@@ -48,17 +48,17 @@ func _process_aim(_delta: float) -> void:
 	prev_aim = curr_aim
 	var aim_vertical := Input.get_axis(Global.get_input(id, "aim_down"), Global.get_input(id, "aim_up"))
 	var aim_horizontal := Input.get_axis(Global.get_input(id, "aim_left"), Global.get_input(id, "aim_right"))
-	var target := Vector2(aim_horizontal, -aim_vertical)
-	curr_aim = target
+	var target_pos := Vector2(aim_horizontal, -aim_vertical)
+	curr_aim = target_pos
 
 	if use_mouse:
 		var camera = get_viewport().get_camera_2d()
 		var mouse_pos := camera.get_global_mouse_position()
 		var distance_to_player = (mouse_pos - position) / GAME_SETTINGS.max_reach
-		target = distance_to_player
+		target_pos = distance_to_player
 
 
-	self.target_position = target * GAME_SETTINGS.max_reach
+	self.target_position = target_pos * GAME_SETTINGS.max_reach
 	if self.target_position.length() >= GAME_SETTINGS.max_reach:
 		self.target_position = self.target_position.normalized() * GAME_SETTINGS.max_reach
 	
@@ -72,18 +72,7 @@ func _process_movement(delta: float) -> void:
 	hand.global_position = _get_hand_position()
 
 func _get_next_hand_position(delta: float) -> Vector2:
-	var prev_hand_position = hand.global_position
 	var next_hand_position = self.aim.move_toward(self.target_position, delta * GAME_SETTINGS.primary_tentacle_speed)
-	var bodies := hand.get_overlapping_bodies()
-	var can_move := true
-	for body in bodies:
-		if body is not Item:
-			can_move = false
-			break
-	#if not can_move:
-		#hand.global_position = prev_hand_position
-		#print(str("Hand ", hand, " touching ", hand.get_overlapping_bodies()))
-
 	return next_hand_position
 
 
@@ -105,7 +94,6 @@ func _throw_item() -> void:
 	
 
 func _grab() -> void:
-	print("GRAB ", self.id)
 	if grab:
 		grab.grab(self)
 	self.state = GRAB_STATE.GRAB
@@ -120,7 +108,6 @@ func _release() -> void:
 		grab.release(self)
 	self.grab = null
 	self.state = GRAB_STATE.NONE
-	print("RELEASE")
 
 func _on_hand_body_entered(body: Node2D) -> void:
 	if body is Item and self.state == GRAB_STATE.NONE and body.can_grab:
@@ -129,6 +116,6 @@ func _on_hand_body_entered(body: Node2D) -> void:
 		self._grab()
 
 
-func _on_hand_body_exited(body: Node2D) -> void:
+func _on_hand_body_exited(_body: Node2D) -> void:
 	if self.state == GRAB_STATE.HOVER:
 		self.state = GRAB_STATE.NONE

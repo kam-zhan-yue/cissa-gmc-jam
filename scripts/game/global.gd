@@ -81,7 +81,7 @@ func fade(node: Node, fade_time: float, visible: bool) -> void:
 	tween.tween_property(node, "modulate", target, fade_time)
 	await wait_fade()
 
-func get_collision_direction(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int, origin: Area2D) -> Vector2:
+func get_collision_direction(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int, origin: Area2D) -> Vector2:
 	var body_shape_owner_id = body.shape_find_owner(body_shape_index)
 	var body_shape_owner = body.shape_owner_get_owner(body_shape_owner_id)
 	var body_shape_2d = body.shape_owner_get_shape(body_shape_owner_id, 0)

@@ -2,7 +2,7 @@ extends Control
 
 var showing := true
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not showing:
 		return
 	if Input.is_action_just_pressed(Global.get_input(0, 'dash')):
