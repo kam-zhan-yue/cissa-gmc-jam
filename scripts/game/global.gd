@@ -96,7 +96,7 @@ func get_collision_direction(body_rid: RID, body: Node2D, body_shape_index: int,
 									body_shape_2d,
 									body_global_transform)
 	if len(collision_points) == 2:
-		var direction = collision_points[0] - collision_points[1]
+		var direction = collision_points[1] - collision_points[0]
 		return direction
 	else:
 		return Vector2.ZERO

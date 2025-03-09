@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ck4a7ys5px7f" path="res://scenes/killzone.tscn" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cx0elix0tahfl" path="res://scripts/game/game_manager.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dt3pvc340yy4r" path="res://scenes/ui.tscn" id="3_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://3k4m6e87yuwe" path="res://respawnpoint.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" path="res://respawnpoint.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/sword.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/projectile.tscn" id="10_choun"]
 

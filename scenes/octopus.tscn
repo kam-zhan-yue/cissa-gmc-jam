@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b5bjuui6xvw8m" path="res://scenes/octopus.gd" id="2_8jto7"]
 [ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
 [ext_resource type="Script" uid="uid://2u61la2wa3b6" path="res://scripts/entities/arms.gd" id="2_qo5xf"]
-[ext_resource type="Script" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
+[ext_resource type="Script" uid="uid://dp1itdnh1slm5" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
 [ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_qo5xf"]
 [ext_resource type="Texture2D" uid="uid://c8ycknjdg5g5f" path="res://art/octopushead0.png" id="6_dfnbd"]
 [ext_resource type="AudioStream" uid="uid://cjs7gksyjtrpd" path="res://assets/sounds/zapsplat_animals_shark_or_dolphin_splash_surface_water_13502.mp3" id="7_rn5nq"]
