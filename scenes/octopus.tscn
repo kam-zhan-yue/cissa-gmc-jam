@@ -1,13 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://v473sc4yajje"]
+[gd_scene load_steps=12 format=3 uid="uid://v473sc4yajje"]
 
 [ext_resource type="Script" uid="uid://b5bjuui6xvw8m" path="res://scenes/octopus.gd" id="2_8jto7"]
 [ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
 [ext_resource type="PackedScene" uid="uid://dpflme532hf0b" path="res://scenes/arm.tscn" id="2_ionst"]
-[ext_resource type="Script" path="res://scripts/entities/arms.gd" id="2_qo5xf"]
+[ext_resource type="Script" uid="uid://2u61la2wa3b6" path="res://scripts/entities/arms.gd" id="2_qo5xf"]
 [ext_resource type="Script" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_fhwgg"]
-radius = 25.0799
+[ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_qo5xf"]
 
 [sub_resource type="Gradient" id="Gradient_ionst"]
 offsets = PackedFloat32Array(0, 0.00324675, 0.642857, 0.649351)
@@ -18,6 +16,18 @@ gradient = SubResource("Gradient_ionst")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_8jto7"]
+offsets = PackedFloat32Array(0, 0.691558, 0.75)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qo5xf"]
+gradient = SubResource("Gradient_8jto7")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fhwgg"]
+radius = 25.0799
 
 [node name="Octopus" type="CharacterBody2D"]
 collision_layer = 3
@@ -44,12 +54,25 @@ unique_name_in_owner = true
 
 [node name="Arm7" parent="Arms" instance=ExtResource("2_ionst")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_fhwgg")
+[node name="Body" type="Node2D" parent="."]
+script = ExtResource("5_qo5xf")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
 position = Vector2(0, -1)
 texture = SubResource("GradientTexture2D_8jto7")
+
+[node name="Eye1" type="Sprite2D" parent="Body"]
+position = Vector2(-9, -10)
+scale = Vector2(0.2, 0.2)
+texture = SubResource("GradientTexture2D_qo5xf")
+
+[node name="Eye2" type="Sprite2D" parent="Body"]
+position = Vector2(10, -10)
+scale = Vector2(0.2, 0.2)
+texture = SubResource("GradientTexture2D_qo5xf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fhwgg")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
