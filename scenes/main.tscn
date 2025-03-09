@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://brm857sd4wqbs"]
+[gd_scene load_steps=10 format=3 uid="uid://brm857sd4wqbs"]
 
 [ext_resource type="Texture2D" uid="uid://ciwufs0walpsw" path="res://art/background.png" id="1_choun"]
 [ext_resource type="PackedScene" uid="uid://de4b2yyu8efhx" path="res://scenes/octopus.tscn" id="1_o5qli"]
@@ -8,11 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dt3pvc340yy4r" path="res://scenes/ui.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://3k4m6e87yuwe" path="res://respawnpoint.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/sword.tscn" id="8_tipki"]
-[ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="9_85g3d"]
 [ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/projectile.tscn" id="10_choun"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_choun"]
-size = Vector2(126, 125)
 
 [node name="Main" type="Node2D"]
 
@@ -27,12 +23,6 @@ script = ExtResource("2_tefeu")
 
 [node name="UI" parent="CanvasLayer" instance=ExtResource("3_o6xl0")]
 unique_name_in_owner = true
-
-[node name="lives" type="Node2D" parent="CanvasLayer/UI"]
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI/lives"]
-position = Vector2(101.5, -102)
-scale = Vector2(3.03, 3.04)
 
 [node name="Killzone" parent="." instance=ExtResource("2_tbgi4")]
 unique_name_in_owner = true
@@ -72,15 +62,3 @@ position = Vector2(54, -92)
 
 [node name="Ball" parent="." instance=ExtResource("10_choun")]
 position = Vector2(-3, 133)
-
-[node name="Obstacle" type="StaticBody2D" parent="."]
-position = Vector2(-277, -8)
-collision_layer = 7
-collision_mask = 7
-
-[node name="Icon" type="Sprite2D" parent="Obstacle"]
-texture = ExtResource("9_85g3d")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle"]
-position = Vector2(-1, 0.5)
-shape = SubResource("RectangleShape2D_choun")
