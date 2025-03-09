@@ -1,20 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgwg55mushdmu"]
+[gd_scene load_steps=4 format=3 uid="uid://bgwg55mushdmu"]
 
 [ext_resource type="Script" uid="uid://c302t76yaun30" path="res://scripts/ui/player_popup.gd" id="1_pg5t5"]
 [ext_resource type="PackedScene" uid="uid://bjijtbciqch53" path="res://scenes/ui/health_popup.tscn" id="2_vax6h"]
-
-[sub_resource type="Gradient" id="Gradient_rduwm"]
-colors = PackedColorArray(0, 0, 0, 0.156863, 0, 0, 0, 0.156863)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vax6h"]
-gradient = SubResource("Gradient_rduwm")
-
-[sub_resource type="Gradient" id="Gradient_vax6h"]
-offsets = PackedFloat32Array(0, 0.931818)
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ol6yo"]
-gradient = SubResource("Gradient_vax6h")
+[ext_resource type="PackedScene" uid="uid://dt831wqnfbaiq" path="res://scenes/ui/ink_popup.tscn" id="3_ol6yo"]
 
 [node name="PlayerOnePopup" type="Control"]
 custom_minimum_size = Vector2(500, 150)
@@ -42,34 +30,6 @@ alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="InkPopup" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="InkPopup" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ol6yo")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-
-[node name="Background" type="TextureRect" parent="MarginContainer/VBoxContainer/InkPopup"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture2D_vax6h")
-expand_mode = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/InkPopup"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Fill" type="TextureRect" parent="MarginContainer/VBoxContainer/InkPopup/MarginContainer"]
-layout_mode = 2
-texture = SubResource("GradientTexture2D_ol6yo")
-expand_mode = 3
