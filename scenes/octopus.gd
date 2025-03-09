@@ -17,6 +17,7 @@ var facing_direction = Vector2.ZERO
 var state := STATE.FREE
 
 signal on_ink_changed(ink: float)
+signal on_respawn
 
 enum STATE {
 	FREE,
@@ -93,3 +94,6 @@ func knockback(force: Vector2, time: float) -> void:
 	$clash.play()
 	await Global.wait(time)
 	self.state = STATE.FREE
+
+func respawn() -> void:
+	on_respawn.emit()

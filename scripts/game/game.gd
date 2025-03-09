@@ -34,7 +34,7 @@ func get_player(player_id: int):
 func kill_player(player_id: int):
 	print("Killing player ", player_id)
 	player_dies(player_id)
-	
+
 	
 # Function for player loses lives when pushes out + respawns
 func player_dies(player_id: int) -> void:
@@ -55,10 +55,12 @@ func player_dies(player_id: int) -> void:
 
 # Function for player 1 respawn point 
 func player1_respawns() -> void:
+	player_one.respawn()
 	player_one.global_position = player_one_checkpoint.global_position
 
 # Function for Player 2 respawn point
 func player2_respawns() -> void:
+	player_one.respawn()
 	player_two.global_position = player_two_checkpoint.global_position
 
 

@@ -8,6 +8,7 @@ const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	octopus.on_respawn.connect(on_respawn)
 	Game.on_killzone_enter.connect(_show_killzone_text)
 	Game.on_killzone_exit.connect(_hide_killzone_text)
 	Game.on_killzone_timer.connect(_update_killzone_text)
@@ -25,7 +26,5 @@ func _update_killzone_text(player_id: int, time: float) -> void:
 	if player_id == octopus.player_id:
 		timer_container.scale.x = time / GAME_SETTINGS.killzone_time
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func on_respawn() -> void:
+	Global.set_inactive(self)
