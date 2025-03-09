@@ -101,6 +101,7 @@ func knockback(force: Vector2, time: float) -> void:
 
 func deactivate() -> void:
 	self.state = STATE.DEACTIVATED
+	primary_arm._release()
 	Global.set_inactive(self)
 
 func respawn(pos: Vector2) -> void:
