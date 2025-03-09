@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1pxkdbgte1n7"]
+
+[ext_resource type="Texture2D" uid="uid://dfhr18ad3jbxk" path="res://art/ui/heart_full.png" id="1_c2j8h"]
+
+[node name="HealthPopupItem" type="TextureRect"]
+custom_minimum_size = Vector2(10, 10)
+texture = ExtResource("1_c2j8h")
+expand_mode = 3

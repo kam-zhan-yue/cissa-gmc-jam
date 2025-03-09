@@ -1,23 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjijtbciqch53"]
+[gd_scene load_steps=2 format=3 uid="uid://bjijtbciqch53"]
 
 [ext_resource type="Script" uid="uid://ckiajqblb4axv" path="res://scripts/ui/health_popup.gd" id="1_p62em"]
-[ext_resource type="Texture2D" uid="uid://dfhr18ad3jbxk" path="res://art/ui/heart_full.png" id="2_heeow"]
 
 [node name="HealthPopup" type="HBoxContainer"]
 size_flags_vertical = 3
 script = ExtResource("1_p62em")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 2
-texture = ExtResource("2_heeow")
-expand_mode = 3
-
-[node name="TextureRect2" type="TextureRect" parent="."]
-layout_mode = 2
-texture = ExtResource("2_heeow")
-expand_mode = 3
-
-[node name="TextureRect3" type="TextureRect" parent="."]
-layout_mode = 2
-texture = ExtResource("2_heeow")
-expand_mode = 3

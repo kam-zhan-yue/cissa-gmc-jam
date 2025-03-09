@@ -45,7 +45,6 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity = target_direction * GAME_SETTINGS.movement_speed
 			if ink < GAME_SETTINGS.max_ink:
-				print("Regen")
 				ink += GAME_SETTINGS.ink_regen_rate * delta
 				on_ink_changed.emit(ink)
 			elif ink >= GAME_SETTINGS.max_ink:

@@ -20,12 +20,12 @@ anchor_right = 1.0
 offset_left = -500.0
 offset_bottom = 150.0
 grow_horizontal = 0
+player_id = 1
 
 [node name="HealthPopup" parent="PlayerTwoPopup/MarginContainer/VBoxContainer" index="0"]
 alignment = 2
 
-[node name="MarginContainer" parent="PlayerTwoPopup/MarginContainer/VBoxContainer/Control" index="1"]
-pivot_offset = Vector2(480, 0)
-
 [editable path="PlayerOnePopup"]
+[editable path="PlayerOnePopup/MarginContainer/VBoxContainer/HealthPopup"]
 [editable path="PlayerTwoPopup"]
+[editable path="PlayerTwoPopup/MarginContainer/VBoxContainer/HealthPopup"]
