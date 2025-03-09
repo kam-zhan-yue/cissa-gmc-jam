@@ -1,10 +1,13 @@
+class_name GameOverPopup
 extends Control
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Game.on_game_over.connect(on_game_over)
 	Global.set_inactive(self)
+	
+# Called when the node enters the scene tree for the first time.
+func init() -> void:
+	Game.on_game_over.connect(on_game_over)
 
 
 func on_game_over(winner_id: int) -> void:

@@ -7,6 +7,6 @@ extends Control
 @onready var ink_popup := %InkPopup as InkPopup
 
 
-func _ready() -> void:
+func init() -> void:
 	health_popup.init(player_id)
 	ink_popup.init(player_id)

@@ -1,6 +1,10 @@
+class_name StartGamePopup
 extends Control
 
 var showing := true
+
+func init() -> void:
+	pass
 
 func _process(_delta: float) -> void:
 	if not showing:

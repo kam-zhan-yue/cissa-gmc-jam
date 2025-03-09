@@ -29,6 +29,8 @@ func init(one: Octopus, two: Octopus, c: DynamicCamera, one_checkpoint: Node2D, 
 	player_two_checkpoint = two_checkpoint
 	player_1_lives = GAME_SETTINGS.max_health
 	player_2_lives = GAME_SETTINGS.max_health
+	camera.add_target(player_one)
+	camera.add_target(player_two)
 
 func get_player(player_id: int) -> Octopus:
 	return player_one if player_id == 0 else player_two

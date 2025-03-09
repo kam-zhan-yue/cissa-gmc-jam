@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://brm857sd4wqbs"]
+[gd_scene load_steps=9 format=3 uid="uid://brm857sd4wqbs"]
 
 [ext_resource type="Texture2D" uid="uid://ciwufs0walpsw" path="res://art/background.png" id="1_choun"]
-[ext_resource type="PackedScene" uid="uid://de4b2yyu8efhx" path="res://scenes/octopus.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ck4a7ys5px7f" path="res://scenes/killzone.tscn" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cx0elix0tahfl" path="res://scripts/game/game_manager.gd" id="2_tefeu"]
@@ -15,27 +14,18 @@
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_choun")
 
-[node name="GameManager" type="Node2D" parent="."]
-script = ExtResource("2_tefeu")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" parent="CanvasLayer" instance=ExtResource("3_o6xl0")]
 unique_name_in_owner = true
 
+[node name="GameManager" type="Node2D" parent="."]
+script = ExtResource("2_tefeu")
+
 [node name="Killzone" parent="." instance=ExtResource("2_tbgi4")]
 unique_name_in_owner = true
 process_mode = 3
 scale = Vector2(0.8, 0.8)
-
-[node name="PlayerOne" parent="." instance=ExtResource("1_o5qli")]
-unique_name_in_owner = true
-position = Vector2(8, -603)
-
-[node name="PlayerTwo" parent="." instance=ExtResource("1_o5qli")]
-unique_name_in_owner = true
-position = Vector2(23, 633)
-player_id = 1
 
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
@@ -46,24 +36,24 @@ cam_max_zoom = 10
 margin = Vector2(200, 200)
 bounds = Rect2(0, 0, 4096, 4096)
 
-[node name="Respawn" type="Node" parent="."]
-
 [node name="PlayerOneCheckpoint" parent="." instance=ExtResource("7_o6xl0")]
 unique_name_in_owner = true
-position = Vector2(213, 0)
+position = Vector2(0, -300)
 
 [node name="PlayerTwoCheckpoint" parent="." instance=ExtResource("7_o6xl0")]
 unique_name_in_owner = true
-position = Vector2(-59, 1)
+position = Vector2(0, 300)
 
-[node name="Sword" parent="." instance=ExtResource("8_tipki")]
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Sword" parent="Items" instance=ExtResource("8_tipki")]
 position = Vector2(54, -92)
 
-[node name="Ball" parent="." instance=ExtResource("10_choun")]
+[node name="Ball" parent="Items" instance=ExtResource("10_choun")]
 position = Vector2(-294, -417)
 
-[node name="Ball2" parent="." instance=ExtResource("10_choun")]
+[node name="Ball2" parent="Items" instance=ExtResource("10_choun")]
 position = Vector2(-441, -317)
 
-[node name="Ball3" parent="." instance=ExtResource("10_choun")]
+[node name="Ball3" parent="Items" instance=ExtResource("10_choun")]
 position = Vector2(-256, -277)

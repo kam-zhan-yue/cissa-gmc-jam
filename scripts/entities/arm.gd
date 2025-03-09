@@ -160,6 +160,7 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 		#next.is_base = true
 	#else:
 		#next.is_base = false
+	
 
 	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	var difference := next_position - curr.position
