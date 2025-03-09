@@ -1,27 +1,27 @@
 shader_type canvas_item;
-
-uniform float border_width: hint_range(0.0, 1.0);
-uniform float angle_separation: hint_range(0.0, 360.0);
-uniform int segments: hint_range(0, 1000);
-
-const vec2 CENTER = vec2(0.5);
-const float LENGTH = 0.5;
+uniform vec4 color : source_color = vec4(1.0);
+uniform float diameter = 1.0; // Circle Diameter
+uniform float thickness = 0.05; // Outline thickness
+uniform float frequency = 10.0; // Controls the number of dots
+uniform float rotation_speed = 2.0; // Controls the rotation of the dots
 
 void fragment() {
-	vec2 uv = UV;
-	vec2 fromCenter = uv - CENTER;
-	float distanceFromCenter = length(fromCenter);
+	vec2 pos = UV - vec2(0.5);
+	float outer_radius = diameter / 2.0;
+	float inner_radius = outer_radius - thickness;
+	float outer_circle = step(length(pos), outer_radius);
+	float inner_circle = step(length(pos), inner_radius);
 
-    float angleFromCenter = atan(fromCenter.y, fromCenter.x);
 
-	if (distanceFromCenter >= LENGTH - border_width && distanceFromCenter <= LENGTH) {
-		if (angleFromCenter > 0.0 && angleFromCenter < PI * 0.5) {
-			//if (mod(angleFromCenter)
-			COLOR = vec4(0.0);
-		} else {
-			COLOR = vec4(vec3(0.0), 1.0);
-		}
-	} else {
-		COLOR = vec4(0.0);
+	float angle = atan(pos.y, pos.x);
+	if (angle < 0.0) {
+	angle += 2.0 * PI;
 	}
+
+	float wave = 0.5 * sin(frequency * angle + rotation_speed * TIME) + 0.5;
+
+	float ring = outer_circle - inner_circle;
+	ring *= step(0.5, wave);
+
+	COLOR = vec4(color.rgb, ring * color.a);
 }

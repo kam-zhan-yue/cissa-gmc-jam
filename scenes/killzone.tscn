@@ -8,9 +8,11 @@ radius = 855.945
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j2mit"]
 shader = ExtResource("2_kl8fp")
-shader_parameter/border_width = 0.026
-shader_parameter/angle_separation = 0.0
-shader_parameter/segments = 0
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/diameter = 1.0
+shader_parameter/thickness = 0.01
+shader_parameter/frequency = 50.0
+shader_parameter/rotation_speed = 2.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_kl8fp"]
 
@@ -23,7 +25,7 @@ debug_color = Color(0.165779, 0.517173, 1, 0.42)
 
 [node name="Border" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_j2mit")
-scale = Vector2(1000, 1000)
+scale = Vector2(1700, 1700)
 texture = SubResource("CanvasTexture_kl8fp")
 
 [node name="Player1Timer" type="Timer" parent="."]
