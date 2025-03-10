@@ -118,7 +118,7 @@ func _draw_fabrik(end_point: Vector2, end_node: int) -> void:
 func _process_constraints() -> void:
 	for i in range(len(constraints) - 1):
 		if constraints[i].is_base:
-			print("Calling back ", i)
+			#print("Calling back ", i)
 			_process_constraints_recursive(i)
 
 func _process_constraints_recursive(start_index: int) -> void:
@@ -175,20 +175,26 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 
 	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	var difference := next_position - curr.position
+	debug_line(curr.position, difference)
 	
 	var angle_difference = curr.angle - difference.angle()
-
-	if abs(angle_difference) > curr.max_angle:
-		var new_angle = curr.angle + sign(angle_difference) * curr.max_angle
-		var new_vector = Vector2.from_angle(new_angle)
-		difference = new_vector * difference.length()
-	
+#
+	#if abs(angle_difference) > curr.max_angle:
+		##print("Angle Difference: ", angle_difference, " Max Angle: ", curr.max_angle)
+		#var new_angle = curr.angle + sign(angle_difference) * curr.max_angle
+		#var new_vector = Vector2.from_angle(new_angle)
+		#difference = new_vector * difference.length()
+		#debug_line(curr.position, difference)
+	#
 	curr.angle = difference.angle()
 
 	# If the constraint is past the distance per node, we wanna lock it
 	if constraint_distance and difference.length() >= node_distance:
 		var new_position := curr.position + difference.normalized() * node_distance
 		next.position = new_position
+
+func debug_line(pos: Vector2, difference: Vector2) -> void:
+	draw_line(pos - global_position, pos - global_position + Vector2.from_angle(difference.angle()) * difference.length(), Color.WHITE, 2.0)
 
 
 func _draw_constraints() -> void:

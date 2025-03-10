@@ -4,6 +4,7 @@ extends CharacterBody2D
 const ARM = preload("res://scenes/arm.tscn")
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 
+@export var debug := false
 @export var player_id := 0
 @export var num_arms:= 7
 @export var max_lives : int = 3
@@ -28,6 +29,9 @@ enum STATE {
 	BURST,
 }
 
+func _ready() -> void:
+	if debug:
+		init()
 
 func init() -> void:
 	primary_arm.init(player_id)

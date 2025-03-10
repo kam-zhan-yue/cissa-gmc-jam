@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://bpgpv173byvwi" path="res://scripts/setup/game_settings.gd" id="1_ks8vh"]
 
 [sub_resource type="Curve" id="Curve_oahbv"]
-_data = [Vector2(0, 0.494152), 0.0, 0.0, 0, 0, Vector2(0.320106, 0.508772), 0.0, 0.0, 0, 0, Vector2(0.846561, 0.461988), 0.0, 0.0, 0, 0, Vector2(1, 0.476608), 0.0, 0.0, 0, 0]
-point_count = 4
+_data = [Vector2(0, 0.190058), 0.0, 0.0, 0, 0]
+point_count = 1
 
 [sub_resource type="Curve" id="Curve_ks8vh"]
 _data = [Vector2(0, 0.884664), 0.0, 0.0, 0, 0, Vector2(0.240741, 0.394737), 0.0, 0.0, 0, 0, Vector2(0.465174, 0.689692), 0.0, 0.0, 0, 0, Vector2(0.671958, 0.453216), 0.0, 0.0, 0, 0, Vector2(0.875661, 0.593567), 0.0, 0.0, 0, 0, Vector2(1, 0.216374), 0.0, 0.0, 0, 0]
@@ -39,8 +39,8 @@ tentacle_radius = 20.0
 max_reach = 200.0
 primary_tentacle_speed = 5000.0
 tentacle_speed = 1000.0
-total_nodes = 15
-hand_node = 4
+total_nodes = 10
+hand_node = 1
 tentacle_radius_curve = SubResource("Curve_ks8vh")
 tentacle_angle_curve = SubResource("Curve_oahbv")
 stride_distance = 150.0
