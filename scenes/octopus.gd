@@ -34,7 +34,7 @@ func init() -> void:
 	for i in range(num_arms):
 		var arm = ARM.instantiate()
 		arms.add_child(arm)
-	arms.init()
+	arms.init(player_id)
 
 func steer_towards(target: Vector2) -> void:
 	var direction = target - global_position

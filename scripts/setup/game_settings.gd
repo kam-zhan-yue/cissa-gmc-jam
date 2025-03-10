@@ -25,8 +25,10 @@ extends Resource
 @export var hit_force := 1000.0
 
 @export_category("Tentacle")
-@export var tentacle_fill_colour := Color.AQUAMARINE
-@export var tentacle_border_colour := Color.DARK_SLATE_GRAY
+@export var player_one_fill_colour := Color.INDIAN_RED
+@export var player_one_border_colour := Color.DARK_RED
+@export var player_two_fill_colour := Color.AQUAMARINE
+@export var player_two_border_colour := Color.DARK_BLUE
 @export var tentacle_width := 2.0
 @export var tentacle_radius := 10.0
 @export var max_reach := 200.0

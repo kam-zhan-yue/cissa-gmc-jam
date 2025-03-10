@@ -9,12 +9,14 @@ var arms: Array[Arm] = []
 var restriction = 0.0
 
 
-func init() -> void:
+func init(player_id: int) -> void:
 	var restriction = GAME_SETTINGS.restriction_angle
 	var children = get_children()
 	for child in children:
 		if child is Arm and child is not PrimaryArm:
-			arms.append(child as Arm)
+			var child_arm = child as Arm
+			arms.append(child_arm)
+			child_arm.init_arm(player_id)
 	var positions = get_positions()
 	for i in range(len(positions)):
 		arms[i].target = positions[i]

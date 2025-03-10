@@ -3,6 +3,7 @@ extends Node2D
 
 var aim := Vector2.ZERO
 var target := Vector2.ZERO
+var id := -1
 
 var constraints: Array[Constraint] = []
 
@@ -22,9 +23,14 @@ enum ARM_STATE {
 	PULLING_BACK,
 }
 
-func _ready() -> void:
-	fill_colour = GAME_SETTINGS.tentacle_fill_colour
-	border_colour = GAME_SETTINGS.tentacle_border_colour
+func init_arm(player_id: int) -> void:
+	if player_id == 0:
+		fill_colour = GAME_SETTINGS.player_one_fill_colour
+		border_colour = GAME_SETTINGS.player_one_border_colour
+	else:
+		fill_colour = GAME_SETTINGS.player_two_fill_colour
+		border_colour = GAME_SETTINGS.player_two_border_colour
+
 	self.arm_speed = GAME_SETTINGS.tentacle_speed
 	var radius_curve := GAME_SETTINGS.tentacle_radius_curve
 	var angle_curve := GAME_SETTINGS.tentacle_angle_curve

@@ -4,8 +4,6 @@ extends Arm
 @export var use_mouse := false
 @onready var hand: Area2D = %Hand
 
-var id := -1
-
 var target_position := Vector2.ZERO
 var grab: Item
 
@@ -24,8 +22,8 @@ var state := GRAB_STATE.NONE
 
 func init(player_id: int) -> void:
 	self.arm_state = ARM_STATE.AIMING
-	self.id = player_id
 	self.border_colour = Color.AQUAMARINE
+	init_arm(player_id)
 
 func grab_towards(target: Vector2) -> void:
 	var direction = target - global_position

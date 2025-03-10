@@ -22,3 +22,6 @@ position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_jcd4p")
 
 [node name="Octopus" parent="." instance=ExtResource("2_bl13t")]
+player_id = null
+num_arms = null
+max_lives = null
