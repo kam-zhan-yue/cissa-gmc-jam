@@ -175,17 +175,19 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 
 	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	var difference := next_position - curr.position
-	debug_line(curr.position, difference)
 	
 	var angle_difference = curr.angle - difference.angle()
-#
-	#if abs(angle_difference) > curr.max_angle:
-		##print("Angle Difference: ", angle_difference, " Max Angle: ", curr.max_angle)
+	#print("Current Angle ", curr.angle, " Difference Angle ", difference.angle(), " Angle Difference ", angle_difference)
+	
+	debug_line(curr.position, curr.angle, Color.WHITE, 5.0)
+	debug_line(curr.position, difference.angle(), Color.BLACK, 2.0)
+	if abs(angle_difference) > curr.max_angle:
+		print("Max Angle Reached")
+		print(str("Angle Diff ", angle_difference, " Curr Angle: ", curr.angle))
 		#var new_angle = curr.angle + sign(angle_difference) * curr.max_angle
 		#var new_vector = Vector2.from_angle(new_angle)
 		#difference = new_vector * difference.length()
-		#debug_line(curr.position, difference)
-	#
+
 	curr.angle = difference.angle()
 
 	# If the constraint is past the distance per node, we wanna lock it
@@ -193,8 +195,8 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 		var new_position := curr.position + difference.normalized() * node_distance
 		next.position = new_position
 
-func debug_line(pos: Vector2, difference: Vector2) -> void:
-	draw_line(pos - global_position, pos - global_position + Vector2.from_angle(difference.angle()) * difference.length(), Color.WHITE, 2.0)
+func debug_line(pos: Vector2, angle: float, colour: Color, width: float) -> void:
+	draw_line(pos - global_position, pos - global_position + Vector2.from_angle(angle) * 20.0, colour, width)
 
 
 func _draw_constraints() -> void:
