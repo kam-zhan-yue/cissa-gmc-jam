@@ -17,6 +17,8 @@ const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 func _ready() -> void:
 	if GAME_SETTINGS.start_immediately:
 		start(GAME_SETTINGS.single_player)
+	else:
+		Game.on_start.connect(start)
 
 func start(single_player: bool) -> void:
 	if single_player:

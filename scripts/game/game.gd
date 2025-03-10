@@ -9,7 +9,7 @@ signal on_killzone_timer(player_id :int, time: float)
 signal on_player_dead(player_id: int)
 signal on_player_health_changed(player_id: int, health: int)
 signal on_game_over(winner_id: int)
-
+signal on_start(single_player: bool)
 
 var player_one: Octopus
 var player_two: Octopus
@@ -21,6 +21,13 @@ var items: Array[Item] = []
 var player_1_lives := 0
 var player_2_lives := 0
 var LOSING_SCORE = 0
+
+func start_single_player() -> void:
+	on_start.emit(true)
+
+
+func start_two_player() -> void:
+	on_start.emit(false)
 
 func init(one: Octopus, two: Octopus, c: DynamicCamera, one_checkpoint: Node2D, two_checkpoint: Node2D, i: Array[Item]):
 	player_one = one
