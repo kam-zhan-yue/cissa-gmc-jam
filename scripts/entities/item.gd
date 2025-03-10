@@ -75,7 +75,7 @@ func launch(launch_velocity: Vector2) -> void:
 	self.collision_layer = 100
 	self.collision_mask = 100
 	self.state = STATE.LAUNCHING
-	await Global.wait(0.1)
+	await Global.wait(0.3)
 	self.can_grab = true
 	self.collision_layer = self.original_layer
 	self.collision_mask = self.original_mask
