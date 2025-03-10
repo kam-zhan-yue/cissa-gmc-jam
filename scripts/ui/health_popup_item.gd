@@ -13,16 +13,11 @@ var alive := false
 var tween: Tween
 
 func play_anim() -> void:
-	adjust_pivot()
 	tween = create_tween().set_loops()
 	tween.tween_property(self, "scale", Vector2.ONE * EXPAND, ANIM_TIME).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "scale", Vector2.ONE * CONTRACT, ANIM_TIME).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "scale", Vector2.ONE, ANIM_TIME).set_ease(Tween.EASE_OUT)
 	tween.tween_interval(WAIT_TIME)
-
-func adjust_pivot() -> void:
-	pivot_offset.x = image.size.x / 2
-	pivot_offset.y = image.size.y / 2
 
 func die() -> void:
 	alive = false

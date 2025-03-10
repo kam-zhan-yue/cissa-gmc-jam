@@ -30,9 +30,9 @@ func _process(_delta: float) -> void:
 	if not showing:
 		return
 
-	if Input.is_action_just_pressed(Global.get_input(0, 'move_down')):
+	if Input.is_action_just_pressed(Global.get_input(0, 'move_down')) or Input.is_action_just_pressed(Global.get_input(1, 'move_down')):
 		scroll_down()
-	elif Input.is_action_just_pressed(Global.get_input(0, 'move_up')):
+	elif Input.is_action_just_pressed(Global.get_input(0, 'move_up')) or Input.is_action_just_pressed(Global.get_input(1, 'move_up')):
 		scroll_up()
 	
 	if Input.is_action_just_pressed(Global.get_input(0, 'dash')):
