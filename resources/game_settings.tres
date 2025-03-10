@@ -12,8 +12,8 @@ point_count = 6
 
 [resource]
 script = ExtResource("1_ks8vh")
-start_immediately = true
-start_mode = 1
+start_immediately = false
+start_mode = 0
 killzone_time = 2.0
 despawn_time = 3.0
 spawn_time = 3.0
@@ -26,8 +26,8 @@ dash_speed = 1000.0
 dash_cost_rate = 10.0
 max_ink = 100.0
 ink_regen_rate = 10.0
-throw_force = 1000.0
-throw_threshold = 0.3
+throw_force = 2000.0
+throw_threshold = 0.4
 hit_force = 1600.0
 projectile_force = 2000.0
 projectile_knockback_time = 0.4

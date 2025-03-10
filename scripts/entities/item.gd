@@ -71,11 +71,11 @@ func _physics_process(delta: float) -> void:
 func launch(launch_velocity: Vector2) -> void:
 	self.deceleration = 0.0
 	self.velocity = launch_velocity
-	self.can_grab = false
-	self.collision_layer = 100
-	self.collision_mask = 100
-	self.state = STATE.LAUNCHING
-	await Global.wait(0.3)
+	#self.can_grab = false
+	#self.collision_layer = 100
+	#self.collision_mask = 100
+	#self.state = STATE.LAUNCHING
+	#await Global.wait(0.1)
 	self.can_grab = true
 	self.collision_layer = self.original_layer
 	self.collision_mask = self.original_mask

@@ -88,10 +88,14 @@ func _get_next_hand_position(delta: float) -> Vector2:
 
 func _process_input() -> void:
 	if Input.is_action_just_pressed(Global.get_input(id, "grab")) and state == GRAB_STATE.GRAB:
-		self._release()
+		if grab and grab.throwable:
+			self._throw()
+		elif grab:
+			self._release()
 
-	if _get_aim().length() >= GAME_SETTINGS.throw_threshold and state == GRAB_STATE.GRAB:
-		self._throw()
+	# Remove throw threshold nonsense
+	#if _get_aim().length() >= GAME_SETTINGS.throw_threshold and state == GRAB_STATE.GRAB:
+		#self._throw()
 
 func _get_aim() -> Vector2:
 	return curr_aim - prev_aim
@@ -99,7 +103,7 @@ func _get_aim() -> Vector2:
 func _throw_item() -> void:
 	if not grab: return
 	if grab.throwable:
-		var throw_velocity = _get_aim().normalized() * GAME_SETTINGS.throw_force
+		var throw_velocity = curr_aim.normalized() * GAME_SETTINGS.throw_force
 		grab.launch(throw_velocity)
 	
 

@@ -145,3 +145,4 @@ func respawn(pos: Vector2) -> void:
 	Global.set_active(self)
 	on_respawn.emit()
 	global_position = pos
+	ink = GAME_SETTINGS.max_ink
