@@ -153,7 +153,7 @@ func _process_forwards() -> void:
 
 func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool, constraint_distance: bool) -> void:
 	var next_position := next.position
-
+	
 	#var space_state = get_world_2d().direct_space_state
 	#var query = PhysicsRayQueryParameters2D.create(curr.position, next.position, Game.OBSTACLE_COLLISION_MASK)
 	#var result = space_state.intersect_ray(query)
@@ -168,6 +168,14 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 
 	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	var difference := next_position - curr.position
+	
+	var angle_difference = curr.angle - difference.angle()
+
+	if abs(angle_difference) > curr.max_angle:
+		var new_angle = curr.angle + sign(angle_difference) * curr.max_angle
+		var new_vector = Vector2.from_angle(new_angle)
+		difference = new_vector * difference.length()
+	
 	curr.angle = difference.angle()
 
 	# If the constraint is past the distance per node, we wanna lock it
@@ -178,19 +186,32 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 
 func _draw_constraints() -> void:
 	var coords: Array[Vector2]= []
+	# Get the left side
 	for i in range(len(constraints) - 2):
 		var curr_left := get_parametric(constraints[i], PI * 0.5)
-		var curr_right := get_parametric(constraints[i], -PI * 0.5)
-		
 		var next_left := get_parametric(constraints[i + 1], PI * 0.5)
-		var next_right := get_parametric(constraints[i + 1], -PI * 0.5)
-	
+		coords.append(curr_left)
+		coords.append(next_left)
+
+	for i in range(len(constraints) - 2, 0, -1):
+		var curr_right := get_parametric(constraints[i], -PI * 0.5)
+		var next_right := get_parametric(constraints[i - 1], -PI * 0.5)
+		coords.append(curr_right)
+		coords.append(next_right)
+
+	# Get the right side
+	#for i in range(len(constraints) - 2):
+		#var curr_left := get_parametric(constraints[i], PI * 0.5)
+		#var curr_right := get_parametric(constraints[i], -PI * 0.5)
+		#var next_left := get_parametric(constraints[i + 1], PI * 0.5)
+		#var next_right := get_parametric(constraints[i + 1], -PI * 0.5)
 		#_draw_constraint(constraints[i])
-		draw_line(curr_left, next_left, border_colour, GAME_SETTINGS.tentacle_width)
-		draw_line(curr_right, next_right, border_colour, GAME_SETTINGS.tentacle_width)
+		#draw_line(curr_left, next_left, border_colour, GAME_SETTINGS.tentacle_width)
+		#draw_line(curr_right, next_right, border_colour, GAME_SETTINGS.tentacle_width)
 	
 	var fill: PackedVector2Array = Global.pack_array(coords)
-	draw_polygon(fill, [])
+	draw_polygon(fill, [fill_colour])
+	draw_polyline(fill, border_colour, GAME_SETTINGS.tentacle_width)
 
 func get_parametric(constraint: Constraint, angle: float) -> Vector2:
 	var pos := constraint.position - global_position
@@ -201,4 +222,4 @@ func get_parametric(constraint: Constraint, angle: float) -> Vector2:
 
 func _draw_constraint(constraint: Constraint) -> void:
 	var draw_pos = constraint.position - global_position
-	draw_circle(draw_pos, constraint.radius, Color.WHITE)
+	draw_circle(draw_pos, constraint.radius, fill_colour)

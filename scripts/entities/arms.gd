@@ -4,8 +4,8 @@ extends Node2D
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 @onready var octopus: Octopus = $".."
 
+@onready var primary_arm := %PrimaryArm as PrimaryArm
 var arms: Array[Arm] = []
-var primary_arm: PrimaryArm
 var restriction = 0.0
 
 
@@ -15,8 +15,6 @@ func init() -> void:
 	for child in children:
 		if child is Arm and child is not PrimaryArm:
 			arms.append(child as Arm)
-		if child is PrimaryArm:
-			primary_arm = child
 	var positions = get_positions()
 	for i in range(len(positions)):
 		arms[i].target = positions[i]
