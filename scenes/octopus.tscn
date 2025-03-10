@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://de4b2yyu8efhx"]
+[gd_scene load_steps=22 format=3 uid="uid://de4b2yyu8efhx"]
 
 [ext_resource type="Script" uid="uid://b5bjuui6xvw8m" path="res://scenes/octopus.gd" id="2_8jto7"]
 [ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
 [ext_resource type="Script" uid="uid://2u61la2wa3b6" path="res://scripts/entities/arms.gd" id="2_qo5xf"]
+[ext_resource type="Shader" uid="uid://ccdpbk0sukwjn" path="res://scripts/outline.gdshader" id="2_v3bxo"]
 [ext_resource type="Script" uid="uid://dp1itdnh1slm5" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
 [ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_qo5xf"]
 [ext_resource type="AudioStream" uid="uid://be5xerhlq0djb" path="res://assets/sounds/INK_01.ogg" id="6_axg1m"]
@@ -11,6 +12,10 @@
 [ext_resource type="AudioStream" uid="uid://cwvivmnh7tsj0" path="res://assets/sounds/Metal_Impact_01.ogg" id="8_cd4pw"]
 [ext_resource type="AudioStream" uid="uid://b3uh3ypnv44f7" path="res://assets/sounds/Metal_Impact_02.ogg" id="9_7rf3i"]
 [ext_resource type="AudioStream" uid="uid://iv1fy7aeallo" path="res://assets/sounds/Metal_Impact_03.ogg" id="10_pwpuj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3bxo"]
+render_priority = 0
+shader = ExtResource("2_v3bxo")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fhwgg"]
 radius = 25.0799
@@ -47,17 +52,21 @@ width = 1
 height = 1
 
 [node name="Octopus" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_v3bxo")
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("2_8jto7")
 
 [node name="Arms" type="Node2D" parent="."]
+use_parent_material = true
 script = ExtResource("2_qo5xf")
 
 [node name="PrimaryArm" parent="Arms" instance=ExtResource("2_fhwgg")]
 unique_name_in_owner = true
+material = null
 
 [node name="Body" type="Node2D" parent="."]
+use_parent_material = true
 scale = Vector2(0.2, 0.2)
 script = ExtResource("5_qo5xf")
 

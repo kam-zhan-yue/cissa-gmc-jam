@@ -38,7 +38,8 @@ func _process(_delta: float) -> void:
 	var positions = get_positions()
 	for i in range(len(positions)):
 		arms[i].target = positions[i]
-	queue_redraw()
+	if octopus.debug:
+		queue_redraw()
 
 func get_positions() -> Array[Vector2]:
 	var space_state = get_world_2d().direct_space_state
@@ -72,6 +73,8 @@ func get_positions() -> Array[Vector2]:
 
 
 func _draw() -> void:
+	if not octopus.debug:
+		return
 	var positions = get_positions()
 
 	for i in range(len(positions)):
