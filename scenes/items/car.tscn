@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://j5nistjpmekf"]
 
 [ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/items/projectile.tscn" id="1_8ejt4"]
-[ext_resource type="Texture2D" uid="uid://b4j8pm05hr7dr" path="res://assets/items/car20.png" id="2_atc7n"]
+[ext_resource type="Texture2D" uid="uid://ci6a34shftsha" path="res://assets/carred.png" id="2_rl0mc"]
 [ext_resource type="AudioStream" uid="uid://cwvivmnh7tsj0" path="res://assets/sounds/Metal_Impact_01.ogg" id="4_62ijr"]
 [ext_resource type="AudioStream" uid="uid://b3uh3ypnv44f7" path="res://assets/sounds/Metal_Impact_02.ogg" id="5_27oo4"]
 [ext_resource type="AudioStream" uid="uid://iv1fy7aeallo" path="res://assets/sounds/Metal_Impact_03.ogg" id="6_1cn2l"]
@@ -16,8 +16,9 @@ stream_2/stream = ExtResource("6_1cn2l")
 collision_mask = 7
 
 [node name="Sprite2D" parent="." index="0"]
+rotation = 1.5708
 scale = Vector2(0.445312, 0.445312)
-texture = ExtResource("2_atc7n")
+texture = ExtResource("2_rl0mc")
 
 [node name="Projectile" parent="." index="2"]
 collision_layer = 2

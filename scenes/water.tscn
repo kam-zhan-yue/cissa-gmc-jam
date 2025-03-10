@@ -24,7 +24,7 @@ noise = SubResource("FastNoiseLite_p1n2c")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xgdjl"]
 shader = ExtResource("2_p1n2c")
-shader_parameter/color = Color(0.0117647, 0.6, 0.890196, 1)
+shader_parameter/color = Color(0.669527, 0.916847, 1, 0.631373)
 shader_parameter/fast_noise = SubResource("NoiseTexture2D_p1n2c")
 shader_parameter/speed = Vector2(0.03, 0.07)
 shader_parameter/wave_strength = 2.0

@@ -1,19 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://dk6btqcwmuyry"]
 
 [ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/items/sword.tscn" id="1_8di6o"]
-[ext_resource type="Texture2D" uid="uid://celswofluvdbb" path="res://assets/items/stopsign.png" id="2_pu5i4"]
+[ext_resource type="Texture2D" uid="uid://vigk2yrnx61e" path="res://assets/stopsign.png" id="2_yvuch"]
 [ext_resource type="AudioStream" uid="uid://dejk6l1d233qb" path="res://assets/sounds/zapsplat_warfare_sword_strike_metal_medium_hit_clang_008_101776.mp3" id="3_03but"]
 
 [node name="Sword" instance=ExtResource("1_8di6o")]
+scale = Vector2(0.5, 0.5)
 
 [node name="HandleSprite" parent="." index="0"]
 visible = false
 
 [node name="BladeSprite" parent="." index="1"]
 position = Vector2(4, -103)
-rotation = -0.802496
+rotation = -0.802163
 scale = Vector2(1, 1)
-texture = ExtResource("2_pu5i4")
+texture = ExtResource("2_yvuch")
 
 [node name="Handle" parent="." index="2"]
 position = Vector2(1, 9)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://brm857sd4wqbs"]
+[gd_scene load_steps=19 format=3 uid="uid://brm857sd4wqbs"]
 
 [ext_resource type="Texture2D" uid="uid://cj74c50ck3w7q" path="res://art/test/city.webp" id="1_85g3d"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
@@ -6,11 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://ck4a7ys5px7f" path="res://scenes/killzone.tscn" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cx0elix0tahfl" path="res://scripts/game/game_manager.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dt3pvc340yy4r" path="res://scenes/ui.tscn" id="3_o6xl0"]
-[ext_resource type="PackedScene" path="res://respawnpoint.tscn" id="7_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/items/sword.tscn" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://3k4m6e87yuwe" path="res://respawnpoint.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dk6btqcwmuyry" path="res://scenes/items/stopsign.tscn" id="9_choun"]
 [ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/items/projectile.tscn" id="10_choun"]
 [ext_resource type="PackedScene" uid="uid://j5nistjpmekf" path="res://scenes/items/car.tscn" id="10_ya4ey"]
+[ext_resource type="PackedScene" uid="uid://cbiw5mrjkprn8" path="res://scenes/items/cargreen.tscn" id="11_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="11_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://dqigwdh0crbh0" path="res://scenes/items/carblue.tscn" id="12_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://jskft4mmopep" path="res://scenes/items/log.tscn" id="13_jbj1t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p1n2c"]
 shader = ExtResource("1_ya4ey")
@@ -32,7 +35,7 @@ noise = SubResource("FastNoiseLite_p1n2c")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xgdjl"]
 shader = ExtResource("1_ya4ey")
-shader_parameter/color = Color(0.0117647, 0.6, 0.890196, 1)
+shader_parameter/color = Color(0.788235, 0.905882, 1, 1)
 shader_parameter/fast_noise = SubResource("NoiseTexture2D_p1n2c")
 shader_parameter/speed = Vector2(0.03, 0.07)
 shader_parameter/wave_strength = 2.0
@@ -41,6 +44,7 @@ shader_parameter/wave_strength = 2.0
 
 [node name="Water Shader" type="Node2D" parent="."]
 material = SubResource("ShaderMaterial_p1n2c")
+rotation = -0.00119675
 
 [node name="CityKidsCarPlayMat200Cmx300Cm645Bacba-a641-46a8-9d33-2Aa4910Cf50c(1)" type="Sprite2D" parent="Water Shader"]
 position = Vector2(36, -7)
@@ -87,12 +91,6 @@ position = Vector2(0, 300)
 [node name="Items" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Sword" parent="Items" instance=ExtResource("8_tipki")]
-position = Vector2(54, -92)
-
-[node name="Sword2" parent="Items" instance=ExtResource("8_tipki")]
-position = Vector2(122, -365)
-
 [node name="Ball" parent="Items" instance=ExtResource("10_choun")]
 position = Vector2(-294, -417)
 
@@ -103,11 +101,29 @@ position = Vector2(-441, -317)
 position = Vector2(-256, -277)
 
 [node name="Car" parent="Items" instance=ExtResource("10_ya4ey")]
-position = Vector2(-469, 16)
+position = Vector2(-493, 15)
 collision_mask = 5
+
+[node name="stopsign" parent="Items" instance=ExtResource("9_choun")]
+position = Vector2(148, -215)
+
+[node name="Car2" parent="Items" instance=ExtResource("11_a8y0u")]
+position = Vector2(103, -543)
+
+[node name="Car3" parent="Items" instance=ExtResource("12_jkv2x")]
+position = Vector2(-195, 444)
+
+[node name="log1" parent="Items" instance=ExtResource("13_jbj1t")]
+position = Vector2(-262, 14)
+
+[node name="stopsign2" parent="Items" instance=ExtResource("9_choun")]
+position = Vector2(-145, 380)
+
+[node name="log2" parent="Items" instance=ExtResource("13_jbj1t")]
+position = Vector2(365, 314)
 
 [node name="Icon" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_xgdjl")
-position = Vector2(34, -5)
+position = Vector2(7.62939e-06, -5)
 scale = Vector2(25.4688, 16.4609)
 texture = ExtResource("11_eb6dy")
