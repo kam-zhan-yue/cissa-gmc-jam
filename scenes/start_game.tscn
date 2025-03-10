@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dp37pwmk8ht8f"]
+[gd_scene load_steps=5 format=3 uid="uid://dp37pwmk8ht8f"]
 
 [ext_resource type="Script" uid="uid://css2jw7p33w4i" path="res://scenes/start_game_popup.gd" id="1_c75kr"]
 [ext_resource type="Texture2D" uid="uid://2k5bqkwsxmwq" path="res://art/ui/title.png" id="2_tq2sd"]
-[ext_resource type="Texture2D" uid="uid://c0df3o6khbcu2" path="res://art/ui/button.png" id="3_2aiwh"]
 [ext_resource type="Theme" uid="uid://c6tb7q3ho50tr" path="res://resources/text.tres" id="4_wcjs8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ya4ey"]
@@ -31,106 +30,60 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -85.0
+offset_bottom = -85.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_tq2sd")
 
-[node name="Button" type="Button" parent="."]
-custom_minimum_size = Vector2(500, 100)
+[node name="Control" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -600.0
-offset_top = -50.0
-offset_right = -100.0
-offset_bottom = 50.0
+offset_top = -82.0
+offset_bottom = -82.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_wcjs8")
-text = "Singe Player"
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_top = 600
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="SinglePlayer" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="SinglePlayer" type="Button" parent="Control"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/SinglePlayer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/SinglePlayer/CenterContainer"]
-layout_mode = 2
-texture = ExtResource("3_2aiwh")
-
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/SinglePlayer/CenterContainer/TextureRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 5.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer/SinglePlayer/CenterContainer/TextureRect/CenterContainer"]
-custom_minimum_size = Vector2(500, 50)
-layout_mode = 2
+offset_left = -250.0
+offset_top = 150.0
+offset_right = 250.0
+offset_bottom = 250.0
+pivot_offset = Vector2(250, 50)
 theme = ExtResource("4_wcjs8")
-bbcode_enabled = true
-text = "[center][color=black]Single Player"
-fit_content = true
+text = "Single Player"
 
-[node name="TwoPlayer" type="Control" parent="MarginContainer/VBoxContainer"]
+[node name="TwoPlayer" type="Button" parent="Control"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/TwoPlayer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/TwoPlayer/CenterContainer"]
-layout_mode = 2
-texture = ExtResource("3_2aiwh")
-
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/TwoPlayer/CenterContainer/TextureRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 5.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TwoPlayer/CenterContainer/TextureRect/CenterContainer"]
-custom_minimum_size = Vector2(500, 50)
-layout_mode = 2
+offset_left = -250.0
+offset_top = 301.0
+offset_right = 250.0
+offset_bottom = 401.0
+pivot_offset = Vector2(250, 50)
 theme = ExtResource("4_wcjs8")
-bbcode_enabled = true
-text = "[center][color=black]Two Player"
-fit_content = true
+text = "Two Player"
+
+[node name="Tutorial" type="Button" parent="Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+offset_left = -250.0
+offset_top = 450.0
+offset_right = 250.0
+offset_bottom = 550.0
+pivot_offset = Vector2(250, 50)
+theme = ExtResource("4_wcjs8")
+text = "Tutorial"
+
+[connection signal="button_down" from="Control/SinglePlayer" to="." method="_on_single_player_button_down"]
+[connection signal="button_down" from="Control/TwoPlayer" to="." method="_on_two_player_button_down"]
+[connection signal="button_down" from="Control/Tutorial" to="." method="_on_two_player_button_down"]

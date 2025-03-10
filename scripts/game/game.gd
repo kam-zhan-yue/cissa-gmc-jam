@@ -29,6 +29,9 @@ func start_single_player() -> void:
 func start_two_player() -> void:
 	on_start.emit(false)
 
+func start_tutorial() -> void:
+	pass
+
 func init(one: Octopus, two: Octopus, c: DynamicCamera, one_checkpoint: Node2D, two_checkpoint: Node2D, i: Array[Item]):
 	player_one = one
 	player_two = two
