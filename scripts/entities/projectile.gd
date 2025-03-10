@@ -4,23 +4,32 @@ extends Area2D
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 
 const COOLDOWN_TIME = 0.5
+const THRESHOLD := 300.0
 var cooldown := false
+var velocity := Vector2.ZERO
+var prev_pos := Vector2.ZERO
 
 @onready var item: Item = $".."
 
 
+
+func _physics_process(_delta: float) -> void:
+	velocity = global_position - prev_pos
+	prev_pos = global_position
+
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	pass
 	if item.state == Item.STATE.LAUNCHING:
-		print("Don't hit while launching")
 		return
 	if cooldown: return
 	if body is not Octopus: return
 	var body_octopus := body as Octopus
 	if item.holder and item.holder.id == body_octopus.player_id:
-		print("Don't hit player")
 		return
-	print("Projectile Collided")
-	var collision_direction = Global.get_collision_direction(body_rid, body, body_shape_index, local_shape_index, self)
+	if item.velocity.length() < THRESHOLD:
+		return
+	
+	var collision_direction = velocity
 	if collision_direction:
 		var force = collision_direction.normalized() * GAME_SETTINGS.hit_force
 		body.knockback(force, 1.0)

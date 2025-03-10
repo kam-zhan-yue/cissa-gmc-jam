@@ -25,8 +25,6 @@ func on_health_changed(id: int, health: int) -> void:
 		return
 	for i in range(GAME_SETTINGS.max_health):
 		if i <= health - 1:
-			print("Full")
 			health_items[i].texture = HEART_FULL
 		else:
-			print("Broken")
 			health_items[i].texture = HEART_BROKEN
