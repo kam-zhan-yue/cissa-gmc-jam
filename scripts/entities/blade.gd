@@ -37,7 +37,9 @@ func _on_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int
 	if collision_direction:
 		var force = collision_direction.normalized() * GAME_SETTINGS.hit_force
 		body.knockback(force, 1.0)
-		$"../Clang Sound".play()
+		var clang_sound = $"../Clang Sound"
+		if clang_sound:
+			clang_sound.play()
 		_start_cooldown()
 
 func _start_cooldown() -> void:
