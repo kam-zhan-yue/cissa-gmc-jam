@@ -53,8 +53,7 @@ func steer_towards(target: Vector2) -> void:
 	var direction = target - global_position
 	external = direction.normalized()
 	
-	
-	
+
 func steer_away(target: Vector2) -> void:
 	var direction = global_position - target
 	external = direction.normalized()
@@ -110,7 +109,7 @@ func get_input() -> Vector2:
 	return input
 
 func get_direction() -> Vector2:
-	var input := get_input()
+	var input := get_input() + external
 	if input:
 		facing_direction = input
 	return facing_direction
