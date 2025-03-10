@@ -2,7 +2,7 @@ class_name Arms
 extends Node2D
 
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
-@onready var octopus: Octopus = $".."
+@onready var octopus: Octopus = $"../.."
 
 @onready var primary_arm := %PrimaryArm as PrimaryArm
 var arms: Array[Arm] = []

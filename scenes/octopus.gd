@@ -9,7 +9,7 @@ const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 @export var num_arms:= 7
 @export var max_lives : int = 3
 @onready var primary_arm: PrimaryArm = %PrimaryArm
-@onready var arms := $Arms as Arms
+@onready var arms := %Arms as Arms
 var lives : int
 var ink := GAME_SETTINGS.max_ink
 

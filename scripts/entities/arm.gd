@@ -236,7 +236,7 @@ func _draw_constraints() -> void:
 		_draw_constraint(constraint)
 	var fill: PackedVector2Array = Global.pack_array(coords)
 	#draw_polygon(fill, [fill_colour])
-	draw_polyline(fill, border_colour, GAME_SETTINGS.tentacle_width)
+	#draw_polyline(fill, border_colour, GAME_SETTINGS.tentacle_width)
 
 func get_parametric(constraint: Constraint, angle: float) -> Vector2:
 	var pos := constraint.position - global_position

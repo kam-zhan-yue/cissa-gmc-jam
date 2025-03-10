@@ -1,7 +1,7 @@
 class_name Body
 extends Node2D
 
-@onready var octopus: Octopus = $".."
+@onready var octopus: Octopus = $"../.."
 
 
 func _process(_delta: float) -> void:
