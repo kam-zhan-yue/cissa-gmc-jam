@@ -127,6 +127,6 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_IO_API_KEY }}
           CHANNEL: HTML
-          ITCH_GAME: takoyaki
+          ITCH_GAME: octosumo
           ITCH_USER: alexander-kam
           PACKAGE: ${{ env.PROJECT_NAME }}_web.zip
