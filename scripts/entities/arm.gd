@@ -24,6 +24,7 @@ enum ARM_STATE {
 }
 
 func init_arm(player_id: int) -> void:
+	id = player_id
 	if player_id == 0:
 		fill_colour = GAME_SETTINGS.player_one_fill_colour
 		border_colour = GAME_SETTINGS.player_one_border_colour
