@@ -176,15 +176,17 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	var difference := next_position - curr.position
 	
-	var angle_difference = curr.angle - difference.angle()
+	var angle_difference = angle_difference(curr.angle, difference.angle())
 	#print("Current Angle ", curr.angle, " Difference Angle ", difference.angle(), " Angle Difference ", angle_difference)
 	
 	debug_line(curr.position, curr.angle, Color.WHITE, 5.0)
 	debug_line(curr.position, difference.angle(), Color.BLACK, 2.0)
-	if abs(angle_difference) > curr.max_angle:
-		print("Max Angle Reached")
-		print(str("Angle Diff ", angle_difference, " Curr Angle: ", curr.angle))
+
+
+	#if abs(angle_difference) > curr.max_angle:
+		#print("Max Angle Reached")
 		#var new_angle = curr.angle + sign(angle_difference) * curr.max_angle
+		#print(str("Angle Diff ", angle_difference, " Curr Angle: ", curr.angle), " New Angle ", new_angle)
 		#var new_vector = Vector2.from_angle(new_angle)
 		#difference = new_vector * difference.length()
 
