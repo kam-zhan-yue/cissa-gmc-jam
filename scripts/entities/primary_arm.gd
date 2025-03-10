@@ -4,7 +4,7 @@ extends Arm
 @export var use_mouse := false
 @onready var hand: Area2D = %Hand
 
-var id := 0
+var id := -1
 
 var target_position := Vector2.ZERO
 var grab: Item
@@ -55,7 +55,7 @@ func _process_aim(_delta: float) -> void:
 	prev_aim = curr_aim
 	var aim_vertical := Input.get_axis(Global.get_input(id, "aim_down"), Global.get_input(id, "aim_up"))
 	var aim_horizontal := Input.get_axis(Global.get_input(id, "aim_left"), Global.get_input(id, "aim_right"))
-	var target_pos := Vector2(aim_horizontal, -aim_vertical)
+	var target_pos := Vector2(aim_horizontal, -aim_vertical) + external
 	curr_aim = target_pos
 
 	if use_mouse:

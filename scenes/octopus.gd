@@ -28,7 +28,8 @@ enum STATE {
 	BURST,
 }
 
-func _ready() -> void:
+
+func init() -> void:
 	primary_arm.init(player_id)
 	for i in range(num_arms):
 		var arm = ARM.instantiate()

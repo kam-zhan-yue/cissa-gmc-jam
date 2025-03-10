@@ -33,7 +33,6 @@ func _process(delta: float) -> void:
 			state = STATE.CHASE_PLAYER
 	elif state == STATE.SEARCH_ITEM:
 		var items = Game.items
-		print(items)
 		var item_to_grab = Game.items[0]
 		octopus.grab_towards(item_to_grab.global_position)
 	elif state == STATE.CHASE_PLAYER:

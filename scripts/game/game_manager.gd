@@ -39,6 +39,7 @@ func start(single_player: bool) -> void:
 	for child in items_holder.get_children():
 		if child is Item:
 			items.append(child as Item)
-
+	player_one.init()
+	player_two.init()
 	Game.init(player_one, player_two, camera, player_one_checkpoint, player_two_checkpoint, items)
 	ui.init()
