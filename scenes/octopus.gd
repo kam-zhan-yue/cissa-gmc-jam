@@ -59,7 +59,6 @@ func steer_away(target: Vector2) -> void:
 	if state == STATE.FREE:
 		var direction = global_position - target
 		external = direction.normalized()
-	
 
 
 func is_holding_item() -> bool:
@@ -73,7 +72,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if state == STATE.FREE:
-		var target_direction := get_input() + external
+		var target_direction := get_input()
 		$"ink burst".emitting = false
 		$inktrail.emitting = false
 		if target_direction and Input.is_action_just_pressed(Global.get_input(player_id, "dash")) and ink >= GAME_SETTINGS.burst_cost:
@@ -112,10 +111,10 @@ func get_input() -> Vector2:
 	var move_vertical := Input.get_axis(Global.get_input(player_id, "move_down"), Global.get_input(player_id, "move_up"))
 	var move_horizontal := Input.get_axis(Global.get_input(player_id, "move_left"), Global.get_input(player_id, "move_right"))
 	var input := Vector2(move_horizontal, -move_vertical)
-	return input
+	return input + external
 
 func get_direction() -> Vector2:
-	var input := get_input() + external
+	var input := get_input()
 	if input:
 		facing_direction = input
 	return facing_direction

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://de4b2yyu8efhx"]
+[gd_scene load_steps=25 format=3 uid="uid://de4b2yyu8efhx"]
 
 [ext_resource type="Script" uid="uid://b5bjuui6xvw8m" path="res://scenes/octopus.gd" id="2_8jto7"]
 [ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://xowg6rqpmvlu" path="res://assets/octohead1.png" id="5_axg1m"]
 [ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_qo5xf"]
 [ext_resource type="AudioStream" uid="uid://be5xerhlq0djb" path="res://assets/sounds/INK_01.ogg" id="6_axg1m"]
+[ext_resource type="Texture2D" uid="uid://djyye5hkxm5lb" path="res://art/eye.png" id="6_v3bxo"]
+[ext_resource type="Script" uid="uid://drujplo5myxoq" path="res://scripts/entities/eye.gd" id="7_cd4pw"]
 [ext_resource type="AudioStream" uid="uid://cowwy8xb5dg8u" path="res://assets/sounds/INK_02.ogg" id="7_v3bxo"]
 [ext_resource type="AudioStream" uid="uid://cwvivmnh7tsj0" path="res://assets/sounds/Metal_Impact_01.ogg" id="8_cd4pw"]
 [ext_resource type="AudioStream" uid="uid://b3uh3ypnv44f7" path="res://assets/sounds/Metal_Impact_02.ogg" id="9_7rf3i"]
@@ -82,6 +84,18 @@ unique_name_in_owner = true
 position = Vector2(0, -2)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_axg1m")
+
+[node name="Eye1" type="Sprite2D" parent="Sprite2D/Body"]
+position = Vector2(-9, 20)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("6_v3bxo")
+script = ExtResource("7_cd4pw")
+
+[node name="Eye2" type="Sprite2D" parent="Sprite2D/Body"]
+position = Vector2(19, 15)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("6_v3bxo")
+script = ExtResource("7_cd4pw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fhwgg")
