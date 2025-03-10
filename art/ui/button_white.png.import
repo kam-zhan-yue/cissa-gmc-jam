@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj74c50ck3w7q"
-path="res://.godot/imported/City_Kids_Car_Play_Mat_200cmx300cm_645bacba-a641-46a8-9d33-2aa4910cf50c (1).webp-6b23830bea6b9f4ef3dd42c6601d6963.ctex"
+uid="uid://sae3w11fb8uu"
+path="res://.godot/imported/button_white.png-cfc077047bef252fe35f1fdc26b7156e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/test/City_Kids_Car_Play_Mat_200cmx300cm_645bacba-a641-46a8-9d33-2aa4910cf50c (1).webp"
-dest_files=["res://.godot/imported/City_Kids_Car_Play_Mat_200cmx300cm_645bacba-a641-46a8-9d33-2aa4910cf50c (1).webp-6b23830bea6b9f4ef3dd42c6601d6963.ctex"]
+source_file="res://art/ui/button_white.png"
+dest_files=["res://.godot/imported/button_white.png-cfc077047bef252fe35f1fdc26b7156e.ctex"]
 
 [params]
 

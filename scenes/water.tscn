@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://biodn5yp5qgab"]
 
-[ext_resource type="Texture2D" uid="uid://cj74c50ck3w7q" path="res://art/test/City_Kids_Car_Play_Mat_200cmx300cm_645bacba-a641-46a8-9d33-2aa4910cf50c (1).webp" id="1_p1n2c"]
+[ext_resource type="Texture2D" uid="uid://cj74c50ck3w7q" path="res://art/test/city.webp" id="1_p1n2c"]
 [ext_resource type="Shader" uid="uid://c4kcg2b5k7by5" path="res://scenes/water.gdshader" id="2_p1n2c"]
 [ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="3_fiwy5"]
 
@@ -17,7 +17,7 @@ fractal_type = 2
 fractal_gain = 0.97
 fractal_weighted_strength = 0.75
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ewrsg"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p1n2c"]
 seamless = true
 seamless_blend_skirt = 0.652
 noise = SubResource("FastNoiseLite_p1n2c")
@@ -25,7 +25,7 @@ noise = SubResource("FastNoiseLite_p1n2c")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xgdjl"]
 shader = ExtResource("2_p1n2c")
 shader_parameter/color = Color(0.0117647, 0.6, 0.890196, 1)
-shader_parameter/fast_noise = SubResource("NoiseTexture2D_ewrsg")
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_p1n2c")
 shader_parameter/speed = Vector2(0.03, 0.07)
 shader_parameter/wave_strength = 2.0
 

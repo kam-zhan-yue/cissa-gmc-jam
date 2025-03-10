@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://brm857sd4wqbs"]
+[gd_scene load_steps=16 format=3 uid="uid://brm857sd4wqbs"]
 
-[ext_resource type="Texture2D" uid="uid://cf34sxa135ib8" path="res://art/test/test.png" id="1_choun"]
+[ext_resource type="Texture2D" uid="uid://cj74c50ck3w7q" path="res://art/test/city.webp" id="1_85g3d"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
+[ext_resource type="Shader" uid="uid://c4kcg2b5k7by5" path="res://scenes/water.gdshader" id="1_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://ck4a7ys5px7f" path="res://scenes/killzone.tscn" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cx0elix0tahfl" path="res://scripts/game/game_manager.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dt3pvc340yy4r" path="res://scenes/ui.tscn" id="3_o6xl0"]
@@ -9,13 +10,42 @@
 [ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/items/sword.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/items/projectile.tscn" id="10_choun"]
 [ext_resource type="PackedScene" uid="uid://j5nistjpmekf" path="res://scenes/items/car.tscn" id="10_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="11_eb6dy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p1n2c"]
+shader = ExtResource("1_ya4ey")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/speed = Vector2(0.03, 0.07)
+shader_parameter/wave_strength = 2.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p1n2c"]
+noise_type = 2
+frequency = 0.0136
+fractal_type = 2
+fractal_gain = 0.97
+fractal_weighted_strength = 0.75
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p1n2c"]
+seamless = true
+seamless_blend_skirt = 0.652
+noise = SubResource("FastNoiseLite_p1n2c")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgdjl"]
+shader = ExtResource("1_ya4ey")
+shader_parameter/color = Color(0.0117647, 0.6, 0.890196, 1)
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_p1n2c")
+shader_parameter/speed = Vector2(0.03, 0.07)
+shader_parameter/wave_strength = 2.0
 
 [node name="Main" type="Node2D"]
 
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(-4, -8.99998)
-scale = Vector2(1.15233, 1.15233)
-texture = ExtResource("1_choun")
+[node name="Water Shader" type="Node2D" parent="."]
+material = SubResource("ShaderMaterial_p1n2c")
+
+[node name="CityKidsCarPlayMat200Cmx300Cm645Bacba-a641-46a8-9d33-2Aa4910Cf50c(1)" type="Sprite2D" parent="Water Shader"]
+position = Vector2(36, -7)
+rotation = -1.57118
+texture = ExtResource("1_85g3d")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -35,7 +65,12 @@ scale = Vector2(0.8, 0.8)
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 zoom = Vector2(0.7, 0.7)
+limit_left = -1024
+limit_top = -1024
+limit_right = 1024
+limit_bottom = 1024
 position_smoothing_enabled = true
+editor_draw_limits = true
 script = ExtResource("1_sugp2")
 cam_max_zoom = 10
 margin = Vector2(200, 200)
@@ -70,3 +105,9 @@ position = Vector2(-256, -277)
 [node name="Car" parent="Items" instance=ExtResource("10_ya4ey")]
 position = Vector2(-469, 16)
 collision_mask = 5
+
+[node name="Icon" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xgdjl")
+position = Vector2(34, -5)
+scale = Vector2(25.4688, 16.4609)
+texture = ExtResource("11_eb6dy")

@@ -5,7 +5,7 @@
 [ext_resource type="Theme" uid="uid://c6tb7q3ho50tr" path="res://resources/text.tres" id="4_wcjs8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ya4ey"]
-bg_color = Color(0.13, 0.13, 0.13, 0.392157)
+bg_color = Color(0.619489, 0.619489, 0.619489, 0.392157)
 
 [node name="StartGamePopup" type="Control"]
 layout_mode = 3
