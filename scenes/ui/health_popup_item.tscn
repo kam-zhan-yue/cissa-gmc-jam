@@ -1,8 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1pxkdbgte1n7"]
+[gd_scene load_steps=3 format=3 uid="uid://d1pxkdbgte1n7"]
 
 [ext_resource type="Texture2D" uid="uid://dfhr18ad3jbxk" path="res://art/ui/heart_full.png" id="1_c2j8h"]
+[ext_resource type="Script" uid="uid://do877acil1eyu" path="res://scripts/ui/health_popup_item.gd" id="2_exxy8"]
 
-[node name="HealthPopupItem" type="TextureRect"]
+[node name="Health" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(50, 50)
+script = ExtResource("2_exxy8")
+
+[node name="Image" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_c2j8h")
 expand_mode = 3

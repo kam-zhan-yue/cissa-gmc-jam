@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bgwg55mushdmu"]
 
 [ext_resource type="Script" uid="uid://c302t76yaun30" path="res://scripts/ui/player_popup.gd" id="1_pg5t5"]
-[ext_resource type="PackedScene" uid="uid://bjijtbciqch53" path="res://scenes/ui/health_popup.tscn" id="2_vax6h"]
+[ext_resource type="Script" uid="uid://ckiajqblb4axv" path="res://scripts/ui/health_popup.gd" id="2_ol6yo"]
 [ext_resource type="PackedScene" uid="uid://dt831wqnfbaiq" path="res://scenes/ui/ink_popup.tscn" id="3_ol6yo"]
 
 [node name="PlayerOnePopup" type="Control"]
@@ -17,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(250, 75)
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -26,9 +27,12 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 alignment = 2
 
-[node name="HealthPopup" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_vax6h")]
+[node name="HealthPopup" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+script = ExtResource("2_ol6yo")
 
 [node name="InkPopup" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_ol6yo")]
 unique_name_in_owner = true
