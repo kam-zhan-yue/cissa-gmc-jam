@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://biodn5yp5qgab"]
+
+[ext_resource type="Texture2D" uid="uid://cj74c50ck3w7q" path="res://art/test/City_Kids_Car_Play_Mat_200cmx300cm_645bacba-a641-46a8-9d33-2aa4910cf50c (1).webp" id="1_p1n2c"]
+[ext_resource type="Shader" uid="uid://c4kcg2b5k7by5" path="res://scenes/water.gdshader" id="2_p1n2c"]
+[ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="3_fiwy5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p1n2c"]
+shader = ExtResource("2_p1n2c")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/speed = Vector2(0.03, 0.07)
+shader_parameter/wave_strength = 2.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p1n2c"]
+noise_type = 2
+frequency = 0.0136
+fractal_type = 2
+fractal_gain = 0.97
+fractal_weighted_strength = 0.75
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ewrsg"]
+seamless = true
+seamless_blend_skirt = 0.652
+noise = SubResource("FastNoiseLite_p1n2c")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgdjl"]
+shader = ExtResource("2_p1n2c")
+shader_parameter/color = Color(0.0295716, 0.296937, 0.437958, 1)
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_ewrsg")
+shader_parameter/speed = Vector2(0.03, 0.07)
+shader_parameter/wave_strength = 2.0
+
+[node name="Node2D" type="Node2D"]
+material = SubResource("ShaderMaterial_p1n2c")
+
+[node name="CityKidsCarPlayMat200Cmx300Cm645Bacba-a641-46a8-9d33-2Aa4910Cf50c(1)" type="Sprite2D" parent="."]
+position = Vector2(36, -7)
+rotation = -1.57118
+texture = ExtResource("1_p1n2c")
+
+[node name="Icon" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xgdjl")
+position = Vector2(34, -5)
+scale = Vector2(25.4688, 16.4609)
+texture = ExtResource("3_fiwy5")

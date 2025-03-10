@@ -16,10 +16,16 @@ stream_2/stream = ExtResource("6_1cn2l")
 collision_mask = 7
 
 [node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.445312, 0.445312)
 texture = ExtResource("2_atc7n")
 
 [node name="Projectile" parent="." index="2"]
 collision_layer = 2
+
+[node name="CollisionShape2D" parent="Projectile" index="0"]
+position = Vector2(-0.953812, 4.90067)
+scale = Vector2(0.907609, 0.700335)
+polygon = PackedVector2Array(-55, -91, -28, -108, 1, -114, 23, -108, 58, -88, 58, -3, 56, 20, 56, 100, 0, 110, -56, 100, -56, 20, -57, -7)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="3"]
 stream = SubResource("AudioStreamRandomizer_rl0mc")
