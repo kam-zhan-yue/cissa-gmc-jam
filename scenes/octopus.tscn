@@ -1,63 +1,96 @@
-[gd_scene load_steps=11 format=3 uid="uid://de4b2yyu8efhx"]
+[gd_scene load_steps=23 format=3 uid="uid://de4b2yyu8efhx"]
 
 [ext_resource type="Script" uid="uid://b5bjuui6xvw8m" path="res://scenes/octopus.gd" id="2_8jto7"]
 [ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
 [ext_resource type="Script" uid="uid://2u61la2wa3b6" path="res://scripts/entities/arms.gd" id="2_qo5xf"]
-[ext_resource type="Script" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
+[ext_resource type="Script" uid="uid://dp1itdnh1slm5" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
+[ext_resource type="Texture2D" uid="uid://xowg6rqpmvlu" path="res://assets/octohead1.png" id="5_axg1m"]
 [ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_qo5xf"]
-[ext_resource type="Texture2D" uid="uid://c8ycknjdg5g5f" path="res://art/octopushead0.png" id="6_dfnbd"]
-[ext_resource type="AudioStream" uid="uid://cjs7gksyjtrpd" path="res://assets/sounds/zapsplat_animals_shark_or_dolphin_splash_surface_water_13502.mp3" id="7_rn5nq"]
-[ext_resource type="AudioStream" uid="uid://dejk6l1d233qb" path="res://assets/sounds/zapsplat_warfare_sword_strike_metal_medium_hit_clang_008_101776.mp3" id="8_ug8lw"]
+[ext_resource type="AudioStream" uid="uid://be5xerhlq0djb" path="res://assets/sounds/INK_01.ogg" id="6_axg1m"]
+[ext_resource type="AudioStream" uid="uid://cowwy8xb5dg8u" path="res://assets/sounds/INK_02.ogg" id="7_v3bxo"]
+[ext_resource type="AudioStream" uid="uid://cwvivmnh7tsj0" path="res://assets/sounds/Metal_Impact_01.ogg" id="8_cd4pw"]
+[ext_resource type="AudioStream" uid="uid://b3uh3ypnv44f7" path="res://assets/sounds/Metal_Impact_02.ogg" id="9_7rf3i"]
+[ext_resource type="AudioStream" uid="uid://iv1fy7aeallo" path="res://assets/sounds/Metal_Impact_03.ogg" id="10_pwpuj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3bxo"]
+
+[sub_resource type="Gradient" id="Gradient_7rf3i"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pwpuj"]
+gradient = SubResource("Gradient_7rf3i")
+width = 400
+height = 400
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fhwgg"]
 radius = 25.0799
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2kl3f"]
+streams_count = 2
+stream_0/stream = ExtResource("6_axg1m")
+stream_1/stream = ExtResource("7_v3bxo")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3g7qq"]
+streams_count = 3
+stream_0/stream = ExtResource("8_cd4pw")
+stream_1/stream = ExtResource("9_7rf3i")
+stream_2/stream = ExtResource("10_pwpuj")
 
 [sub_resource type="Curve" id="Curve_xhrib"]
 _data = [Vector2(0.0367232, 0.978114), 0.0, 0.0, 0, 0, Vector2(0.991525, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Gradient" id="Gradient_ug8lw"]
+colors = PackedColorArray(0.93, 0.1395, 0.337125, 0.392157, 1, 0.15, 0.3625, 0.392157)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dfnbd"]
+gradient = SubResource("Gradient_ug8lw")
+width = 1
+height = 1
+
+[sub_resource type="Gradient" id="Gradient_yh1bx"]
+colors = PackedColorArray(1, 0.15, 0.3625, 1, 1, 0.15, 0.3625, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ug8lw"]
+gradient = SubResource("Gradient_yh1bx")
+width = 1
+height = 1
+
 [node name="Octopus" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_v3bxo")
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("2_8jto7")
 
-[node name="Arms" type="Node2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_pwpuj")
+
+[node name="Arms" type="Node2D" parent="Sprite2D"]
+unique_name_in_owner = true
+use_parent_material = true
 script = ExtResource("2_qo5xf")
 
-[node name="PrimaryArm" parent="Arms" instance=ExtResource("2_fhwgg")]
+[node name="PrimaryArm" parent="Sprite2D/Arms" instance=ExtResource("2_fhwgg")]
 unique_name_in_owner = true
 
-[node name="Body" type="Node2D" parent="."]
-scale = Vector2(0.2, 0.2)
+[node name="Body" type="Node2D" parent="Sprite2D"]
+use_parent_material = true
 script = ExtResource("5_qo5xf")
 
-[node name="Octopushead0" type="Sprite2D" parent="Body"]
-position = Vector2(-9, -10)
-texture = ExtResource("6_dfnbd")
+[node name="Head" type="Sprite2D" parent="Sprite2D/Body"]
+unique_name_in_owner = true
+position = Vector2(0, -2)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_axg1m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fhwgg")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("4_ionst")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
-layout_mode = 0
-offset_left = -14.0
-offset_top = -65.0
-offset_right = 20.0
-offset_bottom = -41.0
-text = "1.00"
-
 [node name="splash" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_rn5nq")
+stream = SubResource("AudioStreamRandomizer_2kl3f")
 
 [node name="clash" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_ug8lw")
+stream = SubResource("AudioStreamRandomizer_3g7qq")
 
 [node name="ink burst" type="CPUParticles2D" parent="."]
 position = Vector2(0, 2)
@@ -84,3 +117,40 @@ initial_velocity_max = 50.0
 scale_amount_min = 10.0
 scale_amount_max = 20.0
 color = Color(0, 0, 0, 0.411765)
+
+[node name="TimerPopup" type="Control" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 15)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -66.0
+offset_right = 50.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_ionst")
+
+[node name="Background" type="TextureRect" parent="TimerPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_dfnbd")
+
+[node name="TimerContainer" type="MarginContainer" parent="TimerPopup/Background"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fill" type="TextureRect" parent="TimerPopup/Background/TimerContainer"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_ug8lw")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://crcq4j3qoxxmg"]
+
+[ext_resource type="Material" uid="uid://0tgl681wrgm3" path="res://resources/SketchyOutline.tres" id="1_5tpp1"]
+[ext_resource type="Shader" uid="uid://ccdpbk0sukwjn" path="res://scripts/outline.gdshader" id="1_l0urc"]
+[ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="2_5tpp1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5cwtd"]
+render_priority = 0
+next_pass = ExtResource("1_5tpp1")
+shader = ExtResource("1_l0urc")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5cwtd")
+texture = ExtResource("2_5tpp1")

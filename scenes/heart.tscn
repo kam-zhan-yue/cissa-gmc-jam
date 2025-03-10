@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c3nig3l3mqwcq"]
+
+[node name="Heart" type="TextureRect"]
+offset_right = 56.0
+offset_bottom = 56.0
+expand_mode = 1

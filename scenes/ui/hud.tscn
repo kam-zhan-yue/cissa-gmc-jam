@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw6bc2afl1wcy"]
+
+[ext_resource type="Script" uid="uid://c3wth3p8tq31x" path="res://scenes/ui/hud.gd" id="1_bo48s"]
+[ext_resource type="PackedScene" uid="uid://bgwg55mushdmu" path="res://scenes/ui/player_popup.tscn" id="1_hqnrr"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bo48s")
+
+[node name="PlayerOnePopup" parent="." instance=ExtResource("1_hqnrr")]
+unique_name_in_owner = true
+
+[node name="PlayerTwoPopup" parent="." instance=ExtResource("1_hqnrr")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -500.0
+offset_bottom = 150.0
+grow_horizontal = 0
+player_id = 1
+
+[node name="HealthPopup" parent="PlayerTwoPopup/MarginContainer/VBoxContainer" index="0"]
+alignment = 2
+
+[editable path="PlayerOnePopup"]
+[editable path="PlayerTwoPopup"]

@@ -18,9 +18,9 @@ func add_target(t):
 	
 func remove_target(t):
 	if t in targets:
-		targets.remove(t)
+		targets.erase(t)
 
-func _process(delta):
+func _process(_delta):
 	if !targets:
 		return
 		#keep the camera centred between targets
@@ -35,7 +35,7 @@ func _process(delta):
 	for target in targets:
 		r = r.expand(target.position)
 	r = r.grow_individual(margin.x, margin.y, margin.x, margin.y)
-	var d = max(r.size.x, r.size.y)
+	#var d = max(r.size.x, r.size.y)
 	var z
 	if r.size.x > r.size.y * screen_size.aspect():
 		var val = screen_size.x / r.size.x

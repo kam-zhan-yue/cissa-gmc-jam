@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqigwdh0crbh0"]
+
+[ext_resource type="PackedScene" uid="uid://j5nistjpmekf" path="res://scenes/items/car.tscn" id="1_hd23p"]
+[ext_resource type="Texture2D" uid="uid://ck45u7fgo10hq" path="res://assets/carblue.png" id="2_nhgr2"]
+
+[node name="Car" instance=ExtResource("1_hd23p")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_nhgr2")

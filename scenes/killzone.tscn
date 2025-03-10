@@ -17,6 +17,7 @@ shader_parameter/rotation_speed = 2.0
 [sub_resource type="CanvasTexture" id="CanvasTexture_kl8fp"]
 
 [node name="Killzone" type="Area2D"]
+collision_mask = 5
 script = ExtResource("1_xlapc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -34,6 +35,8 @@ one_shot = true
 [node name="Player2Timer" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="timeout" from="Player1Timer" to="." method="_on_player_1_timer_timeout"]

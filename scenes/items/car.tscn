@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://j5nistjpmekf"]
+
+[ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/items/projectile.tscn" id="1_8ejt4"]
+[ext_resource type="Texture2D" uid="uid://ci6a34shftsha" path="res://assets/carred.png" id="2_rl0mc"]
+[ext_resource type="AudioStream" uid="uid://cwvivmnh7tsj0" path="res://assets/sounds/Metal_Impact_01.ogg" id="4_62ijr"]
+[ext_resource type="AudioStream" uid="uid://b3uh3ypnv44f7" path="res://assets/sounds/Metal_Impact_02.ogg" id="5_27oo4"]
+[ext_resource type="AudioStream" uid="uid://iv1fy7aeallo" path="res://assets/sounds/Metal_Impact_03.ogg" id="6_1cn2l"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_rl0mc"]
+streams_count = 3
+stream_0/stream = ExtResource("4_62ijr")
+stream_1/stream = ExtResource("5_27oo4")
+stream_2/stream = ExtResource("6_1cn2l")
+
+[node name="Car" instance=ExtResource("1_8ejt4")]
+collision_mask = 7
+
+[node name="Sprite2D" parent="." index="0"]
+rotation = 1.5708
+scale = Vector2(0.445312, 0.445312)
+texture = ExtResource("2_rl0mc")
+
+[node name="Projectile" parent="." index="2"]
+collision_layer = 2
+
+[node name="CollisionShape2D" parent="Projectile" index="0"]
+position = Vector2(-0.953812, 4.90067)
+scale = Vector2(0.907609, 0.700335)
+polygon = PackedVector2Array(-55, -91, -28, -108, 1, -114, 23, -108, 58, -88, 58, -3, 56, 20, 56, 100, 0, 110, -56, 100, -56, 20, -57, -7)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="3"]
+stream = SubResource("AudioStreamRandomizer_rl0mc")

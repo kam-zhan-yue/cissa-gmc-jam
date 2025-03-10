@@ -3,22 +3,29 @@ extends CharacterBody2D
 
 const ARM = preload("res://scenes/arm.tscn")
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
+const OCTOHEAD_1 = preload("res://assets/octohead1.png")
+const OCTOHEAD_2 = preload("res://assets/octohead2.png")
 
-@export var player_id := 0
+@onready var head: Sprite2D = %Head
+@export var debug := false
+@export var player_id := -1
 @export var num_arms:= 7
 @export var max_lives : int = 3
 @onready var primary_arm: PrimaryArm = %PrimaryArm
-@onready var arms := $Arms as Arms
+@onready var arms := %Arms as Arms
 var lives : int
 var ink := GAME_SETTINGS.max_ink
 
 var facing_direction = Vector2.ZERO
 
 var state := STATE.FREE
+var external := Vector2.ZERO
 
 signal on_ink_changed(ink: float)
+signal on_respawn
 
 enum STATE {
+	DEACTIVATED,
 	FREE,
 	KNOCKBACK,
 	DASH,
@@ -26,15 +33,46 @@ enum STATE {
 }
 
 func _ready() -> void:
+	if debug:
+		init()
+
+func init() -> void:
+	if player_id == Game.PLAYER_ONE:
+		head.texture = OCTOHEAD_1
+		name = "Player One"
+	else:
+		head.texture = OCTOHEAD_2
+		name = "Player Two"
 	primary_arm.init(player_id)
 	for i in range(num_arms):
 		var arm = ARM.instantiate()
 		arms.add_child(arm)
-	arms.init()
+	arms.init(player_id)
+
+func steer_towards(target: Vector2) -> void:
+	var direction = target - global_position
+	external = direction.normalized()
 	
+	
+	
+func steer_away(target: Vector2) -> void:
+	var direction = global_position - target
+	external = direction.normalized()
+	
+
+
+func is_holding_item() -> bool:
+	return primary_arm.grab != null
+
+func grab_towards(target: Vector2) -> void:
+	primary_arm.grab_towards(target)
+
 func _physics_process(delta: float) -> void:
+	if state == STATE.DEACTIVATED:
+		return
+
 	if state == STATE.FREE:
-		var target_direction := get_input()
+		var target_direction := get_input() + external
 		$"ink burst".emitting = false
 		$inktrail.emitting = false
 		if target_direction and Input.is_action_just_pressed(Global.get_input(player_id, "dash")) and ink >= GAME_SETTINGS.burst_cost:
@@ -47,7 +85,7 @@ func _physics_process(delta: float) -> void:
 			if ink < GAME_SETTINGS.max_ink:
 				ink += GAME_SETTINGS.ink_regen_rate * delta
 				on_ink_changed.emit(ink)
-			if ink > GAME_SETTINGS.max_ink:
+			elif ink >= GAME_SETTINGS.max_ink:
 				ink = GAME_SETTINGS.max_ink
 				on_ink_changed.emit(ink)
 			
@@ -93,3 +131,18 @@ func knockback(force: Vector2, time: float) -> void:
 	$clash.play()
 	await Global.wait(time)
 	self.state = STATE.FREE
+
+func deactivate() -> void:
+	self.state = STATE.DEACTIVATED
+	# Trigger a despawn for the item
+	if primary_arm.grab:
+		primary_arm.grab.enter_killzone()
+	primary_arm._release()
+	Global.set_inactive(self)
+
+func respawn(pos: Vector2) -> void:
+	self.state = STATE.FREE
+	Global.set_active(self)
+	on_respawn.emit()
+	global_position = pos
+	ink = GAME_SETTINGS.max_ink

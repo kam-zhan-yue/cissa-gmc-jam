@@ -2,28 +2,28 @@ class_name Arms
 extends Node2D
 
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
-@onready var octopus: Octopus = $".."
+@onready var octopus: Octopus = $"../.."
 
+@onready var primary_arm := %PrimaryArm as PrimaryArm
 var arms: Array[Arm] = []
-var primary_arm: PrimaryArm
 var restriction = 0.0
 
 
-func init() -> void:
+func init(player_id: int) -> void:
 	var restriction = GAME_SETTINGS.restriction_angle
 	var children = get_children()
 	for child in children:
 		if child is Arm and child is not PrimaryArm:
-			arms.append(child as Arm)
-		if child is PrimaryArm:
-			primary_arm = child
+			var child_arm = child as Arm
+			arms.append(child_arm)
+			child_arm.init_arm(player_id)
 	var positions = get_positions()
 	for i in range(len(positions)):
 		arms[i].target = positions[i]
 		arms[i].arm_state = Arm.ARM_STATE.SEARCHING
 	
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#var direction = 
 	if octopus.state == Octopus.STATE.DASH or octopus.state == Octopus.STATE.BURST:
 		restriction = 250.0
@@ -38,7 +38,8 @@ func _process(delta: float) -> void:
 	var positions = get_positions()
 	for i in range(len(positions)):
 		arms[i].target = positions[i]
-	queue_redraw()
+	if octopus.debug:
+		queue_redraw()
 
 func get_positions() -> Array[Vector2]:
 	var space_state = get_world_2d().direct_space_state
@@ -72,6 +73,8 @@ func get_positions() -> Array[Vector2]:
 
 
 func _draw() -> void:
+	if not octopus.debug:
+		return
 	var positions = get_positions()
 
 	for i in range(len(positions)):

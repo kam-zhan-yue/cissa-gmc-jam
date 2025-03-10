@@ -81,7 +81,7 @@ func fade(node: Node, fade_time: float, visible: bool) -> void:
 	tween.tween_property(node, "modulate", target, fade_time)
 	await wait_fade()
 
-func get_collision_direction(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int, origin: Area2D) -> Vector2:
+func get_collision_direction(_body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int, origin: Area2D) -> Vector2:
 	var body_shape_owner_id = body.shape_find_owner(body_shape_index)
 	var body_shape_owner = body.shape_owner_get_owner(body_shape_owner_id)
 	var body_shape_2d = body.shape_owner_get_shape(body_shape_owner_id, 0)
@@ -96,10 +96,18 @@ func get_collision_direction(body_rid: RID, body: Node2D, body_shape_index: int,
 									body_shape_2d,
 									body_global_transform)
 	if len(collision_points) == 2:
-		var direction = collision_points[0] - collision_points[1]
+		var direction = collision_points[1] - collision_points[0]
 		return direction
 	else:
 		return Vector2.ZERO
 	
 func get_input(id: int, command: String) -> String:
 	return str("player_", id, "_", command)
+
+
+func pack_array(coords: Array[Vector2]) -> PackedVector2Array:
+	# Convert the array of floats into a PackedVector2Array.
+	var array : PackedVector2Array = []
+	for coord in coords:
+		array.append(Vector2(coord.x, coord.y))
+	return array

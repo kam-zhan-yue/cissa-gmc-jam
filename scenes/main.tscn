@@ -1,63 +1,115 @@
-[gd_scene load_steps=10 format=3 uid="uid://brm857sd4wqbs"]
+[gd_scene load_steps=17 format=3 uid="uid://brm857sd4wqbs"]
 
-[ext_resource type="Texture2D" uid="uid://ciwufs0walpsw" path="res://art/background.png" id="1_choun"]
-[ext_resource type="PackedScene" uid="uid://de4b2yyu8efhx" path="res://scenes/octopus.tscn" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://cj74c50ck3w7q" path="res://art/test/city.webp" id="1_85g3d"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
+[ext_resource type="Shader" uid="uid://c4kcg2b5k7by5" path="res://scenes/water.gdshader" id="1_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://ck4a7ys5px7f" path="res://scenes/killzone.tscn" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cx0elix0tahfl" path="res://scripts/game/game_manager.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dt3pvc340yy4r" path="res://scenes/ui.tscn" id="3_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://3k4m6e87yuwe" path="res://respawnpoint.tscn" id="7_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/sword.tscn" id="8_tipki"]
-[ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/projectile.tscn" id="10_choun"]
+[ext_resource type="PackedScene" path="res://respawnpoint.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dk6btqcwmuyry" path="res://scenes/items/stopsign.tscn" id="9_choun"]
+[ext_resource type="PackedScene" uid="uid://j5nistjpmekf" path="res://scenes/items/car.tscn" id="10_ya4ey"]
+[ext_resource type="PackedScene" uid="uid://cbiw5mrjkprn8" path="res://scenes/items/cargreen.tscn" id="11_a8y0u"]
+[ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="11_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://dqigwdh0crbh0" path="res://scenes/items/carblue.tscn" id="12_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://jskft4mmopep" path="res://scenes/items/log.tscn" id="13_jbj1t"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p1n2c"]
+noise_type = 2
+frequency = 0.0136
+fractal_type = 2
+fractal_gain = 0.97
+fractal_weighted_strength = 0.75
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p1n2c"]
+seamless = true
+seamless_blend_skirt = 0.652
+noise = SubResource("FastNoiseLite_p1n2c")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgdjl"]
+shader = ExtResource("1_ya4ey")
+shader_parameter/color = Color(0.788235, 0.905882, 1, 1)
+shader_parameter/fast_noise = SubResource("NoiseTexture2D_p1n2c")
+shader_parameter/speed = Vector2(0.03, 0.07)
+shader_parameter/wave_strength = 2.0
 
 [node name="Main" type="Node2D"]
 
-[node name="Background" type="Sprite2D" parent="."]
-texture = ExtResource("1_choun")
+[node name="Water Shader" type="Node2D" parent="."]
+rotation = -0.00119675
 
-[node name="GameManager" type="Node2D" parent="."]
-script = ExtResource("2_tefeu")
+[node name="CityKidsCarPlayMat200Cmx300Cm645Bacba-a641-46a8-9d33-2Aa4910Cf50c(1)" type="Sprite2D" parent="Water Shader"]
+position = Vector2(36, -7)
+rotation = -1.57118
+texture = ExtResource("1_85g3d")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" parent="CanvasLayer" instance=ExtResource("3_o6xl0")]
 unique_name_in_owner = true
 
+[node name="Node2D" type="Node2D" parent="CanvasLayer"]
+
+[node name="GameManager" type="Node2D" parent="."]
+script = ExtResource("2_tefeu")
+
 [node name="Killzone" parent="." instance=ExtResource("2_tbgi4")]
 unique_name_in_owner = true
 process_mode = 3
 scale = Vector2(0.8, 0.8)
 
-[node name="PlayerOne" parent="." instance=ExtResource("1_o5qli")]
-unique_name_in_owner = true
-position = Vector2(8, -603)
-
-[node name="PlayerTwo" parent="." instance=ExtResource("1_o5qli")]
-unique_name_in_owner = true
-position = Vector2(23, 633)
-player_id = 1
-
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 zoom = Vector2(0.7, 0.7)
+limit_left = -1024
+limit_top = -1024
+limit_right = 1024
+limit_bottom = 1024
 position_smoothing_enabled = true
+editor_draw_limits = true
 script = ExtResource("1_sugp2")
 cam_max_zoom = 10
 margin = Vector2(200, 200)
 bounds = Rect2(0, 0, 4096, 4096)
 
-[node name="Respawn" type="Node" parent="."]
-
 [node name="PlayerOneCheckpoint" parent="." instance=ExtResource("7_o6xl0")]
 unique_name_in_owner = true
-position = Vector2(213, 0)
+position = Vector2(0, -300)
 
 [node name="PlayerTwoCheckpoint" parent="." instance=ExtResource("7_o6xl0")]
 unique_name_in_owner = true
-position = Vector2(-59, 1)
+position = Vector2(0, 300)
 
-[node name="Sword" parent="." instance=ExtResource("8_tipki")]
-position = Vector2(54, -92)
+[node name="Items" type="Node2D" parent="."]
+unique_name_in_owner = true
 
-[node name="Ball" parent="." instance=ExtResource("10_choun")]
-position = Vector2(-3, 133)
+[node name="Car" parent="Items" instance=ExtResource("10_ya4ey")]
+material = null
+position = Vector2(-493, 15)
+collision_mask = 5
+
+[node name="stopsign" parent="Items" instance=ExtResource("9_choun")]
+position = Vector2(148, -215)
+
+[node name="Car2" parent="Items" instance=ExtResource("11_a8y0u")]
+material = null
+position = Vector2(103, -543)
+
+[node name="Car3" parent="Items" instance=ExtResource("12_jkv2x")]
+material = null
+position = Vector2(-195, 444)
+
+[node name="log1" parent="Items" instance=ExtResource("13_jbj1t")]
+position = Vector2(-262, 14)
+
+[node name="stopsign2" parent="Items" instance=ExtResource("9_choun")]
+position = Vector2(-145, 380)
+
+[node name="log2" parent="Items" instance=ExtResource("13_jbj1t")]
+position = Vector2(365, 314)
+
+[node name="Icon" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xgdjl")
+position = Vector2(7.62939e-06, -5)
+scale = Vector2(25.4688, 16.4609)
+texture = ExtResource("11_eb6dy")

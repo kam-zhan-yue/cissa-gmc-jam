@@ -1,64 +1,56 @@
-[gd_scene load_steps=4 format=3 uid="uid://c086wefqyxlcs"]
+[gd_scene load_steps=3 format=3 uid="uid://c086wefqyxlcs"]
 
 [ext_resource type="Script" uid="uid://bq8ainv2r17kc" path="res://scenes/game_over.gd" id="1_xeevv"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkv2x"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbj1t"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
+[ext_resource type="Theme" uid="uid://c6tb7q3ho50tr" path="res://resources/text.tres" id="2_wqhvx"]
 
 [node name="GameOver" type="Control"]
 process_mode = 3
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_xeevv")
 
 [node name="Panel" type="Panel" parent="."]
-offset_top = 1.0
-offset_right = 1152.0
-offset_bottom = 646.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="GameOver" type="Label" parent="."]
-offset_left = 307.0
-offset_top = 182.0
-offset_right = 878.0
-offset_bottom = 319.0
-theme_override_font_sizes/font_size = 80
-text = "Game Over!"
-horizontal_alignment = 1
-
-[node name="WinMessage" type="Label" parent="."]
+[node name="GameOverText" type="RichTextLabel" parent="."]
+layout_mode = 0
 offset_left = 312.0
-offset_top = 296.0
+offset_top = 464.0
 offset_right = 883.0
-offset_bottom = 433.0
-theme_override_font_sizes/font_size = 30
-text = "Player X Wins!"
+offset_bottom = 601.0
+theme = ExtResource("2_wqhvx")
+bbcode_enabled = true
+text = "[center][color=black]Game Over"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="."]
-offset_left = 430.0
-offset_top = 421.0
-offset_right = 775.0
-offset_bottom = 504.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/hover = SubResource("StyleBoxFlat_jkv2x")
-theme_override_styles/normal = SubResource("StyleBoxFlat_jbj1t")
-text = "Restart"
+[node name="WinText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 312.0
+offset_top = 579.0
+offset_right = 883.0
+offset_bottom = 716.0
+theme = ExtResource("2_wqhvx")
+bbcode_enabled = true
+text = "[center][color=black]Player X Wins!"
+horizontal_alignment = 1
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="ReturnText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 311.0
+offset_top = 722.0
+offset_right = 882.0
+offset_bottom = 859.0
+theme = ExtResource("2_wqhvx")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center][color=black]Press [start / P] to Return"
+horizontal_alignment = 1
