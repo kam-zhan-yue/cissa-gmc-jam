@@ -16,12 +16,12 @@ const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 
 func _ready() -> void:
 	if GAME_SETTINGS.start_immediately:
-		start(GAME_SETTINGS.single_player)
+		start(GAME_SETTINGS.start_mode)
 	else:
 		Game.on_start.connect(start)
 
-func start(single_player: bool) -> void:
-	if single_player:
+func start(mode: Game.Mode) -> void:
+	if mode == Game.Mode.SINGLE:
 		player_one = OCTOPUS.instantiate() as Octopus
 		var octobot = OCTOBOT.instantiate() as Octobot
 		player_two = octobot.get_body()
@@ -43,5 +43,5 @@ func start(single_player: bool) -> void:
 			items.append(child as Item)
 	player_one.init()
 	player_two.init()
-	Game.init(player_one, player_two, camera, player_one_checkpoint, player_two_checkpoint, items)
+	Game.init(mode, player_one, player_two, camera, player_one_checkpoint, player_two_checkpoint, items)
 	ui.init()

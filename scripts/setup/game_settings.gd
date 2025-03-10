@@ -3,7 +3,7 @@ extends Resource
 
 @export_category("Game")
 @export var start_immediately := false
-@export var single_player := false
+@export var start_mode := Game.Mode.SINGLE
 @export var killzone_time := 2.0
 @export var despawn_time := 3.0
 @export var spawn_time := 3.0

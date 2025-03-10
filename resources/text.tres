@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=5 format=3 uid="uid://c6tb7q3ho50tr"]
 
 [ext_resource type="FontFile" uid="uid://dul4btdrirlep" path="res://art/ui/IMFellEnglishSC-Regular.ttf" id="1_1rcxi"]
-[ext_resource type="StyleBox" uid="uid://fsdaw48aqgtw" path="res://resources/button_border.tres" id="1_41n7d"]
+[ext_resource type="StyleBox" path="res://resources/button_border.tres" id="1_41n7d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_603c5"]
 content_margin_left = 4.0

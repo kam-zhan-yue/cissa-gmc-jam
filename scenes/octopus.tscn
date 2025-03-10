@@ -1,9 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://de4b2yyu8efhx"]
+[gd_scene load_steps=23 format=3 uid="uid://de4b2yyu8efhx"]
 
 [ext_resource type="Script" uid="uid://b5bjuui6xvw8m" path="res://scenes/octopus.gd" id="2_8jto7"]
 [ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
 [ext_resource type="Script" uid="uid://2u61la2wa3b6" path="res://scripts/entities/arms.gd" id="2_qo5xf"]
-[ext_resource type="Shader" uid="uid://ccdpbk0sukwjn" path="res://scripts/outline.gdshader" id="2_v3bxo"]
 [ext_resource type="Script" uid="uid://dp1itdnh1slm5" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
 [ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_qo5xf"]
 [ext_resource type="AudioStream" uid="uid://be5xerhlq0djb" path="res://assets/sounds/INK_01.ogg" id="6_axg1m"]
@@ -14,11 +13,6 @@
 [ext_resource type="AudioStream" uid="uid://iv1fy7aeallo" path="res://assets/sounds/Metal_Impact_03.ogg" id="10_pwpuj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v3bxo"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cd4pw"]
-shader = ExtResource("2_v3bxo")
-shader_parameter/width = 0.0
-shader_parameter/outline_colour = Color(0, 0, 0, 1)
 
 [sub_resource type="Gradient" id="Gradient_7rf3i"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
@@ -69,7 +63,6 @@ collision_mask = 3
 script = ExtResource("2_8jto7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_cd4pw")
 texture = SubResource("GradientTexture2D_pwpuj")
 
 [node name="Arms" type="Node2D" parent="Sprite2D"]
