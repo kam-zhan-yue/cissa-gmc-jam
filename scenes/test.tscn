@@ -24,3 +24,6 @@ shape = SubResource("RectangleShape2D_jcd4p")
 [node name="Octopus" parent="." instance=ExtResource("2_bl13t")]
 debug = true
 num_arms = 0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(10, 10)

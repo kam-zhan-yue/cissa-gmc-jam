@@ -171,7 +171,6 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 		#next.is_base = true
 	#else:
 		#next.is_base = false
-	
 
 	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	var difference := next_position - curr.position
@@ -179,16 +178,16 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 	var angle_difference = angle_difference(curr.angle, difference.angle())
 	#print("Current Angle ", curr.angle, " Difference Angle ", difference.angle(), " Angle Difference ", angle_difference)
 	
-	debug_line(curr.position, curr.angle, Color.WHITE, 5.0)
-	debug_line(curr.position, difference.angle(), Color.BLACK, 2.0)
+	#debug_line(curr.position, curr.angle, Color.WHITE, 10.0)
+	#debug_line(curr.position, difference.angle(), Color.BLACK, 5.0)
 
-
-	#if abs(angle_difference) > curr.max_angle:
-		#print("Max Angle Reached")
-		#var new_angle = curr.angle + sign(angle_difference) * curr.max_angle
+	var lock_angle := false
+	if abs(angle_difference) > curr.max_angle:
 		#print(str("Angle Diff ", angle_difference, " Curr Angle: ", curr.angle), " New Angle ", new_angle)
-		#var new_vector = Vector2.from_angle(new_angle)
-		#difference = new_vector * difference.length()
+		var locked_angle = curr.angle + sign(angle_difference) * PI * 0.25
+		#debug_line(curr.position, locked_angle, Color.BLUE, 3.0)
+		#difference = Vector2.from_angle(locked_angle) * difference.length()
+		lock_angle = true
 
 	curr.angle = difference.angle()
 
@@ -196,9 +195,11 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 	if constraint_distance and difference.length() >= node_distance:
 		var new_position := curr.position + difference.normalized() * node_distance
 		next.position = new_position
+	else:
+		next.position = curr.position + difference
 
 func debug_line(pos: Vector2, angle: float, colour: Color, width: float) -> void:
-	draw_line(pos - global_position, pos - global_position + Vector2.from_angle(angle) * 20.0, colour, width)
+	draw_line(pos - global_position, pos - global_position + Vector2.from_angle(angle) * 50.0, colour, width)
 
 
 func _draw_constraints() -> void:
@@ -209,25 +210,32 @@ func _draw_constraints() -> void:
 		var next_left := get_parametric(constraints[i + 1], PI * 0.5)
 		coords.append(curr_left)
 		coords.append(next_left)
-
+	
+	var last_constraint := constraints[-1]
+	var left_1 := get_parametric(last_constraint, -PI * 0.5)
+	var left_2 := get_parametric(last_constraint, -PI * 0.8)
+	var left_3 := get_parametric(last_constraint, -PI * 1)
+	
+	var right_1 := get_parametric(last_constraint, PI * 1)
+	var right_2 := get_parametric(last_constraint, PI * 0.8)
+	var right_3 := get_parametric(last_constraint, PI * 0.5)
+	coords.append(left_1)
+	coords.append(left_2)
+	coords.append(left_3)
+	coords.append(right_1)
+	coords.append(right_2)
+	coords.append(right_3)
+	
 	for i in range(len(constraints) - 2, 0, -1):
 		var curr_right := get_parametric(constraints[i], -PI * 0.5)
 		var next_right := get_parametric(constraints[i - 1], -PI * 0.5)
 		coords.append(curr_right)
 		coords.append(next_right)
 
-	# Get the right side
-	#for i in range(len(constraints) - 2):
-		#var curr_left := get_parametric(constraints[i], PI * 0.5)
-		#var curr_right := get_parametric(constraints[i], -PI * 0.5)
-		#var next_left := get_parametric(constraints[i + 1], PI * 0.5)
-		#var next_right := get_parametric(constraints[i + 1], -PI * 0.5)
-		#_draw_constraint(constraints[i])
-		#draw_line(curr_left, next_left, border_colour, GAME_SETTINGS.tentacle_width)
-		#draw_line(curr_right, next_right, border_colour, GAME_SETTINGS.tentacle_width)
-	
+	for constraint in constraints:
+		_draw_constraint(constraint)
 	var fill: PackedVector2Array = Global.pack_array(coords)
-	draw_polygon(fill, [fill_colour])
+	#draw_polygon(fill, [fill_colour])
 	draw_polyline(fill, border_colour, GAME_SETTINGS.tentacle_width)
 
 func get_parametric(constraint: Constraint, angle: float) -> Vector2:
@@ -239,4 +247,4 @@ func get_parametric(constraint: Constraint, angle: float) -> Vector2:
 
 func _draw_constraint(constraint: Constraint) -> void:
 	var draw_pos = constraint.position - global_position
-	draw_circle(draw_pos, constraint.radius, fill_colour)
+	draw_circle(draw_pos, constraint.radius + 3.0, fill_colour)
