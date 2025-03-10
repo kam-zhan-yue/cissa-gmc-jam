@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://3k4m6e87yuwe" path="res://respawnpoint.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/items/sword.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://dk6btqcwmuyry" path="res://scenes/items/stopsign.tscn" id="9_choun"]
-[ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/projectile.tscn" id="10_choun"]
-[ext_resource type="PackedScene" uid="uid://bi6k1pjjjvqui" path="res://scenes/items/car.tscn" id="10_ya4ey"]
+[ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/items/projectile.tscn" id="10_choun"]
+[ext_resource type="PackedScene" uid="uid://j5nistjpmekf" path="res://scenes/items/car.tscn" id="10_ya4ey"]
 
 [node name="Main" type="Node2D"]
 
@@ -64,5 +64,5 @@ position = Vector2(-256, -277)
 [node name="Sword2" parent="Items" instance=ExtResource("9_choun")]
 position = Vector2(-219, 120)
 
-[node name="Ball4" parent="Items" instance=ExtResource("10_ya4ey")]
-position = Vector2(-450, 104)
+[node name="Car" parent="Items" instance=ExtResource("10_ya4ey")]
+position = Vector2(-469, 16)

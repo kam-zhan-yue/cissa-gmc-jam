@@ -1,16 +1,30 @@
-[gd_scene load_steps=15 format=3 uid="uid://de4b2yyu8efhx"]
+[gd_scene load_steps=20 format=3 uid="uid://de4b2yyu8efhx"]
 
 [ext_resource type="Script" uid="uid://b5bjuui6xvw8m" path="res://scenes/octopus.gd" id="2_8jto7"]
 [ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
 [ext_resource type="Script" uid="uid://2u61la2wa3b6" path="res://scripts/entities/arms.gd" id="2_qo5xf"]
 [ext_resource type="Script" uid="uid://dp1itdnh1slm5" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
 [ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_qo5xf"]
+[ext_resource type="AudioStream" uid="uid://be5xerhlq0djb" path="res://assets/sounds/INK_01.ogg" id="6_axg1m"]
 [ext_resource type="Texture2D" uid="uid://c8ycknjdg5g5f" path="res://art/octopushead0.png" id="6_dfnbd"]
-[ext_resource type="AudioStream" uid="uid://cjs7gksyjtrpd" path="res://assets/sounds/zapsplat_animals_shark_or_dolphin_splash_surface_water_13502.mp3" id="7_rn5nq"]
-[ext_resource type="AudioStream" uid="uid://dejk6l1d233qb" path="res://assets/sounds/zapsplat_warfare_sword_strike_metal_medium_hit_clang_008_101776.mp3" id="8_ug8lw"]
+[ext_resource type="AudioStream" uid="uid://cowwy8xb5dg8u" path="res://assets/sounds/INK_02.ogg" id="7_v3bxo"]
+[ext_resource type="AudioStream" uid="uid://cwvivmnh7tsj0" path="res://assets/sounds/Metal_Impact_01.ogg" id="8_cd4pw"]
+[ext_resource type="AudioStream" uid="uid://b3uh3ypnv44f7" path="res://assets/sounds/Metal_Impact_02.ogg" id="9_7rf3i"]
+[ext_resource type="AudioStream" uid="uid://iv1fy7aeallo" path="res://assets/sounds/Metal_Impact_03.ogg" id="10_pwpuj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fhwgg"]
 radius = 25.0799
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2kl3f"]
+streams_count = 2
+stream_0/stream = ExtResource("6_axg1m")
+stream_1/stream = ExtResource("7_v3bxo")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3g7qq"]
+streams_count = 3
+stream_0/stream = ExtResource("8_cd4pw")
+stream_1/stream = ExtResource("9_7rf3i")
+stream_2/stream = ExtResource("10_pwpuj")
 
 [sub_resource type="Curve" id="Curve_xhrib"]
 _data = [Vector2(0.0367232, 0.978114), 0.0, 0.0, 0, 0, Vector2(0.991525, 0), 0.0, 0.0, 0, 0]
@@ -36,9 +50,6 @@ height = 1
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("2_8jto7")
-player_id = null
-num_arms = null
-max_lives = null
 
 [node name="Arms" type="Node2D" parent="."]
 script = ExtResource("2_qo5xf")
@@ -58,10 +69,10 @@ texture = ExtResource("6_dfnbd")
 shape = SubResource("CircleShape2D_fhwgg")
 
 [node name="splash" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_rn5nq")
+stream = SubResource("AudioStreamRandomizer_2kl3f")
 
 [node name="clash" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_ug8lw")
+stream = SubResource("AudioStreamRandomizer_3g7qq")
 
 [node name="ink burst" type="CPUParticles2D" parent="."]
 position = Vector2(0, 2)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk6btqcwmuyry"]
+[gd_scene load_steps=4 format=3 uid="uid://dk6btqcwmuyry"]
 
 [ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/items/sword.tscn" id="1_8di6o"]
 [ext_resource type="Texture2D" uid="uid://celswofluvdbb" path="res://assets/items/stopsign.png" id="2_pu5i4"]
+[ext_resource type="AudioStream" uid="uid://dejk6l1d233qb" path="res://assets/sounds/zapsplat_warfare_sword_strike_metal_medium_hit_clang_008_101776.mp3" id="3_03but"]
 
 [node name="Sword" instance=ExtResource("1_8di6o")]
 
@@ -20,3 +21,6 @@ position = Vector2(1, 9)
 [node name="CollisionShape2D" parent="Blade" index="0"]
 position = Vector2(0, -126)
 polygon = PackedVector2Array(-5.5, 102.5, -8.5, -26.5, -41, -54, -43, -86, -20, -111, 14, -109, 40, -89, 40, -54, 9, -28, 8, 101)
+
+[node name="Clang Sound" type="AudioStreamPlayer2D" parent="." index="4"]
+stream = ExtResource("3_03but")

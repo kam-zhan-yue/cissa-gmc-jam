@@ -83,7 +83,6 @@ func respawn() -> void:
 	rotation = self.rotation
 
 func enter_killzone() -> void:
-	print("Entered Killzone")
 	in_killzone = true
 	await get_tree().create_timer(GAME_SETTINGS.despawn_time).timeout
 	check_killzone()

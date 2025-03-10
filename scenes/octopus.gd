@@ -107,7 +107,6 @@ func burst(force: Vector2, time: float) -> void:
 func knockback(force: Vector2, time: float) -> void:
 	self.state = STATE.KNOCKBACK
 	velocity = force
-	$clash.play()
 	await Global.wait(time)
 	self.state = STATE.FREE
 
