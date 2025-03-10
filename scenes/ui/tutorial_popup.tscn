@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://cij8dqqjvcj7o"]
+
+[ext_resource type="Script" uid="uid://behom3laiqpqs" path="res://scripts/ui/tutorial_popup.gd" id="1_g8hy4"]
+[ext_resource type="Theme" uid="uid://c6tb7q3ho50tr" path="res://resources/text.tres" id="2_bwrry"]
+
+[node name="TutorialPopup" type="Control"]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+script = ExtResource("1_g8hy4")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 54.0
+offset_top = -19.0
+offset_right = 54.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_bwrry")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[color=black][Left Stick / WASD] to Move
+[Right Stick / Mouse] to Swing
+[B / Space] to Burst
+[Hold B / Space] to Dash
+[Trigger / Right Click] to Drop
+[+ / P ] to Return to Main Menu"

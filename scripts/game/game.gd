@@ -10,6 +10,7 @@ signal on_player_dead(player_id: int)
 signal on_player_health_changed(player_id: int, health: int)
 signal on_game_over(winner_id: int)
 signal on_start(mode: Mode)
+signal on_tutorial
 
 var player_one: Octopus
 var player_two: Octopus
@@ -38,6 +39,7 @@ func start_two_player() -> void:
 
 func start_tutorial() -> void:
 	on_start.emit(Mode.TUTORIAL)
+	on_tutorial.emit()
 
 
 func init(m: Mode, one: Octopus, two: Octopus, c: DynamicCamera, one_checkpoint: Node2D, two_checkpoint: Node2D, i: Array[Item]):
@@ -66,7 +68,7 @@ func kill_player(player_id: int):
 # Function for player loses lives when pushes out + respawns
 func player_dies(player_id: int) -> void:
 	if player_id == 0:
-		if mode == Mode.TUTORIAL:
+		if mode != Mode.TUTORIAL:
 			player_1_lives -= 1
 			on_player_health_changed.emit(player_id, player_1_lives)
 		if player_1_lives <= 0:
@@ -74,7 +76,7 @@ func player_dies(player_id: int) -> void:
 		else:
 			player1_respawns()
 	elif player_id == 1:
-		if mode == Mode.TUTORIAL:
+		if mode != Mode.TUTORIAL:
 			player_2_lives -= 1
 			on_player_health_changed.emit(player_id, player_2_lives)
 		if player_2_lives <= 0:

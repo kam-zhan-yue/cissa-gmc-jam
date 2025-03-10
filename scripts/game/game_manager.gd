@@ -45,3 +45,8 @@ func start(mode: Game.Mode) -> void:
 	player_two.init()
 	Game.init(mode, player_one, player_two, camera, player_one_checkpoint, player_two_checkpoint, items)
 	ui.init()
+
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("exit"):
+		get_tree().reload_current_scene()
