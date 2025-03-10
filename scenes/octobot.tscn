@@ -8,6 +8,3 @@ script = ExtResource("1_6gyl2")
 
 [node name="Octopus" parent="." instance=ExtResource("1_x7t5a")]
 unique_name_in_owner = true
-player_id = null
-num_arms = null
-max_lives = null

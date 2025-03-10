@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bt2ju64bl0yrp"]
+[gd_scene load_steps=10 format=3 uid="uid://bt2ju64bl0yrp"]
 
 [ext_resource type="Texture2D" uid="uid://ciwufs0walpsw" path="res://art/background.png" id="1_choun"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dt3pvc340yy4r" path="res://scenes/ui.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://3k4m6e87yuwe" path="res://respawnpoint.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/items/sword.tscn" id="8_tipki"]
-[ext_resource type="PackedScene" uid="uid://dk6btqcwmuyry" path="res://scenes/items/stopsign.tscn" id="9_choun"]
 [ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/items/projectile.tscn" id="10_choun"]
 [ext_resource type="PackedScene" uid="uid://j5nistjpmekf" path="res://scenes/items/car.tscn" id="10_ya4ey"]
 
@@ -63,9 +62,6 @@ position = Vector2(-441, -317)
 
 [node name="Ball3" parent="Items" instance=ExtResource("10_choun")]
 position = Vector2(-256, -277)
-
-[node name="Sword3" parent="Items" instance=ExtResource("9_choun")]
-position = Vector2(-219, 120)
 
 [node name="Car" parent="Items" instance=ExtResource("10_ya4ey")]
 position = Vector2(-469, 16)
