@@ -12,6 +12,7 @@ var curr_aim := Vector2.ZERO
 
 var external := Vector2.ZERO
 
+
 enum GRAB_STATE {
 	NONE,
 	HOVER,
@@ -66,7 +67,8 @@ func _process_aim(_delta: float) -> void:
 	self.target_position = target_pos * GAME_SETTINGS.max_reach
 	if self.target_position.length() >= GAME_SETTINGS.max_reach:
 		self.target_position = self.target_position.normalized() * GAME_SETTINGS.max_reach
-	
+
+
 func _process_movement(delta: float) -> void:
 	if not curr_aim:
 		self._pull_back()

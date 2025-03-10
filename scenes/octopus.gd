@@ -34,11 +34,19 @@ func init() -> void:
 	for i in range(num_arms):
 		var arm = ARM.instantiate()
 		arms.add_child(arm)
-	arms.init(player_id)
+	arms.init(num_arms)
 
 func steer_towards(target: Vector2) -> void:
 	var direction = target - global_position
 	external = direction.normalized()
+	
+	
+	
+func steer_away(target: Vector2) -> void:
+	var direction = global_position - target
+	external = direction.normalized()
+	
+
 
 func is_holding_item() -> bool:
 	return primary_arm.grab != null
@@ -107,6 +115,7 @@ func burst(force: Vector2, time: float) -> void:
 func knockback(force: Vector2, time: float) -> void:
 	self.state = STATE.KNOCKBACK
 	velocity = force
+	$clash.play()
 	await Global.wait(time)
 	self.state = STATE.FREE
 

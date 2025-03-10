@@ -1,9 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3nig3l3mqwcq"]
-
-[ext_resource type="Texture2D" path="res://assets/pixel_heart_asset-removebg-preview.png" id="1_v30as"]
+[gd_scene format=3 uid="uid://c3nig3l3mqwcq"]
 
 [node name="Heart" type="TextureRect"]
 offset_right = 56.0
 offset_bottom = 56.0
-texture = ExtResource("1_v30as")
 expand_mode = 1
