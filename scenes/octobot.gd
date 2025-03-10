@@ -12,6 +12,10 @@ var base_target_x := 0.0
 var base_target_y := 0.0
 var distance_to_attack := 200.0
 
+const BOUNDARY = 500.0
+const INK_THRESHOLD = 600.0
+const RETURN_THRESHOLD = 200.0
+
 enum STATE {
 	ENTER,
 	SEARCH_ITEM,
@@ -72,7 +76,7 @@ func _process(delta: float) -> void:
 			octopus.steer_towards(player.global_position)
 			swing_arm(delta, player.global_position)		
 			# If too far, go back to middle
-			if distance_from_origin > 500:
+			if distance_from_origin > BOUNDARY:
 				state = STATE.RETURN
 		# If not holding an item, change state to SEARCH_ITEM
 		elif not octopus.is_holding_item():
@@ -93,9 +97,9 @@ func _process(delta: float) -> void:
 		var distance_from_origin = octopus.global_position.distance_to(origin)
 		octopus.steer_towards(origin)
 		# use the ink boost if out of bounds
-		if distance_from_origin > 750:
-			pass
-		if distance_from_origin < 100:
+		if distance_from_origin > INK_THRESHOLD:
+			octopus.activate_burst(-octopus.global_position.normalized())
+		elif distance_from_origin < RETURN_THRESHOLD:
 			state = STATE.SEARCH_ITEM
 
 

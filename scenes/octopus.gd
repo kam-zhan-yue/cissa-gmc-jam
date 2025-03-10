@@ -50,13 +50,15 @@ func init() -> void:
 	arms.init(player_id)
 
 func steer_towards(target: Vector2) -> void:
-	var direction = target - global_position
-	external = direction.normalized()
+	if state == STATE.FREE:
+		var direction = target - global_position
+		external = direction.normalized()
 	
 
 func steer_away(target: Vector2) -> void:
-	var direction = global_position - target
-	external = direction.normalized()
+	if state == STATE.FREE:
+		var direction = global_position - target
+		external = direction.normalized()
 	
 
 
@@ -75,9 +77,7 @@ func _physics_process(delta: float) -> void:
 		$"ink burst".emitting = false
 		$inktrail.emitting = false
 		if target_direction and Input.is_action_just_pressed(Global.get_input(player_id, "dash")) and ink >= GAME_SETTINGS.burst_cost:
-			ink -= GAME_SETTINGS.burst_cost
-			on_ink_changed.emit(ink)
-			burst(GAME_SETTINGS.burst_speed * target_direction, GAME_SETTINGS.burst_time)
+			activate_burst(target_direction)
 
 		else:
 			velocity = target_direction * GAME_SETTINGS.movement_speed
@@ -101,7 +101,13 @@ func _physics_process(delta: float) -> void:
 			$inktrail.emitting = false
 
 	move_and_slide()
-	
+
+func activate_burst(target_direction: Vector2) -> void:
+	if ink >= GAME_SETTINGS.burst_cost:
+		ink -= GAME_SETTINGS.burst_cost
+		on_ink_changed.emit(ink)
+		burst(GAME_SETTINGS.burst_speed * target_direction, GAME_SETTINGS.burst_time)
+
 func get_input() -> Vector2:
 	var move_vertical := Input.get_axis(Global.get_input(player_id, "move_down"), Global.get_input(player_id, "move_up"))
 	var move_horizontal := Input.get_axis(Global.get_input(player_id, "move_left"), Global.get_input(player_id, "move_right"))
