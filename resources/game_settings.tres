@@ -13,7 +13,7 @@ point_count = 6
 [resource]
 script = ExtResource("1_ks8vh")
 start_immediately = true
-single_player = false
+single_player = true
 killzone_time = 2.0
 despawn_time = 3.0
 spawn_time = 3.0
@@ -29,6 +29,7 @@ ink_regen_rate = 10.0
 throw_force = 2000.0
 throw_threshold = 0.7
 hit_force = 1000.0
+knockback_time = 0.2
 player_one_fill_colour = Color(0.803922, 0.360784, 0.360784, 1)
 player_one_border_colour = Color(0.545098, 0, 0, 1)
 player_two_fill_colour = Color(0.498039, 1, 0.831373, 1)

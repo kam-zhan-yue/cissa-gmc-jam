@@ -23,6 +23,7 @@ extends Resource
 @export var throw_force := 2000.0
 @export var throw_threshold := 0.7
 @export var hit_force := 1000.0
+@export var knockback_time := 0.2
 
 @export_category("Tentacle")
 @export var player_one_fill_colour := Color.INDIAN_RED
