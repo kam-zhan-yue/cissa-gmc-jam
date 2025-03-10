@@ -30,9 +30,11 @@ scale = Vector2(1700, 1700)
 texture = SubResource("CanvasTexture_kl8fp")
 
 [node name="Player1Timer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="Player2Timer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

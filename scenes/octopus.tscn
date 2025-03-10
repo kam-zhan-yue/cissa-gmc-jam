@@ -23,7 +23,7 @@ width = 400
 height = 400
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fhwgg"]
-radius = 25.0799
+radius = 39.0128
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2kl3f"]
 streams_count = 2

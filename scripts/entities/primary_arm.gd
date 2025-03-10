@@ -1,7 +1,6 @@
 class_name PrimaryArm
 extends Arm
 
-@export var use_mouse := false
 @onready var hand: Area2D = %Hand
 
 var target_position := Vector2.ZERO
@@ -58,14 +57,15 @@ func _process_aim(_delta: float) -> void:
 	var aim_vertical := Input.get_axis(Global.get_input(id, "aim_down"), Global.get_input(id, "aim_up"))
 	var aim_horizontal := Input.get_axis(Global.get_input(id, "aim_left"), Global.get_input(id, "aim_right"))
 	var target_pos := Vector2(aim_horizontal, -aim_vertical) + external
-	curr_aim = target_pos
 
-	if use_mouse:
+	 #Enable mouse on single player mode
+	if Game.mode == Game.Mode.SINGLE and id == 0:
 		var camera = get_viewport().get_camera_2d()
 		var mouse_pos := camera.get_global_mouse_position()
-		var distance_to_player = (mouse_pos - position) / GAME_SETTINGS.max_reach
-		target_pos = distance_to_player
+		var distance_to_player = (mouse_pos - global_position)
+		target_pos = distance_to_player.normalized()
 
+	curr_aim = target_pos
 
 	self.target_position = target_pos * GAME_SETTINGS.max_reach
 	if self.target_position.length() >= GAME_SETTINGS.max_reach:

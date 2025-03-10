@@ -1,11 +1,15 @@
 extends Area2D
 
+const GAME_SETTINGS = preload("res://resources/game_settings.tres")
+
 @onready var player1timer: Timer = $Player1Timer
 @onready var player2timer: Timer = $Player2Timer
 
 var timers: Dictionary[int, Timer] = {}
 
 func _ready() -> void:
+	player1timer.wait_time = GAME_SETTINGS.killzone_time
+	player2timer.wait_time = GAME_SETTINGS.killzone_time
 	timers[0] = player1timer
 	timers[1] = player2timer
 
