@@ -32,8 +32,8 @@ func start(mode: Game.Mode) -> void:
 		player_two = OCTOPUS.instantiate() as Octopus
 		add_child(player_one)
 		add_child(player_two)
-	player_one.player_id = 0
-	player_two.player_id = 1
+	player_one.player_id = Game.PLAYER_ONE
+	player_two.player_id = Game.PLAYER_TWO
 	player_one.global_position = player_one_checkpoint.global_position
 	player_two.global_position = player_two_checkpoint.global_position
 

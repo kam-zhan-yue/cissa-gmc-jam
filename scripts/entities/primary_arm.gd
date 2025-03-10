@@ -24,7 +24,7 @@ var state := GRAB_STATE.NONE
 func init(player_id: int) -> void:
 	self.arm_state = ARM_STATE.AIMING
 	init_arm(player_id)
-	if player_id == 0:
+	if player_id == Game.PLAYER_ONE:
 		fill_colour = GAME_SETTINGS.player_one_primary_colour
 	else:
 		fill_colour = GAME_SETTINGS.player_two_primary_colour

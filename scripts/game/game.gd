@@ -23,6 +23,9 @@ var player_1_lives := 0
 var player_2_lives := 0
 var LOSING_SCORE = 0
 
+const PLAYER_ONE = 0
+const PLAYER_TWO = 1
+
 var mode := Mode.SINGLE
 
 enum Mode {
