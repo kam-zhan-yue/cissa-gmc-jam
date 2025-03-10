@@ -39,6 +39,14 @@ func init() -> void:
 func steer_towards(target: Vector2) -> void:
 	var direction = target - global_position
 	external = direction.normalized()
+	
+	
+	
+func steer_away(target: Vector2) -> void:
+	var direction = global_position - target
+	external = direction.normalized()
+	
+
 
 func is_holding_item() -> bool:
 	return primary_arm.grab != null
