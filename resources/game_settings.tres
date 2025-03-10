@@ -13,7 +13,7 @@ point_count = 6
 [resource]
 script = ExtResource("1_ks8vh")
 start_immediately = false
-single_player = false
+start_mode = 0
 killzone_time = 2.0
 despawn_time = 3.0
 spawn_time = 3.0

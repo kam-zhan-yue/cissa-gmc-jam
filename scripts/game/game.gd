@@ -106,6 +106,10 @@ func game_over(winner_id: int) -> void:
 	# Resets player lives
 	player_1_lives = 0
 	player_2_lives = 0
+	if winner_id == 0:
+		player_two.deactivate()
+	else:
+		player_one.deactivate()
 
 	# Put some kind of game over UI here
 	on_game_over.emit(winner_id)
