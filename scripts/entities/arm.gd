@@ -10,7 +10,8 @@ var arm_state := ARM_STATE.IDLE
 
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 var arm_speed := 0.0
-var colour := Color("478cbf")
+var fill_colour := Color.WHITE
+var border_colour := Color.BLACK
 
 const PULL_BACK_THRESHOLD = 8.0
 
@@ -22,7 +23,8 @@ enum ARM_STATE {
 }
 
 func _ready() -> void:
-	colour
+	fill_colour = GAME_SETTINGS.tentacle_fill_colour
+	border_colour = GAME_SETTINGS.tentacle_border_colour
 	self.arm_speed = GAME_SETTINGS.tentacle_speed
 	var radius_curve := GAME_SETTINGS.tentacle_radius_curve
 	var angle_curve := GAME_SETTINGS.tentacle_angle_curve
@@ -166,16 +168,37 @@ func _calculate_constraint(curr: Constraint, next: Constraint, _query_ray: bool,
 
 	var node_distance := GAME_SETTINGS.max_reach / len(constraints)
 	var difference := next_position - curr.position
+	curr.angle = difference.angle()
 
 	# If the constraint is past the distance per node, we wanna lock it
 	if constraint_distance and difference.length() >= node_distance:
 		var new_position := curr.position + difference.normalized() * node_distance
 		next.position = new_position
 
+
 func _draw_constraints() -> void:
-	for i in range(len(constraints)):
-		_draw_constraint(constraints[i])
+	var coords: Array[Vector2]= []
+	for i in range(len(constraints) - 2):
+		var curr_left := get_parametric(constraints[i], PI * 0.5)
+		var curr_right := get_parametric(constraints[i], -PI * 0.5)
+		
+		var next_left := get_parametric(constraints[i + 1], PI * 0.5)
+		var next_right := get_parametric(constraints[i + 1], -PI * 0.5)
+	
+		#_draw_constraint(constraints[i])
+		draw_line(curr_left, next_left, border_colour, GAME_SETTINGS.tentacle_width)
+		draw_line(curr_right, next_right, border_colour, GAME_SETTINGS.tentacle_width)
+	
+	var fill: PackedVector2Array = Global.pack_array(coords)
+	draw_polygon(fill, [])
+
+func get_parametric(constraint: Constraint, angle: float) -> Vector2:
+	var pos := constraint.position - global_position
+	var radius := constraint.radius
+	var x := pos.x + radius * cos(constraint.angle + angle)
+	var y := pos.y + radius * sin(constraint.angle + angle)
+	return Vector2(x, y)
 
 func _draw_constraint(constraint: Constraint) -> void:
 	var draw_pos = constraint.position - global_position
-	draw_circle(draw_pos, constraint.radius, colour)
+	draw_circle(draw_pos, constraint.radius, Color.WHITE)

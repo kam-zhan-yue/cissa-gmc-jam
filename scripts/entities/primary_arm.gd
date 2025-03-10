@@ -25,7 +25,7 @@ var state := GRAB_STATE.NONE
 func init(player_id: int) -> void:
 	self.arm_state = ARM_STATE.AIMING
 	self.id = player_id
-	self.colour = Color.AQUAMARINE
+	self.border_colour = Color.AQUAMARINE
 
 func grab_towards(target: Vector2) -> void:
 	var direction = target - global_position

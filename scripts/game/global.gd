@@ -103,3 +103,11 @@ func get_collision_direction(_body_rid: RID, body: Node2D, body_shape_index: int
 	
 func get_input(id: int, command: String) -> String:
 	return str("player_", id, "_", command)
+
+
+func pack_array(coords: Array[Vector2]) -> PackedVector2Array:
+	# Convert the array of floats into a PackedVector2Array.
+	var array : PackedVector2Array = []
+	for coord in coords:
+		array.append(Vector2(coord.x, coord.y))
+	return array
