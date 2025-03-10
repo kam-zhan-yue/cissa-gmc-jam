@@ -3,7 +3,10 @@ extends CharacterBody2D
 
 const ARM = preload("res://scenes/arm.tscn")
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
+const OCTOHEAD_1 = preload("res://assets/octohead1.png")
+const OCTOHEAD_2 = preload("res://assets/octohead2.png")
 
+@onready var head: Sprite2D = %Head
 @export var debug := false
 @export var player_id := 0
 @export var num_arms:= 7
@@ -34,11 +37,15 @@ func _ready() -> void:
 		init()
 
 func init() -> void:
+	if player_id == 0:
+		head.texture = OCTOHEAD_1
+	else:
+		head.texture = OCTOHEAD_2
 	primary_arm.init(player_id)
 	for i in range(num_arms):
 		var arm = ARM.instantiate()
 		arms.add_child(arm)
-	arms.init(num_arms)
+	arms.init(player_id)
 
 func steer_towards(target: Vector2) -> void:
 	var direction = target - global_position

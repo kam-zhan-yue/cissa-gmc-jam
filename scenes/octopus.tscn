@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://2cb2en20eh7j" path="res://scenes/primary_arm.tscn" id="2_fhwgg"]
 [ext_resource type="Script" uid="uid://2u61la2wa3b6" path="res://scripts/entities/arms.gd" id="2_qo5xf"]
 [ext_resource type="Script" uid="uid://dp1itdnh1slm5" path="res://scripts/ui/timer_popup.gd" id="4_ionst"]
+[ext_resource type="Texture2D" uid="uid://xowg6rqpmvlu" path="res://assets/octohead1.png" id="5_axg1m"]
 [ext_resource type="Script" uid="uid://c1sjojls8aoq6" path="res://scripts/entities/body.gd" id="5_qo5xf"]
 [ext_resource type="AudioStream" uid="uid://be5xerhlq0djb" path="res://assets/sounds/INK_01.ogg" id="6_axg1m"]
-[ext_resource type="Texture2D" uid="uid://c8ycknjdg5g5f" path="res://art/octopushead0.png" id="6_dfnbd"]
 [ext_resource type="AudioStream" uid="uid://cowwy8xb5dg8u" path="res://assets/sounds/INK_02.ogg" id="7_v3bxo"]
 [ext_resource type="AudioStream" uid="uid://cwvivmnh7tsj0" path="res://assets/sounds/Metal_Impact_01.ogg" id="8_cd4pw"]
 [ext_resource type="AudioStream" uid="uid://b3uh3ypnv44f7" path="res://assets/sounds/Metal_Impact_02.ogg" id="9_7rf3i"]
@@ -72,16 +72,16 @@ script = ExtResource("2_qo5xf")
 
 [node name="PrimaryArm" parent="Sprite2D/Arms" instance=ExtResource("2_fhwgg")]
 unique_name_in_owner = true
-material = null
 
 [node name="Body" type="Node2D" parent="Sprite2D"]
 use_parent_material = true
-scale = Vector2(0.2, 0.2)
 script = ExtResource("5_qo5xf")
 
-[node name="Octopushead0" type="Sprite2D" parent="Sprite2D/Body"]
-position = Vector2(-9, -10)
-texture = ExtResource("6_dfnbd")
+[node name="Head" type="Sprite2D" parent="Sprite2D/Body"]
+unique_name_in_owner = true
+position = Vector2(0, -2)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_axg1m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fhwgg")

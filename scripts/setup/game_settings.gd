@@ -23,6 +23,8 @@ extends Resource
 @export var throw_force := 2000.0
 @export var throw_threshold := 0.7
 @export var hit_force := 1000.0
+@export var projectile_force := 2000.0
+@export var projectile_knockback_time := 0.4
 @export var knockback_time := 0.2
 
 @export_category("Tentacle")
@@ -30,6 +32,8 @@ extends Resource
 @export var player_one_border_colour := Color.DARK_RED
 @export var player_two_fill_colour := Color.AQUAMARINE
 @export var player_two_border_colour := Color.DARK_BLUE
+@export var player_one_primary_colour := Color.MEDIUM_VIOLET_RED
+@export var player_two_primary_colour := Color.BLUE_VIOLET
 @export var tentacle_width := 2.0
 @export var tentacle_radius := 10.0
 @export var max_reach := 200.0

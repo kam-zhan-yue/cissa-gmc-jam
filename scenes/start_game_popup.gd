@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
 	elif Input.is_action_just_pressed(Global.get_input(0, 'move_up')) or Input.is_action_just_pressed(Global.get_input(1, 'move_up')):
 		scroll_up()
 	
-	if Input.is_action_just_pressed(Global.get_input(0, 'dash')):
+	if Input.is_action_just_pressed(Global.get_input(0, 'dash')) or Input.is_action_just_pressed(Global.get_input(1, 'dash')):
 		start_game()
 
 func scroll_up() -> void:

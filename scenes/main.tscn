@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://brm857sd4wqbs"]
+[gd_scene load_steps=17 format=3 uid="uid://brm857sd4wqbs"]
 
 [ext_resource type="Texture2D" uid="uid://cj74c50ck3w7q" path="res://art/test/city.webp" id="1_85g3d"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
@@ -6,9 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://ck4a7ys5px7f" path="res://scenes/killzone.tscn" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://cx0elix0tahfl" path="res://scripts/game/game_manager.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dt3pvc340yy4r" path="res://scenes/ui.tscn" id="3_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://3k4m6e87yuwe" path="res://respawnpoint.tscn" id="7_o6xl0"]
+[ext_resource type="PackedScene" path="res://respawnpoint.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dk6btqcwmuyry" path="res://scenes/items/stopsign.tscn" id="9_choun"]
-[ext_resource type="PackedScene" uid="uid://doalkotnx6x4a" path="res://scenes/items/projectile.tscn" id="10_choun"]
 [ext_resource type="PackedScene" uid="uid://j5nistjpmekf" path="res://scenes/items/car.tscn" id="10_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://cbiw5mrjkprn8" path="res://scenes/items/cargreen.tscn" id="11_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="11_eb6dy"]
@@ -84,16 +83,8 @@ position = Vector2(0, 300)
 [node name="Items" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Ball" parent="Items" instance=ExtResource("10_choun")]
-position = Vector2(-294, -417)
-
-[node name="Ball2" parent="Items" instance=ExtResource("10_choun")]
-position = Vector2(-441, -317)
-
-[node name="Ball3" parent="Items" instance=ExtResource("10_choun")]
-position = Vector2(-256, -277)
-
 [node name="Car" parent="Items" instance=ExtResource("10_ya4ey")]
+material = null
 position = Vector2(-493, 15)
 collision_mask = 5
 
@@ -101,9 +92,11 @@ collision_mask = 5
 position = Vector2(148, -215)
 
 [node name="Car2" parent="Items" instance=ExtResource("11_a8y0u")]
+material = null
 position = Vector2(103, -543)
 
 [node name="Car3" parent="Items" instance=ExtResource("12_jkv2x")]
+material = null
 position = Vector2(-195, 444)
 
 [node name="log1" parent="Items" instance=ExtResource("13_jbj1t")]

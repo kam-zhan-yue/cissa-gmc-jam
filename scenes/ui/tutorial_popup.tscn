@@ -26,7 +26,7 @@ grow_vertical = 2
 theme = ExtResource("2_bwrry")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[color=black][Left Stick / WASD] to Move
+text = "[color=white][outline_color=black][outline_size=10][Left Stick / WASD] to Move
 [Right Stick / Mouse] to Swing
 [B / Space] to Burst
 [Hold B / Space] to Dash

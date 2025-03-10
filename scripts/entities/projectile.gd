@@ -30,8 +30,8 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 	
 	var collision_direction = velocity
 	if collision_direction:
-		var force = collision_direction.normalized() * GAME_SETTINGS.hit_force
-		body.knockback(force, 1.0)
+		var force = collision_direction.normalized() * GAME_SETTINGS.projectile_force
+		body.knockback(force, GAME_SETTINGS.projectile_knockback_time)
 		_start_cooldown()
 
 func _start_cooldown() -> void:

@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dk6btqcwmuyry"]
+[gd_scene load_steps=6 format=3 uid="uid://dk6btqcwmuyry"]
 
 [ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/items/sword.tscn" id="1_8di6o"]
+[ext_resource type="Shader" uid="uid://ccdpbk0sukwjn" path="res://scripts/outline.gdshader" id="2_03but"]
 [ext_resource type="Texture2D" uid="uid://vigk2yrnx61e" path="res://assets/stopsign.png" id="2_yvuch"]
 [ext_resource type="AudioStream" uid="uid://dejk6l1d233qb" path="res://assets/sounds/zapsplat_warfare_sword_strike_metal_medium_hit_clang_008_101776.mp3" id="3_03but"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gc1qi"]
+shader = ExtResource("2_03but")
+shader_parameter/width = 8.0
+shader_parameter/outline_colour = Color(1, 1, 1, 1)
 
 [node name="Sword" instance=ExtResource("1_8di6o")]
 scale = Vector2(0.5, 0.5)
@@ -11,6 +17,7 @@ scale = Vector2(0.5, 0.5)
 visible = false
 
 [node name="BladeSprite" parent="." index="1"]
+material = SubResource("ShaderMaterial_gc1qi")
 position = Vector2(4, -103)
 rotation = -0.802163
 scale = Vector2(1, 1)

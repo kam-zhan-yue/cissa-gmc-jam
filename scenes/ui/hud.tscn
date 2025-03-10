@@ -30,6 +30,4 @@ player_id = 1
 alignment = 2
 
 [editable path="PlayerOnePopup"]
-[editable path="PlayerOnePopup/MarginContainer/VBoxContainer/HealthPopup"]
 [editable path="PlayerTwoPopup"]
-[editable path="PlayerTwoPopup/MarginContainer/VBoxContainer/HealthPopup"]
