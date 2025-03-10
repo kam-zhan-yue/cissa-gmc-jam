@@ -12,6 +12,8 @@ var grab: Item
 var prev_aim := Vector2.ZERO
 var curr_aim := Vector2.ZERO
 
+var external := Vector2.ZERO
+
 enum GRAB_STATE {
 	NONE,
 	HOVER,
@@ -23,6 +25,11 @@ var state := GRAB_STATE.NONE
 func init(player_id: int) -> void:
 	self.arm_state = ARM_STATE.AIMING
 	self.id = player_id
+	self.colour = Color.AQUAMARINE
+
+func grab_towards(target: Vector2) -> void:
+	var direction = target - global_position
+	external = direction.normalized()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:

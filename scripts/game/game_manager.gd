@@ -5,6 +5,7 @@ extends Node2D
 @onready var camera := %Camera as DynamicCamera
 @onready var player_one_checkpoint: Area2D = %PlayerOneCheckpoint
 @onready var player_two_checkpoint: Area2D = %PlayerTwoCheckpoint
+@onready var items_holder := %Items as Node2D
 
 var player_one: Octopus
 var player_two: Octopus
@@ -34,5 +35,10 @@ func start(single_player: bool) -> void:
 	player_one.global_position = player_one_checkpoint.global_position
 	player_two.global_position = player_two_checkpoint.global_position
 
-	Game.init(player_one, player_two, camera, player_one_checkpoint, player_two_checkpoint)
+	var items: Array[Item] = []
+	for child in items_holder.get_children():
+		if child is Item:
+			items.append(child as Item)
+
+	Game.init(player_one, player_two, camera, player_one_checkpoint, player_two_checkpoint, items)
 	ui.init()

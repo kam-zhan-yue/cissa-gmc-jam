@@ -39,6 +39,12 @@ func steer_towards(target: Vector2) -> void:
 	var direction = target - global_position
 	external = direction.normalized()
 
+func is_holding_item() -> bool:
+	return primary_arm.grab != null
+
+func grab_towards(target: Vector2) -> void:
+	primary_arm.grab_towards(target)
+
 func _physics_process(delta: float) -> void:
 	if state == STATE.DEACTIVATED:
 		return

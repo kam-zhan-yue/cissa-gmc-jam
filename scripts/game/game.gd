@@ -16,12 +16,13 @@ var player_two: Octopus
 var camera: DynamicCamera
 var player_one_checkpoint: Node2D
 var player_two_checkpoint: Node2D
+var items: Array[Item] = []
 
 var player_1_lives := 0
 var player_2_lives := 0
 var LOSING_SCORE = 0
 
-func init(one: Octopus, two: Octopus, c: DynamicCamera, one_checkpoint: Node2D, two_checkpoint: Node2D):
+func init(one: Octopus, two: Octopus, c: DynamicCamera, one_checkpoint: Node2D, two_checkpoint: Node2D, i: Array[Item]):
 	player_one = one
 	player_two = two
 	camera = c
@@ -31,6 +32,7 @@ func init(one: Octopus, two: Octopus, c: DynamicCamera, one_checkpoint: Node2D, 
 	player_2_lives = GAME_SETTINGS.max_health
 	camera.add_target(player_one)
 	camera.add_target(player_two)
+	items = i
 
 func get_player(player_id: int) -> Octopus:
 	return player_one if player_id == 0 else player_two

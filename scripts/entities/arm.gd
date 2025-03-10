@@ -10,6 +10,7 @@ var arm_state := ARM_STATE.IDLE
 
 const GAME_SETTINGS = preload("res://resources/game_settings.tres")
 var arm_speed := 0.0
+var colour := Color("478cbf")
 
 const PULL_BACK_THRESHOLD = 8.0
 
@@ -21,6 +22,7 @@ enum ARM_STATE {
 }
 
 func _ready() -> void:
+	colour
 	self.arm_speed = GAME_SETTINGS.tentacle_speed
 	var radius_curve := GAME_SETTINGS.tentacle_radius_curve
 	var angle_curve := GAME_SETTINGS.tentacle_angle_curve
@@ -175,6 +177,5 @@ func _draw_constraints() -> void:
 		_draw_constraint(constraints[i])
 
 func _draw_constraint(constraint: Constraint) -> void:
-	var godot_blue : Color = Color("478cbf")
 	var draw_pos = constraint.position - global_position
-	draw_circle(draw_pos, constraint.radius, godot_blue)
+	draw_circle(draw_pos, constraint.radius, colour)
