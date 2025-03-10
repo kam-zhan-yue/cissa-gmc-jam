@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcfa1hp82ih25"]
+[gd_scene load_steps=8 format=3 uid="uid://dcfa1hp82ih25"]
 
 [ext_resource type="Script" uid="uid://bv60w0wjdum1" path="res://scripts/entities/item.gd" id="1_n355p"]
 [ext_resource type="Script" uid="uid://be8prtuqbxccr" path="res://scripts/entities/blade.gd" id="2_n355p"]
@@ -18,10 +18,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_n355p")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
-size = Vector2(22, 50)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5whp"]
-size = Vector2(23, 118)
+size = Vector2(20, 67)
 
 [node name="Sword" type="CharacterBody2D"]
 collision_layer = 4
@@ -45,9 +42,8 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_n355p")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Blade"]
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Blade"]
 position = Vector2(0, -84)
-shape = SubResource("RectangleShape2D_k5whp")
-debug_color = Color(0.965667, 2.02149e-06, 0.48529, 0.42)
+polygon = PackedVector2Array(-11, 49, -12, -58, 12, -58, 10, 49)
 
 [connection signal="body_shape_entered" from="Blade" to="Blade" method="_on_body_shape_entered"]

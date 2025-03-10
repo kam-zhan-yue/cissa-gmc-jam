@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi6k1pjjjvqui"]
+
+[ext_resource type="Script" uid="uid://bv60w0wjdum1" path="res://scripts/entities/item.gd" id="1_g0khf"]
+[ext_resource type="Texture2D" uid="uid://b4j8pm05hr7dr" path="res://assets/items/car20.png" id="2_atc7n"]
+[ext_resource type="Script" uid="uid://yotfeqkbcgmf" path="res://scripts/entities/projectile.gd" id="3_rl0mc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f7cbr"]
+radius = 62.6498
+
+[node name="Ball" type="CharacterBody2D"]
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("1_g0khf")
+throwable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_atc7n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_f7cbr")
+debug_color = Color(0.320693, 0.514561, 0.929454, 0.42)
+
+[node name="Projectile" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("3_rl0mc")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Projectile"]
+position = Vector2(2, 1)
+polygon = PackedVector2Array(-3, -118, -60, -95, -59, -1, -57, 99, 0, 112, 56, 99, 55, -35, 53, -93)

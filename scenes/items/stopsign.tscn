@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk6btqcwmuyry"]
+
+[ext_resource type="PackedScene" uid="uid://dcfa1hp82ih25" path="res://scenes/items/sword.tscn" id="1_8di6o"]
+[ext_resource type="Texture2D" uid="uid://celswofluvdbb" path="res://assets/items/stopsign.png" id="2_pu5i4"]
+
+[node name="Sword" instance=ExtResource("1_8di6o")]
+
+[node name="HandleSprite" parent="." index="0"]
+visible = false
+
+[node name="BladeSprite" parent="." index="1"]
+position = Vector2(4, -103)
+rotation = -0.802496
+scale = Vector2(1, 1)
+texture = ExtResource("2_pu5i4")
+
+[node name="Handle" parent="." index="2"]
+position = Vector2(1, 9)
+
+[node name="CollisionShape2D" parent="Blade" index="0"]
+position = Vector2(0, -126)
+polygon = PackedVector2Array(-5.5, 102.5, -8.5, -26.5, -41, -54, -43, -86, -20, -111, 14, -109, 40, -89, 40, -54, 9, -28, 8, 101)
