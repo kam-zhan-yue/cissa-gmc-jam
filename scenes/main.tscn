@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://brm857sd4wqbs"]
+[gd_scene load_steps=18 format=3 uid="uid://brm857sd4wqbs"]
 
 [ext_resource type="Texture2D" uid="uid://cj74c50ck3w7q" path="res://art/test/city.webp" id="1_85g3d"]
 [ext_resource type="Script" uid="uid://p8vllt77abq" path="res://scenes/camera_2d.gd" id="1_sugp2"]
@@ -14,12 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://b58a50e60p4fd" path="res://icon.svg" id="11_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://dqigwdh0crbh0" path="res://scenes/items/carblue.tscn" id="12_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://jskft4mmopep" path="res://scenes/items/log.tscn" id="13_jbj1t"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p1n2c"]
-shader = ExtResource("1_ya4ey")
-shader_parameter/color = Color(0, 0, 0, 1)
-shader_parameter/speed = Vector2(0.03, 0.07)
-shader_parameter/wave_strength = 2.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_p1n2c"]
 noise_type = 2
@@ -43,7 +37,6 @@ shader_parameter/wave_strength = 2.0
 [node name="Main" type="Node2D"]
 
 [node name="Water Shader" type="Node2D" parent="."]
-material = SubResource("ShaderMaterial_p1n2c")
 rotation = -0.00119675
 
 [node name="CityKidsCarPlayMat200Cmx300Cm645Bacba-a641-46a8-9d33-2Aa4910Cf50c(1)" type="Sprite2D" parent="Water Shader"]
